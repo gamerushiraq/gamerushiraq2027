@@ -140,4 +140,4 @@ body{background:#f7f8fc;color:var(--gr-ink)}
 .pack-price-note{font-size:8px;color:#9aa1b1;margin-top:4px}
 .pack-badge{z-index:2}
 @media(max-width:600px){#packs{grid-template-columns:1fr 1fr;gap:9px}.pack{min-height:124px!important;padding:14px!important}.pack-qty{font-size:18px!important}.pack-price{font-size:12px!important}}
-.promo-action{border:1px solid #ffffff35;cursor:pointer;font:inherit}.promo-action:hover{transform:translateY(-1px);background:#ffffff22}
+.promo-action{border:1px solid #ffffff35;cursor:pointer;font:inherit}.promo-action:hover{transform:translateY(-1px);background:#ffffff22}.promo-meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.promo-meta b{font-variant-numeric:tabular-nums;font-size:16px;letter-spacing:1px}.promo-timer-label{font-size:9px;color:#ddd8f5}@media(max-width:700px){.promo-meta{margin-top:10px}.promo-meta b{font-size:14px}}
