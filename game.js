@@ -33,12 +33,26 @@ g.packs.forEach((p,i)=>{
  b.innerHTML=`<b class="pack-qty">${p[0]}</b><span class="pack-price">${p[1]}</span>`;
  b.addEventListener("click",()=>{
    document.querySelectorAll(".pack").forEach(x=>x.classList.remove("selected"));
-   b.classList.add("selected");selected=p;$("total").textContent=p[1];
+   b.classList.add("selected");selected=p;$("total").textContent=p[1];syncPaymentAmount();
  });
  packs.appendChild(b);
  if(i===0)b.setAttribute("aria-label",`باقة ${p[0]} بسعر ${p[1]}`);
 });
 
+function syncPaymentAmount(){
+  const value=$("total").textContent;
+  $("paymentAmount").textContent=value==="—"?"—":value;
+}
+function copyText(value,button,label="تم النسخ ✓"){
+  const done=()=>{button.textContent=label;setTimeout(()=>button.textContent=button.dataset.original||"نسخ",1500);};
+  navigator.clipboard?.writeText(value).then(done).catch(()=>{
+    const t=document.createElement("textarea");t.value=value;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();done();
+  });
+}
+$("copyAmount").addEventListener("click",()=>{
+  const value=$("paymentAmount").textContent;
+  if(value!=="—") copyText(value,$("copyAmount"));
+});
 function refreshPaymentAccount(){
   const method=$("paymentMethod").value;
   const box=$("paymentAccounts"),z=$("zainAccount"),b=$("binanceAccount");
