@@ -30,7 +30,7 @@
 .details{background:#f8fafc;border-radius:12px;padding:10px;font-size:12px;color:#475569}.details div{margin:3px 0}
 .empty-admin{padding:45px;text-align:center;color:#64748b}.loading{padding:35px;text-align:center;color:#64748b}
 @media(max-width:800px){.admin-stats-grid{grid-template-columns:repeat(2,1fr)}.admin-shell{padding:0 10px}.admin-stat{padding:14px}}
-</style>
+ .promo-admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.promo-admin-item{border:1px solid #e2e8f0;border-radius:14px;padding:12px;margin-bottom:10px;display:grid;gap:7px}.promo-admin-item span,.promo-admin-item small{color:#64748b;font-size:11px}.promo-admin-item .admin-btn{width:max-content}@media(max-width:800px){.promo-admin-grid{grid-template-columns:1fr}}\n</style>
 </head>
 <body><div class="noise"></div>
 <div class="announcement">👑 GameRush Iraq — لوحة الإدارة الآمنة</div>
@@ -59,7 +59,7 @@
 <div class="admin-modules" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 18px">
 <button class="admin-btn secondary" data-tab="orders">📦 الطلبات</button>
 <button class="admin-btn secondary" data-tab="finance">💰 المالية</button>
-<button class="admin-btn secondary" data-tab="products">🎮 الألعاب والباقات</button>
+<button class="admin-btn secondary" data-tab="products">🎮 الألعاب والباقات</button><button class="admin-btn secondary" data-tab="promotions">🎁 العروض</button>
 <button class="admin-btn secondary" data-tab="security">🔐 الأمان</button>
 </div><div class="admin-stats-grid">
 <div class="admin-stat"><b id="count">0</b><span>كل الطلبات</span></div>
@@ -68,7 +68,20 @@
 <div class="admin-stat"><b id="total">0 IQD</b><span>إجمالي قيمة الطلبات</span></div>
 </div>
 
-<section id="financePanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">💰 ملخص مالي</h2><div id="financeSummary" class="details">جاري الحساب…</div></section><section id="productsPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🎮 كتالوج الألعاب</h2><div id="productsSummary" class="details">الأسعار الحالية موجودة في كتالوج الموقع، وتعديلها من لوحة الأدمن يحتاج ربط كتالوج مركزي آمن حتى تتطابق الأسعار مع الـ API.</div></section><section id="securityPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🔐 الأمان</h2><div class="details">RLS مفعّل للطلبات، والوصول الإداري محصور بالبريد المعتمد. لا تعرض service_role key داخل الموقع.</div></section><div class="admin-toolbar">
+<section id="financePanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">💰 ملخص مالي</h2><div id="financeSummary" class="details">جاري الحساب…</div></section><section id="promotionsPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px">
+<h2 style="margin-top:0">🎁 إدارة العروض</h2>
+<div class="promo-admin-grid">
+<div>
+<label>عنوان العرض</label><input class="admin-input" id="promoTitle" placeholder="مثلاً: عرض PUBG الأسبوعي">
+<label>اللعبة</label><select class="admin-input" id="promoGame"><option value="pubg">PUBG Mobile</option><option value="freefire">Free Fire</option><option value="cod">Call of Duty Mobile</option><option value="mlbb">Mobile Legends</option><option value="fc">EA FC Mobile</option><option value="roblox">Roblox</option></select>
+<label>الباقة</label><input class="admin-input" id="promoPackage" placeholder="مثلاً: 660 UC">
+<label>الخصم بالدينار</label><input class="admin-input" id="promoDiscount" type="number" min="0" value="0">
+<label>ينتهي العرض</label><input class="admin-input" id="promoEnds" type="datetime-local">
+<button class="admin-btn" id="savePromo">حفظ العرض</button> <button class="admin-btn secondary" id="cancelPromo" type="button">إلغاء</button>
+<div class="admin-error" id="promoError"></div>
+</div>
+<div><div id="promoList" class="details">جاري تحميل العروض…</div></div>
+</div></section><section id="productsPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🎮 كتالوج الألعاب</h2><div id="productsSummary" class="details">الأسعار الحالية موجودة في كتالوج الموقع، وتعديلها من لوحة الأدمن يحتاج ربط كتالوج مركزي آمن حتى تتطابق الأسعار مع الـ API.</div></section><section id="securityPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🔐 الأمان</h2><div class="details">RLS مفعّل للطلبات، والوصول الإداري محصور بالبريد المعتمد. لا تعرض service_role key داخل الموقع.</div></section><div class="admin-toolbar">
 <input id="search" placeholder="🔎 ابحث برقم الطلب أو Player ID أو اللعبة" style="flex:1;min-width:250px">
 <select id="statusFilter"><option value="all">كل الحالات</option><option value="new">جديدة</option><option value="processing">قيد التنفيذ</option><option value="completed">مكتملة</option><option value="cancelled">ملغاة</option></select>
 <select id="paymentFilter"><option value="all">كل طرق الدفع</option><option value="zain_cash">زين كاش</option><option value="binance">Binance</option><option value="superqi">سوبر كي</option><option value="asiacell">آسياسيل</option><option value="zain_iraq">زين العراق</option></select>
@@ -95,7 +108,19 @@ const ADMIN_EMAIL="ibogoeed@gmail.com";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 let allOrders=[];
-function showTab(tab){["finance","products","security"].forEach(x=>$(x+"Panel").hidden=tab!==x);document.querySelector(".admin-table-wrap").hidden=tab!=="orders";document.querySelector(".admin-toolbar").hidden=tab!=="orders";if(tab==="finance")renderFinance();}
+function showTab(tab){["finance","products","security","promotions"].forEach(x=>$(x+"Panel").hidden=tab!==x);document.querySelector(".admin-table-wrap").hidden=tab!=="orders";document.querySelector(".admin-toolbar").hidden=tab!=="orders";if(tab==="finance")renderFinance();if(tab==="promotions")loadPromotions();}
+let editingPromo=null;
+async function loadPromotions(){
+ const {data,error}=await db.from("promotions").select("*").order("ends_at",{ascending:false});
+ if(error){$("promoList").textContent="تعذر تحميل العروض: "+error.message;return;}
+ $("promoList").innerHTML=(data||[]).map(p=>`<div class="promo-admin-item"><b>${esc(p.title)}</b><span>${esc(p.game)} • ${esc(p.package_name||"كل الباقات")} • خصم ${money(p.discount_iqd)}</span><small>${new Date(p.ends_at).toLocaleString("ar-IQ")} • ${p.active?"فعال":"متوقف"}</small><button class="admin-btn secondary edit-promo" data-id="${p.id}">تعديل</button><button class="admin-btn danger toggle-promo" data-id="${p.id}" data-active="${p.active}">${p.active?"إيقاف":"تفعيل"}</button></div>`).join("")||"لا توجد عروض بعد.";
+ document.querySelectorAll(".edit-promo").forEach(x=>x.onclick=()=>editPromo((data||[]).find(p=>p.id===x.dataset.id)));
+ document.querySelectorAll(".toggle-promo").forEach(x=>x.onclick=()=>togglePromo(x.dataset.id,x.dataset.active!=="true"));
+}
+function editPromo(p){editingPromo=p;$("promoTitle").value=p.title;$("promoGame").value=p.game;$("promoPackage").value=p.package_name||"";$("promoDiscount").value=p.discount_iqd||0;$("promoEnds").value=new Date(p.ends_at).toISOString().slice(0,16);}
+async function togglePromo(id,active){const {error}=await db.from("promotions").update({active,updated_at:new Date().toISOString()}).eq("id",id);if(error)return alert(error.message);loadPromotions();}
+$("savePromo").onclick=async()=>{const title=$("promoTitle").value.trim(),game=$("promoGame").value,pack=$("promoPackage").value.trim(),discount=Number($("promoDiscount").value||0),end=$("promoEnds").value;if(!title||!end)return alert("أكمل عنوان العرض ووقت الانتهاء");const payload={title,game,package_name:pack||null,discount_iqd:discount,starts_at:editingPromo?.starts_at||new Date().toISOString(),ends_at:new Date(end).toISOString(),active:true,updated_at:new Date().toISOString()};const q=editingPromo?db.from("promotions").update(payload).eq("id",editingPromo.id):db.from("promotions").insert(payload);const {error}=await q;if(error)return alert(error.message);editingPromo=null;$("promoTitle").value="";$("promoPackage").value="";loadPromotions();};
+$("cancelPromo").onclick=()=>{editingPromo=null;$("promoTitle").value="";$("promoPackage").value="";};
 function renderFinance(){const verified=allOrders.filter(o=>o.payment_status==="verified"),submitted=allOrders.filter(o=>o.payment_status==="submitted"),rev=verified.reduce((s,o)=>s+Number(o.price_iqd||0),0);$("financeSummary").innerHTML=`طلبات مدفوعة مؤكدة: <b>${verified.length}</b><br>مدفوعات بانتظار المراجعة: <b>${submitted.length}</b><br>قيمة الطلبات المؤكدة: <b>${money(rev)}</b>`;}
 
 
