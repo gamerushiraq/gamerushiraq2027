@@ -147,3 +147,5 @@ $("orderBtn").addEventListener("click",async()=>{
    btn.textContent=original;
  }
 });
+
+(function(){const p=[...document.querySelectorAll(".wizard-step-panel")],t=[...document.querySelectorAll("#wizardSteps span")];function go(n){p.forEach(x=>x.classList.toggle("active",+x.dataset.panel===n));t.forEach(x=>x.classList.toggle("active",+x.dataset.step===n));if(innerWidth<=600)document.querySelector(".wizard-card")?.scrollIntoView({behavior:"smooth",block:"start"})}function playerOK(){const v=$("playerId").value.trim();if(!v){alert("أدخل Player ID أولاً");$("playerId").focus();return false}if(v.length<4){alert("تأكد من Player ID");return false}return true}$("toPlayer").onclick=()=>selected?go(2):alert("اختار الباقة أولاً");$("toPayment").onclick=()=>playerOK()&&go(3);$("backPlayer").onclick=()=>go(2);})();
