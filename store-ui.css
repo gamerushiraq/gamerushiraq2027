@@ -216,3 +216,68 @@ html.gr-page-leaving body{animation:grPageOut .17s ease both}
 @keyframes grPageIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
 @keyframes grPageOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-4px)}}
 @media(prefers-reduced-motion:reduce){html.gr-page-ready body,html.gr-page-leaving body{animation:none}}
+
+
+/* 2026 readability pass — wider spacing, clearer labels, smaller game artwork */
+.nav{gap:clamp(14px,2vw,28px)!important}
+.nav a{padding:8px 3px!important;white-space:nowrap!important;line-height:1.7!important}
+.header-actions{gap:10px!important}
+.neo-trust{gap:12px!important}
+.neo-trust span{padding:7px 10px!important;white-space:nowrap!important}
+.section-head{gap:24px!important}
+.section-head h2,.neo-head h2{line-height:1.45!important}
+.neo-live-grid{gap:16px!important}
+.neo-live-card{padding:18px 20px!important;gap:16px!important}
+.neo-live-card b,.neo-live-card small{line-height:1.8!important}
+.gr-featured-meta{gap:10px!important}
+.gr-featured-meta span{line-height:1.7!important}
+.gr-promo-slider,.gr-popular-grid{gap:18px!important}
+.gr-promo-body{padding:18px!important}
+.gr-promo-body h3{line-height:1.65!important}
+.gr-promo-body p{line-height:1.8!important}
+.gr-popular-card div{padding:14px 16px!important}
+.gr-popular-card b{line-height:1.7!important}
+.gr-popular-card small{line-height:1.6!important}
+
+/* Smaller artwork on the home page */
+.neo-game-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important}
+.neo-game-card,.neo-game-card.wide{min-height:220px!important;padding:10px!important}
+.neo-game-card img{height:125px!important;border-radius:13px!important}
+.neo-game-card h3{font-size:15px!important;line-height:1.55!important}
+.neo-game-card div{padding:8px 3px 2px!important}
+.neo-game-card b{font-size:10px!important;line-height:1.6!important}
+.neo-game-card.wide{grid-column:auto!important}
+.neo-game-card.wide img{height:125px!important}
+
+/* Make PUBG artwork easy to see without dominating the page */
+.neo-game-card[href*="game=pubg"]{border-width:1px!important;box-shadow:0 12px 35px rgba(183,255,42,.07)!important}
+.neo-game-card[href*="game=pubg"] img{object-position:center!important}
+
+/* Store page artwork smaller and labels clearer */
+.store-game-art{height:175px!important}
+.store-game-tile strong{line-height:1.55!important;min-height:44px;display:flex!important;align-items:center;justify-content:center}
+.store-game-tile small{line-height:1.6!important}
+
+@media(max-width:900px){
+  .nav{gap:10px!important}
+  .neo-game-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px!important}
+  .neo-game-card img,.neo-game-card.wide img{height:120px!important}
+  .store-game-art{height:145px!important}
+}
+@media(max-width:600px){
+  .nav{gap:7px!important}
+  .nav a{padding:5px 2px!important;font-size:10px!important}
+  .header-actions{gap:6px!important}
+  .neo-trust{gap:7px!important}
+  .neo-trust span{padding:5px 7px!important;font-size:8px!important}
+  .neo-game-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  .neo-game-card,.neo-game-card.wide{min-height:165px!important;padding:7px!important;border-radius:14px!important}
+  .neo-game-card img,.neo-game-card.wide img{height:88px!important;border-radius:10px!important}
+  .neo-game-card h3{font-size:11px!important;line-height:1.5!important;margin:5px 0 2px!important}
+  .neo-game-card b{font-size:7px!important}
+  .neo-game-card div{padding:5px 1px 1px!important}
+  .neo-game-card small{font-size:6px!important}
+  .store-game-art{height:118px!important}
+  .store-game-tile strong{font-size:10px!important;min-height:38px!important}
+  .store-game-tile small{font-size:8px!important}
+}
