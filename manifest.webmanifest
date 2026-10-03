@@ -1,0 +1,11 @@
+{
+  "name": "GameRush Iraq",
+  "short_name": "GameRush",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#070b14",
+  "theme_color": "#070b14",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": []
+}

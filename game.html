@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070b14"><link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="styles.css"><title>GameRush — شحن اللعبة</title></head>
+<body><div class="noise"></div>
+<header class="topbar"><a class="brand" href="./"><span class="brand-mark">GR</span><span>GameRush<small>IRAQ</small></span></a><a class="ghost" href="./">← الرئيسية</a></header>
+<main class="game-page">
+  <div class="breadcrumb">الرئيسية ← الألعاب ← <span id="gameName">اللعبة</span></div>
+  <section class="checkout">
+    <div class="game-summary"><div id="gameArt" class="big-art"></div><div><span class="eyebrow">شحن مباشر</span><h1 id="title">اللعبة</h1><p id="subtitle">اختار الباقة وأدخل بيانات اللاعب.</p><div class="badges"><span>🔒 آمن</span><span>⚡ سريع</span><span>🎁 نقاط</span></div></div></div>
+    <div class="steps"><span class="done">1 المنتج</span><span>2 بيانات اللاعب</span><span>3 الدفع</span></div>
+    <div class="form-card"><h2>اختر الباقة</h2><div class="packs" id="packs"></div><label>Player ID</label><input id="playerId" inputmode="numeric" placeholder="أدخل Player ID"><label>Server ID <small>(إذا كانت اللعبة تحتاجه)</small></label><input id="serverId" inputmode="numeric" placeholder="اختياري"><div class="order-total"><span>الإجمالي</span><strong id="total">—</strong></div><button class="primary big full" id="orderBtn">متابعة إلى الدفع</button><p class="notice">الدفع والتنفيذ الآلي يظهران كـ “غير مفعّل” إلى أن يتم ربط مزوّد معتمد واختباره فعلياً.</p></div>
+  </section>
+</main><script src="game.js"></script></body></html>
