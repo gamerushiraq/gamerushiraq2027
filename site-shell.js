@@ -1,4 +1,5 @@
 (()=>{"use strict";
+const theme=document.createElement("link");theme.rel="stylesheet";theme.href="./theme-2026.css?v=1";document.head.appendChild(theme);
 const modules=[
  ["⚡","شحن سريع","اختار اللعبة والباقة","shop.html"],
  ["🎁","العروض","شوف العروض المتاحة","shop.html#offers"],
