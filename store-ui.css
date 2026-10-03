@@ -208,3 +208,11 @@
 @keyframes grFeatureFloat{0%,100%{transform:scale(1)}50%{transform:scale(1.025) translateY(-4px)}}
 @media(max-width:900px){.gr-featured{margin:25px 12px;grid-template-columns:1fr}.gr-featured-copy{padding:25px}.gr-featured-art{min-height:250px}.gr-promo-section,.gr-popular-section{padding:0 14px}.gr-promo-slider{grid-template-columns:1fr 1fr}.gr-popular-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.gr-featured h2{font-size:29px}.gr-featured-copy{padding:19px}.gr-featured-art{min-height:205px}.gr-promo-slider{grid-template-columns:1fr}.gr-promo-card{min-height:170px}.gr-popular-grid{gap:9px}.gr-popular-card{min-height:185px}.gr-popular-card img{height:115px}.gr-popular-card b{font-size:11px}.gr-popular-card div{padding:8px 10px}}
+
+/* Smooth page transitions */
+html{background:var(--neo-bg,#06070b)}
+html.gr-page-ready body{animation:grPageIn .34s ease both}
+html.gr-page-leaving body{animation:grPageOut .17s ease both}
+@keyframes grPageIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes grPageOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-4px)}}
+@media(prefers-reduced-motion:reduce){html.gr-page-ready body,html.gr-page-leaving body{animation:none}}
