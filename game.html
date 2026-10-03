@@ -19,13 +19,14 @@
 <div id="gameArt" class="big-art"></div>
 <div><span class="eyebrow">شحن مباشر</span><h1 id="title">اللعبة</h1><p id="subtitle">اختار الباقة وأدخل بيانات اللاعب.</p><div class="badges"><span>🔒 آمن</span><span>⚡ سريع</span><span>🎁 نقاط</span></div></div>
 </div>
-<div class="steps"><span class="done">1 المنتج</span><span>2 بيانات اللاعب</span><span>3 الدفع</span></div>
-<div class="form-card">
-<h2>1. اختار الباقة</h2><div class="packs" id="packs"></div>
-<div class="field"><label for="playerId">Player ID</label><input id="playerId" inputmode="numeric" autocomplete="off" placeholder="مثال: 5123456789"></div>
+<div class="steps mobile-wizard-steps" id="wizardSteps"><span class="active" data-step="1">1 الباقة</span><span data-step="2">2 بيانات اللاعب</span><span data-step="3">3 الدفع</span></div>
+<div class="form-card wizard-card">
+<section class="wizard-step-panel active" data-panel="1"><h2>1. اختار الباقة</h2><div class="packs" id="packs"></div>
+<button type="button" class="wizard-next" id="toPlayer">التالي: بيانات اللاعب →</button></section>
+<section class="wizard-step-panel" data-panel="2"><h2>2. بيانات اللاعب</h2><div class="field"><label for="playerId">Player ID</label><input id="playerId" inputmode="numeric" autocomplete="off" placeholder="مثال: 5123456789"></div>
 <div class="field"><label for="serverId">Server ID <small>(إذا كانت اللعبة تحتاجه)</small></label><input id="serverId" inputmode="numeric" autocomplete="off" placeholder="اختياري"></div>
-<div class="order-total"><span>الإجمالي</span><strong id="total">—</strong></div>
-<div class="payment-box">
+<div class="order-total"><span>الإجمالي</span><strong id="total">—</strong></div><button type="button" class="wizard-next" id="toPayment">التالي: الدفع →</button></section>
+<section class="wizard-step-panel" data-panel="3"><div class="payment-box">
 <div class="payment-title"><div><span class="payment-kicker">SECURE CHECKOUT</span><h2>2. الدفع والدفع الآمن</h2><p>حوّل المبلغ أولاً، ثم أرسل رقم العملية حتى نراجع طلبك بسرعة.</p></div><div class="payment-shield">🔐</div></div>
 <div class="payment-alert"><strong>⚠️ مهم قبل الإرسال</strong><span>تأكد من المبلغ والحساب ورقم العملية. لا نطلب كلمة مرور حساب اللعبة أبداً.</span></div>
 <div class="transfer-amount"><span>المبلغ المطلوب تحويله</span><strong id="paymentAmount">—</strong><button type="button" id="copyAmount">نسخ المبلغ</button></div>
@@ -64,9 +65,9 @@
 <div class="field payment-ref-field"><label for="paymentReference">رقم العملية / TxID <span>مطلوب للتحقق</span></label><input id="paymentReference" autocomplete="off" placeholder="أدخل رقم العملية بعد التحويل"></div>
 <div class="field"><label for="customerPhone">رقم هاتفك</label><input id="customerPhone" inputmode="tel" autocomplete="tel" placeholder="07XXXXXXXXX"></div>
 <div class="field"><label for="orderNotes">ملاحظة <small>(اختياري)</small></label><textarea id="orderNotes" rows="3" placeholder="أي ملاحظة إضافية للطلب"></textarea></div>
-</div>
-<button class="primary big full" id="orderBtn">تأكيد التحويل وإرسال الطلب ←</button>
-<p class="notice">الدفع حالياً يدوي: بعد التحويل نراجع رقم العملية، وبعد التأكد نبدأ تنفيذ الشحن. لا نطلب كلمة مرور حساب اللعبة.</p>
+</div><button type="button" class="wizard-back" id="backPlayer">← رجوع</button></section>
+<button class="primary big full wizard-submit" id="orderBtn">تأكيد التحويل وإرسال الطلب ←</button>
+<p class="notice wizard-note">الدفع حالياً يدوي: بعد التحويل نراجع رقم العملية، وبعد التأكد نبدأ تنفيذ الشحن. لا نطلب كلمة مرور حساب اللعبة.</p>
 <div id="orderSuccess" class="order-success" hidden>
   <div class="success-icon">✓</div>
   <span class="success-kicker">ORDER RECEIVED</span>
@@ -77,8 +78,7 @@
   <a class="whatsapp-support" href="https://wa.me/9647818319951?text=السلام%20عليكم،%20عندي%20طلب%20GameRush%20وأريد%20متابعة%20حالة%20الطلب." target="_blank" rel="noopener">💬 تواصل مع الدعم عبر واتساب</a>
   <a class="payment-success-track" id="trackOrderLink" href="./track.html">🔎 تتبع حالة الطلب</a><button type="button" class="new-order" id="newOrder">إنشاء طلب جديد</button>
 </div>
-</div>
-</section>
+</div></section>
 <section class="order-flow">
 <div><strong>01</strong><span>اختار المنتج</span><small>حدد الباقة المناسبة.</small></div>
 <div><strong>02</strong><span>أدخل بياناتك</span><small>Player ID بدقة قبل الإرسال.</small></div>
