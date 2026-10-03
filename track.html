@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#070b14"><meta name="description" content="GameRush Iraq — تتبع طلبك">
-<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="store-ui.css">
 <title>GameRush Iraq — تتبع الطلب</title>
 <style>
 .track-history{margin-top:22px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:18px;padding:18px}
@@ -61,4 +61,4 @@ async function track(){
  }catch(e){$("trackMessage").textContent=e.message||"حدث خطأ أثناء البحث"}finally{btn.disabled=false;btn.textContent="تتبع الطلب ←"}
 }
 btn.addEventListener("click",track);$("orderNumber").addEventListener("keydown",e=>{if(e.key==="Enter")track()});const q=new URLSearchParams(location.search).get("order");if(q){$("orderNumber").value=normalize(q);track()}
-</script><script src="lang.js"></script></body></html>
+</script><script src="lang.js"></script><script src="page-motion.js"></script></body></html>
