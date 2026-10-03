@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#070b14">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="store-ui.css">
 <title>GameRush Iraq — لوحة الأدمن</title>
 <style>
 .admin-shell{max-width:1250px;margin:30px auto;padding:0 18px}
@@ -208,4 +208,4 @@ $("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};
 db.auth.onAuthStateChange((event)=>{if(event==="SIGNED_OUT"){$("loginView").hidden=false;$("appView").hidden=true;}});
 boot();
 </script>
-</body></html>
+<script src="page-motion.js"></script></body></html>
