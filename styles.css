@@ -53,3 +53,13 @@
 @keyframes heroFloat{50%{transform:translateY(-10px) rotate(-4deg) scale(1.06)}}
 @keyframes orbPulse{50%{transform:scale(1.25);opacity:.65}}
 @keyframes packGlow{0%{transform:translateX(-140%) rotate(25deg)}100%{transform:translateX(260%) rotate(25deg)}}
+
+/* Real animated game artwork */
+.game-summary{display:flex;flex-direction:column;align-items:stretch;gap:18px}
+.game-summary>div:last-child{text-align:center}
+.big-art{width:100%;min-height:230px;display:flex;justify-content:center;align-items:center;overflow:hidden;border-radius:28px}
+.big-art svg{width:100%;height:auto;display:block;animation:artBreath 3.6s ease-in-out infinite;filter:drop-shadow(0 18px 28px #0008)}
+.big-art svg rect:first-child{animation:artPulse 4s ease-in-out infinite}
+@keyframes artBreath{50%{transform:translateY(-5px) scale(1.012)}}
+@keyframes artPulse{50%{filter:brightness(1.12) saturate(1.12)}}
+@media(max-width:600px){.big-art{min-height:170px}.big-art svg{min-height:170px}.hero-game-icon{font-size:52px}}
