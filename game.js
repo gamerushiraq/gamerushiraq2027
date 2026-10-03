@@ -39,6 +39,19 @@ g.packs.forEach((p,i)=>{
  if(i===0)b.setAttribute("aria-label",`باقة ${p[0]} بسعر ${p[1]}`);
 });
 
+function showOrderSuccess(orderId){
+  $("successOrderId").textContent=orderId;
+  $("successGame").textContent=g.name;
+  $("successPack").textContent=selected[0];
+  $("successPrice").textContent=selected[1];
+  $("orderSuccess").hidden=false;
+  $("orderSuccess").scrollIntoView({behavior:"smooth",block:"center"});
+}
+$("copyOrderId").addEventListener("click",()=>{
+  copyText($("successOrderId").textContent,$("copyOrderId"),"تم النسخ ✓");
+});
+$("newOrder").addEventListener("click",()=>location.reload());
+
 function syncPaymentAmount(){
   const value=$("total").textContent;
   $("paymentAmount").textContent=value==="—"?"—":value;
