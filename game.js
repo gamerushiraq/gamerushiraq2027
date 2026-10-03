@@ -71,7 +71,7 @@ function refreshPaymentAccount(){
   const method=$("paymentMethod").value;
   const box=$("paymentAccounts"),z=$("zainAccount"),b=$("binanceAccount"),sq=$("superqiAccount"),a=$("asiacellAccount"),zi=$("zainIraqAccount");
   if(!method){box.hidden=true;z.hidden=true;b.hidden=true;sq.hidden=true;a.hidden=true;zi.hidden=true;return;}
-  box.hidden=false; z.hidden=method!=="zain_cash"; b.hidden=method!=="binance"; sq.hidden=method!=="superqi"; a.hidden=method!=="asiacell"; zi.hidden=method!=="zain_iraq";
+  box.hidden=false; z.hidden=method!=="zain_cash"; b.hidden=method!=="binance"; sq.hidden=method!=="superqi"; a.hidden=method!=="asiacell"; zi.hidden=method!=="zain_iraq"; const hint=$("paymentHint"); if(hint){hint.textContent="② حوّل المبلغ للحساب الظاهر أدناه ثم أدخل رقم العملية";hint.classList.add("ready");}
 }
 $("paymentMethod").addEventListener("change",refreshPaymentAccount);
 document.querySelectorAll(".copy-account").forEach(btn=>{
