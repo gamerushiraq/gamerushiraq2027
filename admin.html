@@ -73,7 +73,7 @@
 <div class="promo-admin-grid">
 <div>
 <label>عنوان العرض</label><input class="admin-input" id="promoTitle" placeholder="مثلاً: عرض PUBG الأسبوعي">
-<label>اللعبة</label><select class="admin-input" id="promoGame"><option value="pubg">PUBG Mobile</option><option value="freefire">Free Fire</option><option value="cod">Call of Duty Mobile</option><option value="mlbb">Mobile Legends</option><option value="fc">EA FC Mobile</option><option value="roblox">Roblox</option></select>
+<label>اللعبة</label><select class="admin-input" id="promoGame"></select>
 <label>الباقة</label><input class="admin-input" id="promoPackage" placeholder="مثلاً: 660 UC">
 <label>الخصم بالدينار</label><input class="admin-input" id="promoDiscount" type="number" min="0" value="0">
 <label>ينتهي العرض</label><input class="admin-input" id="promoEnds" type="datetime-local">
@@ -138,6 +138,7 @@ const $=id=>document.getElementById(id);
 let allOrders=[];
 function showTab(tab){["finance","products","security","promotions"].forEach(x=>$(x+"Panel").hidden=tab!==x);document.querySelector(".admin-table-wrap").hidden=tab!=="orders";document.querySelector(".admin-toolbar").hidden=tab!=="orders";if(tab==="finance")renderFinance();if(tab==="promotions")loadPromotions();if(tab==="products")loadProducts();if(tab==="home")loadHomeAdmin();}
 let editingPromo=null;
+async function loadPromoGames(){const {data}=await db.from("game_catalog").select("slug,name").order("sort_order",{ascending:true});$("promoGame").innerHTML=(data||[]).map(g=>'<option value="'+esc(g.slug)+'">'+esc(g.name)+'</option>').join("");}
 async function loadPromotions(){
  const {data,error}=await db.from("promotions").select("*").order("ends_at",{ascending:false});
  if(error){$("promoList").textContent="تعذر تحميل العروض: "+error.message;return;}
