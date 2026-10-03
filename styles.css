@@ -60,3 +60,21 @@
 @keyframes artBreath{50%{transform:translateY(-5px) scale(1.012)}}
 @keyframes artPulse{50%{filter:brightness(1.12) saturate(1.12)}}
 @media(max-width:600px){.big-art{min-height:170px}.big-art svg{min-height:170px}.hero-game-icon{font-size:52px}}
+
+/* FINAL FORCE: package numbers and prices must stay bright white */
+.packs .pack,
+.packs .pack *,
+.packs .pack b,
+.packs .pack span,
+.packs .pack strong {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  text-shadow: 0 1px 6px rgba(0,0,0,.75) !important;
+}
+.packs .pack.selected,
+.packs .pack.selected *,
+.packs .pack.selected b,
+.packs .pack.selected span {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
