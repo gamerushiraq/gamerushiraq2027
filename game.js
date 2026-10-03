@@ -38,7 +38,7 @@ g.packs.forEach((p,i)=>{
  if(i===0)b.setAttribute("aria-label",`باقة ${p[0]} بسعر ${p[1]}`);
 });
 
-$("orderBtn").addEventListener("click",()=>{
+$("orderBtn").addEventListener("click",async()=>{
  const playerId=$("playerId").value.trim();
  if(!selected)return alert("اختار الباقة أولاً");
  if(!playerId)return alert("أدخل Player ID");
