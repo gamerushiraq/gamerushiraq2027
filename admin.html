@@ -89,6 +89,7 @@ const $=id=>document.getElementById(id);
 let allOrders=[];
 
 const statusText={new:"جديد",processing:"قيد التنفيذ",completed:"مكتمل",cancelled:"ملغي"};
+const paymentText={pending:"بانتظار الدفع",submitted:"تم إرسال الدفع",verified:"الدفع مؤكد",rejected:"الدفع مرفوض"};
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
 function money(v){return Number(v||0).toLocaleString("en-US")+" IQD";}
 function statusClass(s){return s==="processing"?"processing":s==="completed"?"completed":s==="cancelled"?"cancelled":"";}
@@ -125,15 +126,25 @@ function render(){
         <div>الهاتف: ${esc(o.customer_phone||"—")}</div>
         <div>الدفع: ${esc(o.payment_method||"غير محدد")}</div>
         <div>مرجع الدفع: ${esc(o.payment_reference||"—")}</div>
+        <div>حالة الدفع: <b>${paymentText[o.payment_status]||esc(o.payment_status||"pending")}</b></div>
+        <select class="payment-select" data-id="${esc(o.id)}">
+          ${Object.entries(paymentText).map(([k,v])=>"<option value='"+k+"' "+(o.payment_status===k?"selected":"")+">"+v+"</option>").join("")}
+        </select>
         <div>ملاحظات: ${esc(o.notes||"—")}</div>
       </div></td>
     </tr>`).join("");
   document.querySelectorAll(".status-select").forEach(el=>el.addEventListener("change",()=>updateStatus(el.dataset.id,el.value)));
+  document.querySelectorAll(".payment-select").forEach(el=>el.addEventListener("change",()=>updatePaymentStatus(el.dataset.id,el.value)));
 }
 async function updateStatus(id,status){
   const {error}=await db.from("orders").update({status,updated_at:new Date().toISOString()}).eq("id",id);
   if(error){alert("فشل تحديث الحالة: "+error.message);return;}
   const item=allOrders.find(x=>x.id===id);if(item)item.status=status;render();
+}
+async function updatePaymentStatus(id,payment_status){
+  const {error}=await db.from("orders").update({payment_status,updated_at:new Date().toISOString()}).eq("id",id);
+  if(error){alert("فشل تحديث حالة الدفع: "+error.message);return;}
+  const item=allOrders.find(x=>x.id===id);if(item)item.payment_status=payment_status;render();
 }
 async function login(){
   const email=$("email").value.trim().toLowerCase(),password=$("password").value;
