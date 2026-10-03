@@ -1,0 +1,116 @@
+/* GameRush // NEON TITAN 2026
+   Premium arcade skin: motion-first, high contrast, performance-aware.
+*/
+:root{
+  --t-bg:#03040a;--t-panel:#080b14;--t-panel2:#0c1020;--t-line:rgba(255,255,255,.105);
+  --t-white:#f7fbff;--t-muted:#8d98ad;--t-lime:#b7ff2a;--t-cyan:#00e5ff;
+  --t-purple:#7c4dff;--t-pink:#ff2bd6;--t-orange:#ff8a2a;
+  --t-radius:24px;
+}
+html{background:var(--t-bg)}
+body{
+ background:
+ radial-gradient(circle at 8% 12%,rgba(124,77,255,.16),transparent 28%),
+ radial-gradient(circle at 92% 18%,rgba(0,229,255,.11),transparent 24%),
+ radial-gradient(circle at 50% 100%,rgba(255,43,214,.08),transparent 32%),
+ var(--t-bg)!important;
+ color:var(--t-white)!important;
+}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.18;
+ background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+ background-size:56px 56px;mask-image:linear-gradient(to bottom,#000,transparent 85%);
+ animation:tGrid 18s linear infinite}
+body:after{content:"";position:fixed;inset:-30%;pointer-events:none;z-index:0;
+ background:conic-gradient(from 0deg,transparent,rgba(183,255,42,.045),transparent 22%,rgba(0,229,255,.04),transparent 48%);
+ animation:tSpin 22s linear infinite}
+main,footer,.support-cta,.gr-quick-hub{position:relative;z-index:1}
+@keyframes tGrid{to{background-position:0 56px,56px 0}}
+@keyframes tSpin{to{transform:rotate(360deg)}}
+
+.topbar{background:rgba(3,4,10,.72)!important;border-color:var(--t-line)!important;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.brand-mark{background:linear-gradient(135deg,var(--t-lime),var(--t-cyan),var(--t-purple))!important;box-shadow:0 0 30px rgba(183,255,42,.25);animation:tLogo 3s ease-in-out infinite}
+@keyframes tLogo{50%{box-shadow:0 0 45px rgba(0,229,255,.35);transform:translateY(-2px)}}
+.nav a{transition:.25s!important}.nav a:hover,.nav a.active{color:var(--t-lime)!important;text-shadow:0 0 18px rgba(183,255,42,.35)}
+.primary,.neo-primary{background:linear-gradient(110deg,var(--t-lime),#72ff75 45%,var(--t-cyan))!important;color:#020408!important;box-shadow:0 0 0 1px rgba(255,255,255,.12),0 0 35px rgba(183,255,42,.2)!important;position:relative;overflow:hidden}
+.primary:before,.neo-primary:before{content:"";position:absolute;inset:-2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-120%);animation:tShine 3.2s ease-in-out infinite}
+@keyframes tShine{55%,100%{transform:translateX(120%)}}
+.secondary,.neo-outline{background:rgba(255,255,255,.045)!important;border-color:var(--t-line)!important;box-shadow:inset 0 0 20px rgba(255,255,255,.02)}
+
+.neo-hero,.neo-store-hero,.neo-game-hero,.store-hero,.services-hero,.vip-hero,.featured-panel{
+ border:1px solid rgba(255,255,255,.12)!important;
+ box-shadow:0 35px 110px rgba(0,0,0,.58),0 0 70px rgba(124,77,255,.08)!important;
+}
+.neo-hero{max-width:1320px;min-height:650px;overflow:visible}
+.neo-hero h1{font-weight:1000;text-shadow:0 0 35px rgba(124,77,255,.22)}
+.neo-hero h1 span{background:linear-gradient(90deg,var(--t-lime),var(--t-cyan),#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.neo-kicker b{animation:tPulse 1.8s ease-in-out infinite}
+@keyframes tPulse{50%{text-shadow:0 0 20px var(--t-lime)}}
+.neo-media-main{border-color:rgba(255,255,255,.14)!important;box-shadow:0 35px 110px #000!important}
+.neo-media-main img{filter:saturate(1.22) contrast(1.04);transform:scale(1.02);animation:tKen 12s ease-in-out infinite alternate}
+@keyframes tKen{to{transform:scale(1.1) translate3d(-1%,1%,0)}}
+.neo-media-main:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(115deg,transparent 20%,rgba(183,255,42,.08) 45%,transparent 55%);animation:tSweep 5s ease-in-out infinite}
+@keyframes tSweep{50%{transform:translateX(35%)}}
+.neo-media-float{border-color:#111827!important;animation:tFloat 4s ease-in-out infinite!important}
+.neo-media-b{animation-delay:-2s!important}
+@keyframes tFloat{50%{transform:translateY(-12px) rotate(4deg)}}
+.neo-media-tag{box-shadow:0 0 35px rgba(183,255,42,.22);animation:tTag 2.6s ease-in-out infinite}
+@keyframes tTag{50%{transform:translateY(-5px)}}
+
+.neo-stats>div,.neo-live-card,.gr-quick-card,.store-section,.store-game-tile,.game-summary,.form-card,.store-summary-card,.store-checkout-card,.vip-card,.reward,.service,.service-big,.admin-login,.admin-stat,.admin-toolbar,.admin-table-wrap{
+ background:linear-gradient(145deg,rgba(13,17,28,.96),rgba(6,9,17,.96))!important;
+ border-color:var(--t-line)!important;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.025),0 18px 55px rgba(0,0,0,.22)!important;
+}
+.neo-game-card,.gr-popular-card,.gr-promo-card{border-color:var(--t-line)!important;box-shadow:0 18px 60px rgba(0,0,0,.38)!important}
+.neo-game-card{isolation:isolate}
+.neo-game-card:before{content:"";position:absolute;inset:-1px;z-index:1;pointer-events:none;border-radius:inherit;padding:1px;background:linear-gradient(120deg,transparent 15%,rgba(183,255,42,.55),rgba(0,229,255,.35),transparent 80%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:.3s}
+.neo-game-card:hover:before{opacity:1}
+.neo-game-card:hover{transform:translateY(-7px) scale(1.012)!important;border-color:rgba(183,255,42,.35)!important}
+.neo-game-card img{filter:saturate(1.18) contrast(1.06)!important}
+.neo-game-card:hover img{transform:scale(1.09)!important}
+.neo-game-card h3{font-weight:1000;text-shadow:0 3px 20px #000}
+
+.pack{transition:.25s!important}
+.pack:hover{transform:translateY(-5px) scale(1.015)!important;border-color:rgba(0,229,255,.35)!important}
+.pack.selected{box-shadow:0 0 0 1px var(--t-lime),0 0 40px rgba(183,255,42,.14)!important}
+.pack .pack-badge{box-shadow:0 0 20px rgba(183,255,42,.25)}
+
+.store-game-art,.big-art,.neo-game-hero-art{position:relative}
+.store-game-art:before,.big-art:before,.neo-game-hero-art:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.16) 48%,transparent 58%);transform:translateX(-120%);animation:tSweep 5s ease-in-out infinite}
+.store-game-art img,.big-art img,.neo-game-hero-art img{filter:saturate(1.18) contrast(1.05);transition:.5s!important}
+.store-game-art:hover img,.big-art:hover img{transform:scale(1.07)!important}
+
+.section-head h2,.neo-head h2{font-weight:1000;letter-spacing:-.5px}
+.eyebrow{color:var(--t-cyan)!important;text-shadow:0 0 16px rgba(0,229,255,.2)}
+.neo-more,.live-pill,.gr-quick-card em{color:var(--t-lime)!important}
+
+.neo-marquee{overflow:hidden;position:relative}
+.neo-marquee span{animation:tTicker 5s ease-in-out infinite alternate}
+@keyframes tTicker{to{transform:translateX(10px)}}
+.live-pill{box-shadow:0 0 20px rgba(183,255,42,.1)}
+
+.support-cta,.promo,.iraq-banner{border:1px solid var(--t-line)!important;box-shadow:0 25px 80px rgba(0,0,0,.4)!important}
+.service:hover,.reward:hover,.vip-card:hover,.gr-quick-card:hover,.neo-live-card:hover{transform:translateY(-6px)!important;border-color:rgba(183,255,42,.32)!important;box-shadow:0 25px 70px rgba(0,0,0,.5),0 0 35px rgba(183,255,42,.06)!important}
+.service,.reward,.vip-card,.gr-quick-card,.neo-live-card{transition:.28s!important}
+
+input,select,textarea{background:rgba(5,8,15,.92)!important;color:#fff!important;border-color:var(--t-line)!important}
+input:focus,select:focus,textarea:focus{outline:none!important;border-color:rgba(0,229,255,.55)!important;box-shadow:0 0 0 3px rgba(0,229,255,.08),0 0 25px rgba(0,229,255,.08)!important}
+
+footer{background:#020308!important;border-top:1px solid var(--t-line)!important}
+footer a:hover{color:var(--t-lime)!important}
+
+.gr-language-menu{border-color:rgba(183,255,42,.2)!important;box-shadow:0 25px 80px #000b,0 0 35px rgba(124,77,255,.12)!important}
+
+@media(max-width:900px){
+ .neo-hero{min-height:auto}.neo-hero-media{order:-1}
+}
+@media(max-width:600px){
+ body:before{background-size:38px 38px}
+ .neo-hero h1{font-size:44px}
+ .neo-media-main{border-radius:24px}
+ .neo-game-card:hover{transform:translateY(-3px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
+ body:before,body:after{display:none}
+}
