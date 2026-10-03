@@ -38,6 +38,18 @@
     <div><span class="account-label">Binance</span><strong>1228064206</strong><small>حوّل المبلغ المطلوب ثم احتفظ برقم العملية / TxID</small></div>
     <button type="button" class="copy-account" data-copy="1228064206">نسخ الرقم</button>
   </div>
+  <div class="payment-account" id="superqiAccount" hidden>
+    <div><span class="account-label">سوبر كي</span><strong>7116027595</strong><small>حوّل المبلغ المطلوب ثم أدخل رقم العملية</small></div>
+    <button type="button" class="copy-account" data-copy="7116027595">نسخ الرقم</button>
+  </div>
+  <div class="payment-account" id="asiacellAccount" hidden>
+    <div><span class="account-label">آسياسيل</span><strong>07725287238</strong><small>رقم الدفع/التحويل المخصص للطلبات</small></div>
+    <button type="button" class="copy-account" data-copy="07725287238">نسخ الرقم</button>
+  </div>
+  <div class="payment-account" id="zainIraqAccount" hidden>
+    <div><span class="account-label">زين العراق</span><strong>07818319951</strong><small>رقم الدفع/التحويل المخصص للطلبات</small></div>
+    <button type="button" class="copy-account" data-copy="07818319951">نسخ الرقم</button>
+  </div>
 </div>
 <div class="payment-steps"><div><b>01</b><span>اختار طريقة الدفع</span></div><div><b>02</b><span>حوّل المبلغ للحساب</span></div><div><b>03</b><span>أدخل رقم العملية</span></div></div>
 <div class="field"><label for="paymentMethod">طريقة الدفع</label>
@@ -45,6 +57,9 @@
 <option value="">اختار طريقة الدفع</option>
 <option value="zain_cash">زين كاش</option>
 <option value="binance">Binance</option>
+<option value="superqi">سوبر كي</option>
+<option value="asiacell">آسياسيل</option>
+<option value="zain_iraq">زين العراق</option>
 </select></div>
 <div class="field payment-ref-field"><label for="paymentReference">رقم العملية / TxID <span>مطلوب للتحقق</span></label><input id="paymentReference" autocomplete="off" placeholder="أدخل رقم العملية بعد التحويل"></div>
 <div class="field"><label for="customerPhone">رقم هاتفك</label><input id="customerPhone" inputmode="tel" autocomplete="tel" placeholder="07XXXXXXXXX"></div>
