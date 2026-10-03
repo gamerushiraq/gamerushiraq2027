@@ -12,3 +12,27 @@
 
 .admin-page{max-width:1240px;margin:auto;padding:55px 5%}.admin-head{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:25px}.admin-head h1{margin:8px 0}.admin-head p{color:var(--muted)}.admin-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}.admin-stats div{background:#0d1424;border:1px solid #ffffff0d;border-radius:18px;padding:22px}.admin-stats b{display:block;font-size:28px}.admin-stats span{color:var(--muted);font-size:12px}.admin-table-wrap{overflow:auto;background:#0d1424;border:1px solid #ffffff0d;border-radius:20px}.admin-table-wrap table{width:100%;border-collapse:collapse;min-width:760px}.admin-table-wrap th,.admin-table-wrap td{padding:15px;border-bottom:1px solid #ffffff0b;text-align:right;font-size:12px}.admin-table-wrap th{color:#8fa0b9}.status{display:inline-block;padding:5px 9px;border-radius:9px;background:#ffb30018;color:#ffc857}.status.done{background:#b9ff2c18;color:#b9ff2c}.statusSelect{background:#070b14;color:#fff;border:1px solid #ffffff14;border-radius:9px;padding:7px}.empty{text-align:center;padding:45px;color:var(--muted)}.admin-note{margin-top:18px}
 @media(max-width:600px){.admin-page{padding:35px 15px}.admin-head{display:block}.admin-head .secondary{margin-top:15px}.admin-stats{grid-template-columns:1fr}}
+
+/* GameRush game art refresh */
+.game-art{isolation:isolate;box-shadow:inset 0 0 45px #0008}
+.game-art:after{content:"";position:absolute;inset:-40%;background:linear-gradient(115deg,transparent 42%,#fff3 50%,transparent 58%);transform:translateX(-70%) rotate(8deg);animation:cardShine 4.5s ease-in-out infinite;z-index:1;pointer-events:none}
+.game-art i{position:absolute;right:12px;top:8px;font-style:normal;font-size:64px;filter:drop-shadow(0 12px 18px #0009);animation:gameFloat 3.2s ease-in-out infinite;z-index:2}
+.game-art span{position:relative;z-index:3;text-shadow:0 3px 12px #000;font-size:20px;letter-spacing:.5px}
+.game-art em{position:absolute;left:12px;top:12px;z-index:3;padding:6px 9px;border-radius:10px;background:#fff;color:#111;font-size:11px;font-style:normal;font-weight:900;box-shadow:0 5px 18px #0007}
+.pubg{background:radial-gradient(circle at 70% 25%,#d89b38 0 8%,transparent 28%),linear-gradient(145deg,#8c642e,#162334 58%,#070b12)}
+.freefire{background:radial-gradient(circle at 70% 20%,#ff9d2e 0 8%,transparent 28%),linear-gradient(145deg,#b52d24,#3b104d 58%,#090b16)}
+.cod{background:radial-gradient(circle at 72% 24%,#d5e15b 0 6%,transparent 24%),linear-gradient(145deg,#49513e,#151a18 55%,#06090d)}
+.mlbb{background:radial-gradient(circle at 72% 22%,#6bd5ff 0 7%,transparent 27%),linear-gradient(145deg,#145f9c,#382071 60%,#0a0c18)}
+.fc{background:radial-gradient(circle at 72% 20%,#5cffbd 0 7%,transparent 25%),linear-gradient(145deg,#13724c,#102d2a 58%,#071017)}
+.roblox{background:radial-gradient(circle at 72% 20%,#ff6a87 0 7%,transparent 25%),linear-gradient(145deg,#6130a2,#1b2059 58%,#080b15)}
+@keyframes gameFloat{50%{transform:translateY(-9px) rotate(3deg) scale(1.05)}}
+@keyframes cardShine{0%,35%{transform:translateX(-75%) rotate(8deg)}65%,100%{transform:translateX(75%) rotate(8deg)}}
+.game-card:hover .game-art i{animation-duration:1.2s}
+.game-card:hover .game-art:after{animation-duration:2s}
+
+/* Bright white package selector */
+.packs .pack{background:#fff;color:#101827;border:2px solid #dce3ed;box-shadow:0 6px 18px #0002;transition:.2s}
+.packs .pack b,.packs .pack span{color:#101827}
+.packs .pack:hover{border-color:#4b8cff;transform:translateY(-2px);box-shadow:0 10px 24px #4b8cff22}
+.packs .pack.selected{background:#fff;color:#111827;border:3px solid #ff3155;box-shadow:0 0 0 3px #ff315522,0 12px 28px #0003}
+.packs .pack.selected b,.packs .pack.selected span{color:#111827}
