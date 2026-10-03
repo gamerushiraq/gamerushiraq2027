@@ -7,6 +7,8 @@ fc:{name:"EA FC Mobile",sub:"FC Points",art:"fc",packs:[["105 Points","3,000 IQD
 roblox:{name:"Roblox",sub:"Robux",art:"roblox",packs:[["400 Robux","8,000 IQD"],["800 Robux","15,000 IQD"],["1700 Robux","30,000 IQD"],["4500 Robux","73,000 IQD"]]}
 };
 
+const ORDER_API="https://eyjjmacxxcmdzkfqxifo.supabase.co/functions/v1/create-order";
+
 const key=new URLSearchParams(location.search).get("game")||"pubg";
 const g=data[key]||data.pubg;
 const $=id=>document.getElementById(id);
