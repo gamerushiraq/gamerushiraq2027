@@ -50,7 +50,7 @@
 <p class="notice" style="margin-top:15px">الحساب الإداري لازم يكون موجوداً في Supabase Auth بنفس البريد المحدد.</p>
 </section>
 
-<main id="appView" class="admin-shell" hidden>
+<main id="appView" class="admin-shell" hidden><section class="admin-section" id="servicesAdmin"><div class="section-head"><div><span class="eyebrow">SERVICES</span><h2>إدارة الخدمات</h2></div><button class="primary" id="serviceNewBtn">+ خدمة جديدة</button></div><div id="serviceForm" hidden><div class="admin-form-grid"><input id="svcSlug" placeholder="slug"><input id="svcName" placeholder="اسم الخدمة"><input id="svcIcon" placeholder="الأيقونة"><input id="svcHref" placeholder="الرابط"><input id="svcOrder" type="number" placeholder="الترتيب"><input id="svcDesc" placeholder="الوصف"></div><button class="primary" id="serviceSaveBtn">حفظ</button> <button class="ghost" id="serviceCancelBtn">إلغاء</button></div><div id="serviceAdminList"></div></section>
 <div class="admin-top">
 <div><span class="eyebrow">ADMIN</span><h1>إدارة الطلبات</h1><p id="adminEmail"></p></div>
 <div class="admin-actions"><button class="admin-btn secondary" id="refreshBtn">↻ تحديث</button><button class="admin-btn danger" id="logoutBtn">تسجيل خروج</button></div>
@@ -208,4 +208,14 @@ $("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};
 db.auth.onAuthStateChange((event)=>{if(event==="SIGNED_OUT"){$("loginView").hidden=false;$("appView").hidden=true;}});
 boot();
 </script>
-<script src="page-motion.js"></script></body></html>
+<script src="page-motion.js"></script><script>
+const SVC_URL="https://eyjjmacxxcmdzkfqxifo.supabase.co/rest/v1/services_catalog";let svcEdit=null;
+async function svcHeaders(){const s=window.supabase?.auth?await window.supabase.auth.getSession():null;const token=s?.data?.session?.access_token;return {apikey:SUPABASE_KEY,Authorization:"Bearer "+(token||SUPABASE_KEY),"Content-Type":"application/json"}}
+async function loadSvc(){const h=await svcHeaders();const r=await fetch(SVC_URL+"?select=*&order=sort_order.asc",{headers:h});const a=await r.json();document.getElementById("serviceAdminList").innerHTML=a.map(x=>'<div class="admin-row"><b>'+x.icon+" "+x.name+'</b><small>'+x.description+'</small><button onclick="editSvc(\\''+x.id+'\\'')">تعديل</button><button onclick="toggleSvc(\\''+x.id+'\\','+(x.active?'false':'true')+')">'+(x.active?'إخفاء':'تفعيل')+'</button></div>').join("")}
+window.editSvc=async id=>{const h=await svcHeaders();const r=await fetch(SVC_URL+"?id=eq."+id,{headers:h});const a=await r.json();const x=a[0];if(!x)return;svcEdit=id;for(const [k,v] of Object.entries({svcSlug:x.slug,svcName:x.name,svcIcon:x.icon,svcHref:x.href,svcOrder:x.sort_order,svcDesc:x.description}))document.getElementById(k).value=v;document.getElementById("serviceForm").hidden=false};
+window.toggleSvc=async(id,active)=>{const h=await svcHeaders();await fetch(SVC_URL+"?id=eq."+id,{method:"PATCH",headers:h,body:JSON.stringify({active})});loadSvc()};
+document.getElementById("serviceNewBtn").onclick=()=>{svcEdit=null;document.getElementById("serviceForm").hidden=false};
+document.getElementById("serviceCancelBtn").onclick=()=>document.getElementById("serviceForm").hidden=true;
+document.getElementById("serviceSaveBtn").onclick=async()=>{const h=await svcHeaders();const b={slug:svcSlug.value.trim(),name:svcName.value.trim(),icon:svcIcon.value.trim()||"🎮",href:svcHref.value.trim(),sort_order:Number(svcOrder.value||0),description:svcDesc.value.trim()};await fetch(SVC_URL+(svcEdit?"?id=eq."+svcEdit:""),{method:svcEdit?"PATCH":"POST",headers:{...h,Prefer:"return=minimal"},body:JSON.stringify(b)});document.getElementById("serviceForm").hidden=true;loadSvc()};
+document.addEventListener("DOMContentLoaded",()=>setTimeout(loadSvc,1200));
+</script></body></html>
