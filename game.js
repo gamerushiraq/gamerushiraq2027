@@ -8,7 +8,7 @@ roblox:{name:"Roblox",sub:"Robux",art:"roblox",packs:[["400 Robux","8,000 IQD"],
 };
 
 const ORDER_API="https://eyjjmacxxcmdzkfqxifo.supabase.co/functions/v1/create-order";
-const PAYMENT_ACCOUNTS={zain_cash:"07818319951",binance:"1228064206"};
+const PAYMENT_ACCOUNTS={zain_cash:"07818319951",binance:"1228064206",superqi:"7116027595",asiacell:"07725287238",zain_iraq:"07818319951"};
 
 const key=new URLSearchParams(location.search).get("game")||"pubg";
 const g=data[key]||data.pubg;
@@ -69,9 +69,9 @@ $("copyAmount").addEventListener("click",()=>{
 });
 function refreshPaymentAccount(){
   const method=$("paymentMethod").value;
-  const box=$("paymentAccounts"),z=$("zainAccount"),b=$("binanceAccount");
-  if(!method){box.hidden=true;z.hidden=true;b.hidden=true;return;}
-  box.hidden=false; z.hidden=method!=="zain_cash"; b.hidden=method!=="binance";
+  const box=$("paymentAccounts"),z=$("zainAccount"),b=$("binanceAccount"),sq=$("superqiAccount"),a=$("asiacellAccount"),zi=$("zainIraqAccount");
+  if(!method){box.hidden=true;z.hidden=true;b.hidden=true;sq.hidden=true;a.hidden=true;zi.hidden=true;return;}
+  box.hidden=false; z.hidden=method!=="zain_cash"; b.hidden=method!=="binance"; sq.hidden=method!=="superqi"; a.hidden=method!=="asiacell"; zi.hidden=method!=="zain_iraq";
 }
 $("paymentMethod").addEventListener("change",refreshPaymentAccount);
 document.querySelectorAll(".copy-account").forEach(btn=>{
