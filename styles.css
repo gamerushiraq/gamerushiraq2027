@@ -40,3 +40,14 @@ button,a,input,select,textarea{touch-action:manipulation}
 @media(prefers-reduced-motion:reduce){
   .game-art:after,.game-art i,.big-art svg,.hero-orbit,.hero-card,.game-hero-animated:before,.hero-orb{animation:none!important}
 }
+
+
+/* Professional package hierarchy */
+.pack{position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:92px}
+.pack .pack-badge{position:absolute;top:7px;right:7px;background:#ff3155;color:#fff;border-radius:999px;padding:3px 7px;font-size:9px;font-weight:900;line-height:1}
+.pack .pack-qty{font-size:18px;line-height:1.2}
+.pack .pack-label{font-size:10px;color:#64748b;font-weight:800}
+.pack .pack-price{font-size:13px;font-weight:900}
+.pack:not(.selected):hover{transform:translateY(-2px)}
+.pack.selected{outline:2px solid #ff3155;box-shadow:0 8px 24px rgba(255,49,85,.18)}
+@media(max-width:600px){.pack{min-height:84px}.pack .pack-qty{font-size:16px}.pack .pack-price{font-size:12px}.pack .pack-badge{font-size:8px}}
