@@ -56,14 +56,19 @@
 <div class="admin-actions"><button class="admin-btn secondary" id="refreshBtn">↻ تحديث</button><button class="admin-btn danger" id="logoutBtn">تسجيل خروج</button></div>
 </div>
 
-<div class="admin-stats-grid">
+<div class="admin-modules" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 18px">
+<button class="admin-btn secondary" data-tab="orders">📦 الطلبات</button>
+<button class="admin-btn secondary" data-tab="finance">💰 المالية</button>
+<button class="admin-btn secondary" data-tab="products">🎮 الألعاب والباقات</button>
+<button class="admin-btn secondary" data-tab="security">🔐 الأمان</button>
+</div><div class="admin-stats-grid">
 <div class="admin-stat"><b id="count">0</b><span>كل الطلبات</span></div>
 <div class="admin-stat"><b id="newCount">0</b><span>جديدة</span></div>
 <div class="admin-stat"><b id="processingCount">0</b><span>قيد التنفيذ</span></div>
 <div class="admin-stat"><b id="total">0 IQD</b><span>إجمالي قيمة الطلبات</span></div>
 </div>
 
-<div class="admin-toolbar">
+<section id="financePanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">💰 ملخص مالي</h2><div id="financeSummary" class="details">جاري الحساب…</div></section><section id="productsPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🎮 كتالوج الألعاب</h2><div id="productsSummary" class="details">الأسعار الحالية موجودة في كتالوج الموقع، وتعديلها من لوحة الأدمن يحتاج ربط كتالوج مركزي آمن حتى تتطابق الأسعار مع الـ API.</div></section><section id="securityPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🔐 الأمان</h2><div class="details">RLS مفعّل للطلبات، والوصول الإداري محصور بالبريد المعتمد. لا تعرض service_role key داخل الموقع.</div></section><div class="admin-toolbar">
 <input id="search" placeholder="🔎 ابحث برقم الطلب أو Player ID أو اللعبة" style="flex:1;min-width:250px">
 <select id="statusFilter"><option value="all">كل الحالات</option><option value="new">جديدة</option><option value="processing">قيد التنفيذ</option><option value="completed">مكتملة</option><option value="cancelled">ملغاة</option></select>
 <select id="paymentFilter"><option value="all">كل طرق الدفع</option><option value="zain_cash">زين كاش</option><option value="binance">Binance</option><option value="superqi">سوبر كي</option><option value="asiacell">آسياسيل</option><option value="zain_iraq">زين العراق</option></select>
@@ -90,6 +95,9 @@ const ADMIN_EMAIL="ibogoeed@gmail.com";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 let allOrders=[];
+function showTab(tab){["finance","products","security"].forEach(x=>$(x+"Panel").hidden=tab!==x);document.querySelector(".admin-table-wrap").hidden=tab!=="orders";document.querySelector(".admin-toolbar").hidden=tab!=="orders";if(tab==="finance")renderFinance();}
+function renderFinance(){const verified=allOrders.filter(o=>o.payment_status==="verified"),submitted=allOrders.filter(o=>o.payment_status==="submitted"),rev=verified.reduce((s,o)=>s+Number(o.price_iqd||0),0);$("financeSummary").innerHTML=`طلبات مدفوعة مؤكدة: <b>${verified.length}</b><br>مدفوعات بانتظار المراجعة: <b>${submitted.length}</b><br>قيمة الطلبات المؤكدة: <b>${money(rev)}</b>`;}
+
 
 const statusText={new:"جديد",processing:"قيد التنفيذ",completed:"مكتمل",cancelled:"ملغي"};
 const paymentText={pending:"بانتظار الدفع",submitted:"تم إرسال الدفع",verified:"الدفع مؤكد",rejected:"الدفع مرفوض"};
@@ -164,8 +172,9 @@ async function boot(){
   const {data}=await db.auth.getUser(),user=data.user;
   if(!user||user.email.toLowerCase()!==ADMIN_EMAIL){await db.auth.signOut();$("loginView").hidden=false;$("appView").hidden=true;return;}
   $("adminEmail").textContent="مسجل الدخول: "+user.email;
-  $("loginView").hidden=true;$("appView").hidden=false;await loadOrders();
+  $("loginView").hidden=true;$("appView").hidden=false;await loadOrders();showTab("orders");
 }
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
 $("loginBtn").onclick=login;
 $("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 $("refreshBtn").onclick=loadOrders;
