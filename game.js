@@ -11,12 +11,12 @@ const GAME_IMAGES={pubg:"https://1.bp.blogspot.com/-5Pac6QAl42g/X2Czl-uMwnI/AAAA
 const ORDER_API="https://eyjjmacxxcmdzkfqxifo.supabase.co/functions/v1/create-order";
 const PAYMENT_ACCOUNTS={zain_cash:"07818319951",binance:"1228064206",superqi:"7116027595",asiacell:"07725287238",zain_iraq:"07818319951"};
 
-const playerInput=$("playerId");
+const playerInput=$("promoPlayerId");
 const playerCheck=$("checkPlayerId");
 const playerMsg=$("playerCheckMessage");
 function checkPlayer(){
  const v=(playerInput?.value||"").replace(/\D/g,"");
- if(playerInput) playerInput.value=v;
+ if(playerInput) playerInput.value=v;const mainPlayer=$("playerId");if(mainPlayer)mainPlayer.value=v;
  if(!v){playerMsg.textContent="أدخل Player ID أولاً.";playerMsg.className="player-check-message error";return false;}
  if(v.length<6||v.length>20){playerMsg.textContent="تأكد من Player ID؛ لازم يكون رقم صحيح.";playerMsg.className="player-check-message error";return false;}
  playerMsg.textContent="تم التحقق من صيغة Player ID ✓ تأكد من اسم الحساب داخل اللعبة قبل الدفع.";
@@ -30,7 +30,7 @@ const key=new URLSearchParams(location.search).get("game")||"pubg";
 const g=data[key]||data.pubg;
 const $=id=>document.getElementById(id);
 $("gameName").textContent=g.name;$("title").textContent=g.name;$("subtitle").textContent=g.sub;
-const art=$("gameArt");art.className="big-art game-art "+g.art;
+const art=$("gameArt");art.className="big-art game-art "+g.art;\nconst neoHero=$("neoHeroArt");if(neoHero)neoHero.innerHTML='<img src="'+GAME_IMAGES[key]+'" alt="'+g.name+' artwork" loading="eager">';
 art.innerHTML='<img src="'+GAME_IMAGES[key]+'" alt="'+g.name+' promotional artwork" loading="eager">';
 
 let selected=null;
