@@ -60,7 +60,7 @@
 <button class="admin-btn secondary" data-tab="orders">📦 الطلبات</button>
 <button class="admin-btn secondary" data-tab="finance">💰 المالية</button>
 <button class="admin-btn secondary" data-tab="products">🎮 الألعاب والباقات</button><button class="admin-btn secondary" data-tab="promotions">🎁 العروض</button>
-<button class="admin-btn secondary" data-tab="security">🔐 الأمان</button>
+<button class="admin-btn secondary" data-tab="security">🔐 الأمان</button><button class="admin-btn secondary" data-tab="home">🏠 الرئيسية</button>
 </div><div class="admin-stats-grid">
 <div class="admin-stat"><b id="count">0</b><span>كل الطلبات</span></div>
 <div class="admin-stat"><b id="newCount">0</b><span>جديدة</span></div>
@@ -68,7 +68,7 @@
 <div class="admin-stat"><b id="total">0 IQD</b><span>إجمالي قيمة الطلبات</span></div>
 </div>
 
-<section id="financePanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">💰 ملخص مالي</h2><div id="financeSummary" class="details">جاري الحساب…</div></section><section id="promotionsPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px">
+<section id="homePanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🏠 محتوى الصفحة الرئيسية</h2><p class="details">عدّل العنوان والنص والصورة من هنا، والتغيير يظهر بالموقع بعد التحديث.</p><div class="promo-admin-grid"><div><label>القسم</label><select class="admin-input" id="homeKey"><option value="hero">Hero الرئيسي</option><option value="featured">Featured</option></select><input class="admin-input" id="homeTitle" placeholder="العنوان"><input class="admin-input" id="homeSubtitle" placeholder="العنوان الصغير"><textarea class="admin-input" id="homeDescription" placeholder="الوصف"></textarea><input class="admin-input" id="homeImage" placeholder="رابط الصورة"><input class="admin-input" id="homeLink" placeholder="الرابط"><button class="admin-btn" id="saveHome">حفظ</button></div><div id="homeList" class="details">جاري التحميل…</div></div></section><section id="financePanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">💰 ملخص مالي</h2><div id="financeSummary" class="details">جاري الحساب…</div></section><section id="promotionsPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px">
 <h2 style="margin-top:0">🎁 إدارة العروض</h2>
 <div class="promo-admin-grid">
 <div>
@@ -136,7 +136,7 @@ const ADMIN_EMAIL="ibogoeed@gmail.com";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 let allOrders=[];
-function showTab(tab){["finance","products","security","promotions"].forEach(x=>$(x+"Panel").hidden=tab!==x);document.querySelector(".admin-table-wrap").hidden=tab!=="orders";document.querySelector(".admin-toolbar").hidden=tab!=="orders";if(tab==="finance")renderFinance();if(tab==="promotions")loadPromotions();if(tab==="products")loadProducts();}
+function showTab(tab){["finance","products","security","promotions"].forEach(x=>$(x+"Panel").hidden=tab!==x);document.querySelector(".admin-table-wrap").hidden=tab!=="orders";document.querySelector(".admin-toolbar").hidden=tab!=="orders";if(tab==="finance")renderFinance();if(tab==="promotions")loadPromotions();if(tab==="products")loadProducts();if(tab==="home")loadHomeAdmin();}
 let editingPromo=null;
 async function loadPromotions(){
  const {data,error}=await db.from("promotions").select("*").order("ends_at",{ascending:false});
@@ -277,4 +277,9 @@ $("savePackage").onclick=async()=>{const b={game_slug:$("packageGame").value,pac
 function clearGameForm(){$("gameSlug").value="";$("gameNameAdmin").value="";$("gameUnit").value="";$("gameTag").value="";$("gameImage").value="";$("gameDesc").value="";$("gameOrder").value=""}
 function clearPackageForm(){$("packageNameAdmin").value="";$("packagePrice").value="";$("packageOrder").value=""}
 $("cancelGame").onclick=()=>{editingGameId=null;clearGameForm()};$("cancelPackage").onclick=()=>{editingPackageId=null;clearPackageForm()};
+</script><script>
+async function loadHomeAdmin(){const {data,error}=await db.from("home_content").select("*").order("sort_order",{ascending:true});if(error){$("homeList").textContent=error.message;return}const a=data||[];$("homeList").innerHTML=a.map(x=>'<div class="promo-admin-item"><b>'+esc(x.section_key)+' — '+esc(x.title)+'</b><span>'+esc(x.description)+'</span><button class="admin-btn secondary" onclick="editHome(\''+x.section_key+'\')">تعديل</button><button class="admin-btn danger" onclick="toggleHome(\''+x.id+'\','+(x.active?'false':'true')+')">'+(x.active?"إيقاف":"تفعيل")+'</button></div>').join("")}
+window.editHome=async key=>{const {data}=await db.from("home_content").select("*").eq("section_key",key).single();if(!data)return;$("homeKey").value=data.section_key;$("homeTitle").value=data.title;$("homeSubtitle").value=data.subtitle;$("homeDescription").value=data.description;$("homeImage").value=data.image_url;$("homeLink").value=data.link_url};
+window.toggleHome=async(id,active)=>{const {error}=await db.from("home_content").update({active,updated_at:new Date().toISOString()}).eq("id",id);if(error)return alert(error.message);loadHomeAdmin()};
+$("saveHome").onclick=async()=>{const b={title:$("homeTitle").value.trim(),subtitle:$("homeSubtitle").value.trim(),description:$("homeDescription").value.trim(),image_url:$("homeImage").value.trim(),link_url:$("homeLink").value.trim(),updated_at:new Date().toISOString()};const {error}=await db.from("home_content").update(b).eq("section_key",$("homeKey").value);if(error)return alert(error.message);loadHomeAdmin();alert("تم حفظ محتوى الرئيسية ✓")};
 </script></body></html>
