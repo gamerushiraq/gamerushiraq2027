@@ -78,3 +78,68 @@
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
+
+/* WHITE PACKAGE PAGE THEME */
+.game-page .checkout,
+.game-page .game-summary,
+.game-page .form-card,
+.game-page .order-flow > div {
+  background: #ffffff !important;
+  color: #101827 !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 12px 35px rgba(15,23,42,.10);
+}
+.game-page .game-summary h1,
+.game-page .game-summary h2,
+.game-page .form-card h2,
+.game-page .game-summary p,
+.game-page .form-card label,
+.game-page .order-flow span,
+.game-page .order-flow small,
+.game-page .order-total span {
+  color: #101827 !important;
+}
+.game-page .game-summary .eyebrow { color:#1677ff !important; }
+.game-page .badges span {
+  background:#f1f5f9 !important;
+  color:#334155 !important;
+  border:1px solid #e2e8f0;
+}
+.game-page .steps span {
+  background:#f1f5f9 !important;
+  color:#475569 !important;
+}
+.game-page .steps .done {
+  background:#e9fbe0 !important;
+  color:#238000 !important;
+}
+.game-page .field input {
+  background:#f8fafc !important;
+  color:#101827 !important;
+  border:1px solid #cbd5e1 !important;
+}
+.game-page .field input::placeholder { color:#94a3b8 !important; }
+.game-page .order-total {
+  border-top-color:#e2e8f0 !important;
+}
+.game-page .order-total strong {
+  color:#ff3155 !important;
+}
+.game-page .notice {
+  color:#64748b !important;
+}
+.game-page .order-flow strong { color:#ff3155 !important; }
+.game-page .packs .pack {
+  background:#f8fafc !important;
+  border-color:#d7dee8 !important;
+  color:#ffffff !important;
+}
+.game-page .packs .pack.selected {
+  background:#fff7f8 !important;
+  border-color:#ff3155 !important;
+}
+.game-page .breadcrumb,
+.game-page .breadcrumb a {
+  color:#64748b !important;
+}
+.game-page .breadcrumb span { color:#101827 !important; }
