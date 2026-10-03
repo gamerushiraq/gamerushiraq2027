@@ -60,6 +60,18 @@ const promoEndKey="gamerush_promo_end";
 let promoEnd=Number(localStorage.getItem(promoEndKey)||0);
 if(!promoEnd || promoEnd<Date.now()){promoEnd=Date.now()+36*60*60*1000;localStorage.setItem(promoEndKey,String(promoEnd));}
 function renderPromoCountdown(){const el=$("promoCountdown");if(!el)return;const left=Math.max(0,promoEnd-Date.now());const s=Math.floor(left/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;el.textContent=[h,m,sec].map(v=>String(v).padStart(2,"0")).join(":");if(left<=0)el.textContent="انتهى";}renderPromoCountdown();setInterval(renderPromoCountdown,1000);
+async function loadActivePromo(){
+ try{
+  const res=await fetch("https://eyjjmacxxcmdzkfqxifo.supabase.co/rest/v1/promotions?select=title,game,package_name,discount_iqd,ends_at&game=eq."+encodeURIComponent(key)+"&active=eq.true&starts_at=lte."+encodeURIComponent(new Date().toISOString())+"&ends_at=gt."+encodeURIComponent(new Date().toISOString())+"&order=ends_at.asc&limit=1",{headers:{apikey:"sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS"}});
+  if(!res.ok)return;
+  const rows=await res.json(); const promo=rows[0]; if(!promo)return;
+  const label=document.querySelector(".promo-timer-label"); if(label)label.textContent=promo.title||"🎁 عرض خاص";
+  const selectedPack=promo.package_name?[...document.querySelectorAll(".pack")].find(x=>x.textContent.includes(promo.package_name)):null;
+  if(selectedPack)selectedPack.dataset.promo="featured";
+  if(promo.ends_at){promoEnd=new Date(promo.ends_at).getTime();localStorage.setItem(promoEndKey,String(promoEnd));renderPromoCountdown();}
+ }catch(_){}
+}
+loadActivePromo();
 const promoAction=$("promoAction");
 promoAction?.addEventListener("click",()=>{
  const featured=document.querySelector('.pack[data-promo="featured"]');
