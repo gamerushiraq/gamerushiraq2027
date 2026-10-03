@@ -34,7 +34,7 @@ function inject(){
  const menu=document.createElement("div");menu.id="grLangMenu";menu.style.cssText="display:none;position:fixed;left:14px;bottom:60px;z-index:10000;background:#111827;color:#fff;border:1px solid #ffffff20;border-radius:14px;padding:6px;box-shadow:0 12px 35px #0006";
  [["ar","العربية"],["en","English"],["fa","فارسی"],["ku","کوردی"]].forEach(([k,n])=>{const x=document.createElement("button");x.textContent=n;x.dataset.lang=k;x.style.cssText="display:block;width:130px;padding:9px;border:0;background:transparent;color:#fff;text-align:right;border-radius:9px;cursor:pointer;font:inherit";x.onclick=()=>{translateText(k);menu.style.display="none"};menu.appendChild(x)});
  b.onclick=()=>menu.style.display=menu.style.display==="none"?"block":"none";document.body.append(b,menu);
- new MutationObserver(()=>{const l=localStorage.getItem("gamerush_lang")||"ar";if(l!=="ar")translateText(l)}).observe(document.body,{childList:true,subtree:true});
+ let translating=false;new MutationObserver(()=>{if(translating)return;const l=localStorage.getItem("gamerush_lang")||"ar";if(l!=="ar"){translating=true;translateText(l);translating=false}}).observe(document.body,{childList:true,subtree:true});
  translateText(localStorage.getItem("gamerush_lang")||"ar");
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",inject);else inject();
