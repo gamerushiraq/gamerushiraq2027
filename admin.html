@@ -81,7 +81,35 @@
 <div class="admin-error" id="promoError"></div>
 </div>
 <div><div id="promoList" class="details">جاري تحميل العروض…</div></div>
-</div></section><section id="productsPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🎮 كتالوج الألعاب</h2><div id="productsSummary" class="details">الأسعار الحالية موجودة في كتالوج الموقع، وتعديلها من لوحة الأدمن يحتاج ربط كتالوج مركزي آمن حتى تتطابق الأسعار مع الـ API.</div></section><section id="securityPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🔐 الأمان</h2><div class="details">RLS مفعّل للطلبات، والوصول الإداري محصور بالبريد المعتمد. لا تعرض service_role key داخل الموقع.</div></section><div class="admin-toolbar">
+</div></section><section id="productsPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px">
+<h2 style="margin-top:0">🎮 كتالوج الألعاب والباقات</h2>
+<p class="details">أي تعديل هنا ينعكس على المتجر وصفحة الشحن، وسعر الطلب النهائي يتم التحقق منه أيضاً داخل Edge Function قبل إنشاء الطلب.</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+<div>
+<h3>إضافة / تعديل لعبة</h3>
+<input class="admin-input" id="gameSlug" placeholder="slug مثل pubg">
+<input class="admin-input" id="gameNameAdmin" placeholder="اسم اللعبة">
+<input class="admin-input" id="gameUnit" placeholder="الوحدة مثل UC">
+<input class="admin-input" id="gameTag" placeholder="Tag">
+<input class="admin-input" id="gameImage" placeholder="رابط صورة اللعبة">
+<input class="admin-input" id="gameDesc" placeholder="وصف مختصر">
+<input class="admin-input" id="gameOrder" type="number" placeholder="الترتيب">
+<button class="admin-btn" id="saveGame">حفظ اللعبة</button>
+<button class="admin-btn secondary" id="cancelGame" type="button">مسح</button>
+</div>
+<div>
+<h3>إضافة / تعديل باقة</h3>
+<select class="admin-input" id="packageGame"></select>
+<input class="admin-input" id="packageNameAdmin" placeholder="مثلاً 660 UC">
+<input class="admin-input" id="packagePrice" type="number" min="0" placeholder="السعر بالدينار">
+<input class="admin-input" id="packageOrder" type="number" placeholder="الترتيب">
+<button class="admin-btn" id="savePackage">حفظ الباقة</button>
+<button class="admin-btn secondary" id="cancelPackage" type="button">مسح</button>
+</div>
+</div>
+<div id="productsSummary" class="details" style="margin-top:18px">جاري تحميل الكتالوج…</div>
+<div id="productsAdminList" style="margin-top:12px"></div>
+</section><section id="securityPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🔐 الأمان</h2><div class="details">RLS مفعّل للطلبات، والوصول الإداري محصور بالبريد المعتمد. لا تعرض service_role key داخل الموقع.</div></section><div class="admin-toolbar">
 <input id="search" placeholder="🔎 ابحث برقم الطلب أو Player ID أو اللعبة" style="flex:1;min-width:250px">
 <select id="statusFilter"><option value="all">كل الحالات</option><option value="new">جديدة</option><option value="processing">قيد التنفيذ</option><option value="completed">مكتملة</option><option value="cancelled">ملغاة</option></select>
 <select id="paymentFilter"><option value="all">كل طرق الدفع</option><option value="zain_cash">زين كاش</option><option value="binance">Binance</option><option value="superqi">سوبر كي</option><option value="asiacell">آسياسيل</option><option value="zain_iraq">زين العراق</option></select>
@@ -108,7 +136,7 @@ const ADMIN_EMAIL="ibogoeed@gmail.com";
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 let allOrders=[];
-function showTab(tab){["finance","products","security","promotions"].forEach(x=>$(x+"Panel").hidden=tab!==x);document.querySelector(".admin-table-wrap").hidden=tab!=="orders";document.querySelector(".admin-toolbar").hidden=tab!=="orders";if(tab==="finance")renderFinance();if(tab==="promotions")loadPromotions();}
+function showTab(tab){["finance","products","security","promotions"].forEach(x=>$(x+"Panel").hidden=tab!==x);document.querySelector(".admin-table-wrap").hidden=tab!=="orders";document.querySelector(".admin-toolbar").hidden=tab!=="orders";if(tab==="finance")renderFinance();if(tab==="promotions")loadPromotions();if(tab==="products")loadProducts();}
 let editingPromo=null;
 async function loadPromotions(){
  const {data,error}=await db.from("promotions").select("*").order("ends_at",{ascending:false});
@@ -218,4 +246,35 @@ document.getElementById("serviceNewBtn").onclick=()=>{svcEdit=null;document.getE
 document.getElementById("serviceCancelBtn").onclick=()=>document.getElementById("serviceForm").hidden=true;
 document.getElementById("serviceSaveBtn").onclick=async()=>{const h=await svcHeaders();const b={slug:svcSlug.value.trim(),name:svcName.value.trim(),icon:svcIcon.value.trim()||"🎮",href:svcHref.value.trim(),sort_order:Number(svcOrder.value||0),description:svcDesc.value.trim()};await fetch(SVC_URL+(svcEdit?"?id=eq."+svcEdit:""),{method:svcEdit?"PATCH":"POST",headers:{...h,Prefer:"return=minimal"},body:JSON.stringify(b)});document.getElementById("serviceForm").hidden=true;loadSvc()};
 document.addEventListener("DOMContentLoaded",()=>setTimeout(loadSvc,1200));
+</script><script>
+let editingGameId=null,editingPackageId=null;
+async function loadProducts(){
+ const [{data:g, error:ge},{data:p,error:pe}]=await Promise.all([
+  db.from("game_catalog").select("*").order("sort_order",{ascending:true}),
+  db.from("game_packages").select("*").order("game_slug",{ascending:true}).order("sort_order",{ascending:true})
+ ]);
+ if(ge||pe){$("productsSummary").textContent="تعذر تحميل الكتالوج: "+(ge?.message||pe?.message);return;}
+ const games=g||[],packs=p||[];
+ $("packageGame").innerHTML=games.map(x=>'<option value="'+esc(x.slug)+'">'+esc(x.name)+'</option>').join("");
+ $("productsSummary").textContent=games.length+" ألعاب • "+packs.length+" باقات";
+ $("productsAdminList").innerHTML=games.map(game=>{
+   const gp=packs.filter(x=>x.game_slug===game.slug);
+   return '<div class="promo-admin-item"><b>'+esc(game.name)+' <small>('+esc(game.slug)+')</small></b><span>'+esc(game.unit)+' • '+(game.active?"فعال":"متوقف")+' • '+gp.length+' باقات</span>'+
+   '<button class="admin-btn secondary" onclick="editGame(\''+game.id+'\')">تعديل اللعبة</button>'+
+   '<button class="admin-btn danger" onclick="toggleGame(\''+game.id+'\','+(game.active?'false':'true')+')">'+(game.active?"إيقاف":"تفعيل")+'</button>'+
+   gp.map(x=>'<div class="details"><b>'+esc(x.package_name)+'</b> — '+money(x.price_iqd)+' • '+(x.active?"فعال":"متوقف")+
+   ' <button class="admin-btn secondary" onclick="editPackage(\''+x.id+'\')">تعديل</button>'+
+   ' <button class="admin-btn danger" onclick="togglePackage(\''+x.id+'\','+(x.active?'false':'true')+')">'+(x.active?"إيقاف":"تفعيل")+'</button></div>').join("")+
+   '</div>';
+ }).join("")||"لا توجد ألعاب بعد.";
+}
+window.editGame=async id=>{const {data}=await db.from("game_catalog").select("*").eq("id",id).single();if(!data)return;editingGameId=id;$("gameSlug").value=data.slug;$("gameNameAdmin").value=data.name;$("gameUnit").value=data.unit;$("gameTag").value=data.tag;$("gameImage").value=data.image_url;$("gameDesc").value=data.description;$("gameOrder").value=data.sort_order};
+window.toggleGame=async(id,active)=>{const {error}=await db.from("game_catalog").update({active,updated_at:new Date().toISOString()}).eq("id",id);if(error)return alert(error.message);loadProducts()};
+window.editPackage=async id=>{const {data}=await db.from("game_packages").select("*").eq("id",id).single();if(!data)return;editingPackageId=id;$("packageGame").value=data.game_slug;$("packageNameAdmin").value=data.package_name;$("packagePrice").value=data.price_iqd;$("packageOrder").value=data.sort_order};
+window.togglePackage=async(id,active)=>{const {error}=await db.from("game_packages").update({active,updated_at:new Date().toISOString()}).eq("id",id);if(error)return alert(error.message);loadProducts()};
+$("saveGame").onclick=async()=>{const b={slug:$("gameSlug").value.trim().toLowerCase(),name:$("gameNameAdmin").value.trim(),unit:$("gameUnit").value.trim(),tag:$("gameTag").value.trim(),image_url:$("gameImage").value.trim(),description:$("gameDesc").value.trim(),sort_order:Number($("gameOrder").value||0),updated_at:new Date().toISOString()};if(!b.slug||!b.name||!b.image_url)return alert("أكمل slug واسم اللعبة ورابط الصورة");const q=editingGameId?db.from("game_catalog").update(b).eq("id",editingGameId):db.from("game_catalog").insert(b);const {error}=await q;if(error)return alert(error.message);editingGameId=null;clearGameForm();loadProducts()};
+$("savePackage").onclick=async()=>{const b={game_slug:$("packageGame").value,package_name:$("packageNameAdmin").value.trim(),price_iqd:Number($("packagePrice").value),sort_order:Number($("packageOrder").value||0),updated_at:new Date().toISOString()};if(!b.game_slug||!b.package_name||!Number.isFinite(b.price_iqd)||b.price_iqd<0)return alert("أكمل اللعبة والباقة والسعر");const q=editingPackageId?db.from("game_packages").update(b).eq("id",editingPackageId):db.from("game_packages").insert(b);const {error}=await q;if(error)return alert(error.message);editingPackageId=null;clearPackageForm();loadProducts()};
+function clearGameForm(){$("gameSlug").value="";$("gameNameAdmin").value="";$("gameUnit").value="";$("gameTag").value="";$("gameImage").value="";$("gameDesc").value="";$("gameOrder").value=""}
+function clearPackageForm(){$("packageNameAdmin").value="";$("packagePrice").value="";$("packageOrder").value=""}
+$("cancelGame").onclick=()=>{editingGameId=null;clearGameForm()};$("cancelPackage").onclick=()=>{editingPackageId=null;clearPackageForm()};
 </script></body></html>
