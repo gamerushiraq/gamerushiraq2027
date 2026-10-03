@@ -51,3 +51,7 @@ button,a,input,select,textarea{touch-action:manipulation}
 .pack:not(.selected):hover{transform:translateY(-2px)}
 .pack.selected{outline:2px solid #ff3155;box-shadow:0 8px 24px rgba(255,49,85,.18)}
 @media(max-width:600px){.pack{min-height:84px}.pack .pack-qty{font-size:16px}.pack .pack-price{font-size:12px}.pack .pack-badge{font-size:8px}}
+
+/* MOBILE CHECKOUT WIZARD */
+.wizard-step-panel{display:block}.wizard-next,.wizard-back{border:0;border-radius:13px;padding:13px 16px;font:inherit;font-weight:900;cursor:pointer;width:100%;margin-top:12px}.wizard-next{background:#111827;color:#fff}.wizard-back{background:#eef2f7;color:#334155}.wizard-submit{margin-top:14px}.mobile-wizard-steps span{transition:.2s}.mobile-wizard-steps span.active{background:#ff3155;color:#fff}
+@media(max-width:600px){.wizard-step-panel{display:none}.wizard-step-panel.active{display:block}.wizard-card{padding:14px!important}.mobile-wizard-steps{position:sticky;top:6px;z-index:20;background:#fff;border-radius:14px;padding:5px;box-shadow:0 8px 25px rgba(15,23,42,.08)}.mobile-wizard-steps span{flex:1!important;text-align:center}.wizard-submit{position:sticky;bottom:10px;z-index:21;box-shadow:0 10px 28px rgba(15,23,42,.2)}}
