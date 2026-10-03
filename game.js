@@ -51,9 +51,20 @@ g.packs.forEach((p,i)=>{
    b.classList.add("selected");selected=p;$("total").textContent=p[1];syncPaymentAmount();
  });
  packs.appendChild(b);
+ if(i===2) b.dataset.promo="featured";
+
  if(i===0)b.setAttribute("aria-label",`باقة ${p[0]} بسعر ${p[1]}`);
 });
 
+const promoAction=$("promoAction");
+promoAction?.addEventListener("click",()=>{
+ const featured=document.querySelector('.pack[data-promo="featured"]');
+ if(!featured){$("packs")?.scrollIntoView({behavior:"smooth",block:"center"});return;}
+ featured.click();
+ featured.scrollIntoView({behavior:"smooth",block:"center"});
+ const next=$("toPlayer");
+ setTimeout(()=>next?.focus(),350);
+});
 function showOrderSuccess(orderId){
   $("successOrderId").textContent=orderId;
   $("successGame").textContent=g.name;
