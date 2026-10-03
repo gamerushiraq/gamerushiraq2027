@@ -39,14 +39,65 @@ g.packs.forEach((p,i)=>{
 });
 
 $("orderBtn").addEventListener("click",async()=>{
- const playerId=$("playerId").value.trim();
+ const playerId=$("#playerId").value.trim();
+ const paymentMethod=$("#paymentMethod").value;
+ const paymentReference=$("#paymentReference").value.trim();
+ const customerPhone=$("#customerPhone").value.trim();
+ const notes=$("#orderNotes").value.trim();
+
  if(!selected)return alert("اختار الباقة أولاً");
  if(!playerId)return alert("أدخل Player ID");
  if(playerId.length<4)return alert("تأكد من Player ID");
+ if(!paymentMethod)return alert("اختار طريقة الدفع");
+ if(!paymentReference)return alert("أدخل رقم العملية / TxID");
+ if(!customerPhone)return alert("أدخل رقم هاتفك");
+
+ const priceIqd=Number(String(selected[1]).replace(/[^0-9]/g,""));
  const orderId="GR-"+Date.now().toString().slice(-8);
- const order={id:orderId,game:key,gameName:g.name,playerId,serverId:$("serverId").value.trim(),pack:selected[0],price:selected[1],status:"جديد",createdAt:new Date().toISOString()};
- const orders=JSON.parse(localStorage.getItem("gamerush_orders")||"[]");
- orders.unshift(order);localStorage.setItem("gamerush_orders",JSON.stringify(orders));
- alert(`تم تجهيز طلبك التجريبي #${orderId}\n${g.name} — ${selected[0]}\nالإجمالي: ${selected[1]}\n\nالخطوة القادمة: ربط الدفع الحقيقي.`);
- history.replaceState(null,"",`game.html?game=${encodeURIComponent(key)}&order=${encodeURIComponent(orderId)}`);
+ const payload={
+   order_number:orderId,
+   game:key,
+   package_name:selected[0],
+   player_id:playerId,
+   server_id:$("#serverId").value.trim()||null,
+   price_iqd:priceIqd,
+   payment_method:paymentMethod,
+   payment_reference:paymentReference,
+   customer_phone:customerPhone,
+   notes:notes||null
+ };
+
+ const btn=$("#orderBtn");
+ const original=btn.textContent;
+ btn.disabled=true;
+ btn.textContent="جاري إرسال الطلب…";
+
+ try{
+   const res=await fetch(ORDER_API,{
+     method:"POST",
+     headers:{"Content-Type":"application/json"},
+     body:JSON.stringify(payload)
+   });
+   const result=await res.json().catch(()=>({}));
+   if(res.status===409) throw new Error("هذا الطلب موجود مسبقاً، حاول مرة ثانية.");
+   if(!res.ok) throw new Error(result.error||"تعذر إرسال الطلب");
+
+   const order={
+     id:orderId,game:key,gameName:g.name,playerId,
+     serverId:$("#serverId").value.trim(),
+     pack:selected[0],price:selected[1],status:"جديد",
+     paymentMethod,paymentReference,customerPhone,notes,
+     paymentStatus:"تم إرسال الدفع للمراجعة",createdAt:new Date().toISOString()
+   };
+   const orders=JSON.parse(localStorage.getItem("gamerush_orders")||"[]");
+   orders.unshift(order);
+   localStorage.setItem("gamerush_orders",JSON.stringify(orders));
+   alert("تم استلام طلبك بنجاح #"+orderId+"\n"+g.name+" — "+selected[0]+"\nالإجمالي: "+selected[1]+"\n\nسيتم التحقق من الدفع ثم تنفيذ الشحن.");
+   history.replaceState(null,"","game.html?game="+encodeURIComponent(key)+"&order="+encodeURIComponent(orderId));
+ }catch(err){
+   alert(err.message||"حدث خطأ أثناء إرسال الطلب");
+ }finally{
+   btn.disabled=false;
+   btn.textContent=original;
+ }
 });
