@@ -30,12 +30,15 @@
 .game-card:hover .game-art i{animation-duration:1.2s}
 .game-card:hover .game-art:after{animation-duration:2s}
 
-/* Bright white package selector */
-.packs .pack{background:#fff;color:#101827;border:2px solid #dce3ed;box-shadow:0 6px 18px #0002;transition:.2s}
-.packs .pack b,.packs .pack span{color:#101827}
-.packs .pack:hover{border-color:#4b8cff;transform:translateY(-2px);box-shadow:0 10px 24px #4b8cff22}
-.packs .pack.selected{background:#fff;color:#111827;border:3px solid #ff3155;box-shadow:0 0 0 3px #ff315522,0 12px 28px #0003}
-.packs .pack.selected b,.packs .pack.selected span{color:#111827}
+/* High-contrast package selector: light/white numbers */
+.packs .pack{position:relative;overflow:hidden;background:linear-gradient(145deg,#151f35,#0b1220)!important;color:#fff!important;border:2px solid #34445f;box-shadow:0 8px 22px #0005;transition:.2s}
+.packs .pack b,.packs .pack span,.packs .pack strong{color:#fff!important;text-shadow:0 1px 5px #0008}
+.packs .pack b{font-size:20px;font-weight:950}
+.packs .pack span{font-size:14px;font-weight:800}
+.packs .pack:hover{border-color:#4b8cff;transform:translateY(-3px);box-shadow:0 12px 28px #4b8cff33}
+.packs .pack.selected{background:linear-gradient(145deg,#291426,#111827)!important;border:3px solid #ff3155!important;color:#fff!important;box-shadow:0 0 0 4px #ff315533,0 14px 30px #0005}
+.packs .pack.selected b,.packs .pack.selected span{color:#fff!important}
+.packs .pack:before{content:"";position:absolute;inset:-120% 45% -120% -80%;background:#fff;opacity:.12;transform:rotate(25deg);animation:packGlow 3.2s linear infinite;pointer-events:none}
 
 /* Animated game checkout */
 .game-hero-animated{position:relative;overflow:hidden;display:flex;align-items:center;gap:18px}
@@ -43,12 +46,6 @@
 .hero-orb{position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,#fff5 0,transparent 65%);right:-50px;top:-80px;animation:orbPulse 2.8s ease-in-out infinite}
 .hero-game-icon{position:relative;z-index:2;font-size:72px;animation:heroFloat 2.4s ease-in-out infinite;filter:drop-shadow(0 10px 22px #0009)}
 .hero-game-title,.hero-game-sub{position:relative;z-index:2}
-.packs .pack{position:relative;overflow:hidden;background:#fff!important;color:#111827!important}
-.packs .pack b,.packs .pack span,.packs .pack strong{color:#111827!important}
-.packs .pack b{font-size:20px;font-weight:950}
-.packs .pack span{font-size:14px;font-weight:800}
-.packs .pack:before{content:"";position:absolute;inset:-120% 45% -120% -80%;background:#fff;opacity:.55;transform:rotate(25deg);animation:packGlow 3.2s linear infinite}
-.packs .pack.selected{background:#fff!important;border:3px solid #ff3155!important;box-shadow:0 0 0 4px #ff315533,0 14px 30px #0003}
 @keyframes heroSweep{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
 @keyframes heroFloat{50%{transform:translateY(-10px) rotate(-4deg) scale(1.06)}}
 @keyframes orbPulse{50%{transform:scale(1.25);opacity:.65}}
