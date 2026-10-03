@@ -56,6 +56,10 @@ g.packs.forEach((p,i)=>{
  if(i===0)b.setAttribute("aria-label",`باقة ${p[0]} بسعر ${p[1]}`);
 });
 
+const promoEndKey="gamerush_promo_end";
+let promoEnd=Number(localStorage.getItem(promoEndKey)||0);
+if(!promoEnd || promoEnd<Date.now()){promoEnd=Date.now()+36*60*60*1000;localStorage.setItem(promoEndKey,String(promoEnd));}
+function renderPromoCountdown(){const el=$("promoCountdown");if(!el)return;const left=Math.max(0,promoEnd-Date.now());const s=Math.floor(left/1000),h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;el.textContent=[h,m,sec].map(v=>String(v).padStart(2,"0")).join(":");if(left<=0)el.textContent="انتهى";}renderPromoCountdown();setInterval(renderPromoCountdown,1000);
 const promoAction=$("promoAction");
 promoAction?.addEventListener("click",()=>{
  const featured=document.querySelector('.pack[data-promo="featured"]');
