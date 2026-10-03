@@ -33,7 +33,9 @@ $("orderBtn").addEventListener("click",()=>{
  if(!playerId)return alert("أدخل Player ID");
  if(playerId.length<4)return alert("تأكد من Player ID");
  const orderId="GR-"+Date.now().toString().slice(-8);
- const params=new URLSearchParams({game:key,player:playerId,server:$("serverId").value.trim(),pack:selected[0],price:selected[1],order:orderId});
+ const order={id:orderId,game:key,gameName:g.name,playerId,serverId:$("serverId").value.trim(),pack:selected[0],price:selected[1],status:"جديد",createdAt:new Date().toISOString()};
+ const orders=JSON.parse(localStorage.getItem("gamerush_orders")||"[]");
+ orders.unshift(order);localStorage.setItem("gamerush_orders",JSON.stringify(orders));
  alert(`تم تجهيز طلبك التجريبي #${orderId}\n${g.name} — ${selected[0]}\nالإجمالي: ${selected[1]}\n\nالخطوة القادمة: ربط الدفع الحقيقي.`);
  history.replaceState(null,"",`game.html?game=${encodeURIComponent(key)}&order=${encodeURIComponent(orderId)}`);
 });
