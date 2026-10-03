@@ -58,3 +58,56 @@ button,a,input,select,textarea{touch-action:manipulation}
 /* PAYMENT FLOW COMPACT */
 .payment-choice-hint{margin:10px 0;padding:10px 12px;border-radius:12px;background:#f1f5f9;color:#475569;font-size:12px;font-weight:800}.payment-choice-hint.ready{background:#ecfdf5;color:#166534}
 @media(max-width:600px){.payment-box{padding:13px!important}.payment-title p{margin:5px 0!important;font-size:11px!important}.payment-alert{margin:9px 0!important}.transfer-amount{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.transfer-amount span{grid-column:1/-1}.transfer-amount strong{font-size:21px}.transfer-amount button{min-height:40px}.payment-accounts{margin-top:9px}.payment-account{display:flex;align-items:center;justify-content:space-between;gap:8px}.payment-account small{display:block}.payment-box .field{margin:9px 0}.payment-box select,.payment-box input,.payment-box textarea{min-height:46px}.payment-ref-field{margin-top:12px!important}.wizard-submit{min-height:54px;font-size:15px}}
+
+
+/* GameRush Storefront Refresh — inspired by modern top-up stores, original visual system */
+:root{
+  --gr-ink:#111827;
+  --gr-muted:#64748b;
+  --gr-line:#e7eaf0;
+  --gr-surface:#ffffff;
+  --gr-soft:#f6f7fb;
+  --gr-accent:#6d4aff;
+  --gr-accent-2:#00c2ff;
+  --gr-green:#13b879;
+  --gr-shadow:0 18px 55px rgba(17,24,39,.09);
+}
+body{background:#f7f8fc;color:var(--gr-ink)}
+.topbar{background:rgba(255,255,255,.94)!important;border-bottom:1px solid #eceef4!important;backdrop-filter:blur(16px);position:sticky;top:0;z-index:80}
+.store-strip{min-height:34px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(14px,4vw,56px);font-size:11px;font-weight:800;letter-spacing:.1px}
+.store-strip-links{display:flex;gap:18px}.store-strip a{color:#fff;text-decoration:none;opacity:.88}.store-strip a:hover{opacity:1}
+.store-chip{font-size:10px;font-weight:900;background:#ecfdf5;color:#087f55;border:1px solid #c8f1df;border-radius:999px;padding:7px 10px;margin-inline-start:8px}
+.nav-mini{font-size:12px;font-weight:900;color:#475569;text-decoration:none;padding:9px 11px;border-radius:10px}.nav-mini:hover{background:#f1f3f8}
+.game-nav-actions{display:flex;align-items:center;gap:5px}
+.featured-panel{max-width:1180px;margin:28px auto 8px;min-height:270px;border-radius:30px;overflow:hidden;position:relative;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;padding:clamp(26px,5vw,54px);background:linear-gradient(120deg,#17152e,#35208a 55%,#0e8cc7);color:#fff;box-shadow:0 24px 70px rgba(44,28,115,.2)}
+.featured-panel:before{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:#7b61ff;filter:blur(80px);opacity:.3;right:-100px;top:-170px}
+.featured-copy,.featured-visual{position:relative;z-index:1}.featured-copy h2{font-size:clamp(30px,4vw,48px);margin:8px 0 10px;line-height:1.1}.featured-copy p{max-width:560px;color:#e7e9ff;line-height:1.9}.featured-actions{display:flex;gap:10px;margin-top:20px}.featured-actions .secondary{border-color:#ffffff55;color:#fff;background:#ffffff12}
+.featured-visual{height:210px;display:grid;place-items:center}.visual-orb{position:absolute;border-radius:50%;filter:blur(1px)}.orb-a{width:180px;height:180px;background:#7c5cff66;animation:grFloat 5s ease-in-out infinite}.orb-b{width:90px;height:90px;background:#00d4ff88;transform:translate(100px,-65px);animation:grFloat 4s ease-in-out infinite reverse}.visual-console{width:150px;height:150px;border-radius:38px;background:linear-gradient(145deg,#fff,#dfe4ff);display:grid;place-items:center;color:#3720a5;font-size:64px;box-shadow:0 25px 70px #0005;transform:rotate(-7deg);animation:grFloat 4s ease-in-out infinite;z-index:2}.visual-console small{font-size:10px;font-weight:1000;letter-spacing:2px;margin-top:-28px}
+@keyframes grFloat{50%{transform:translateY(-10px) rotate(-4deg)}}
+.section,.quick-stats,.promo,.iraq-banner,.support-cta{position:relative;z-index:2}
+.game-page{max-width:1180px;margin:auto;padding-top:24px}
+.store-game-hero{min-height:220px;border-radius:28px;background:linear-gradient(120deg,#fff,#f4f2ff);border:1px solid #e8e4ff;display:flex;align-items:center;justify-content:space-between;padding:32px 38px;margin:8px 0 22px;box-shadow:var(--gr-shadow);overflow:hidden;position:relative}
+.store-game-hero:after{content:"";position:absolute;width:360px;height:360px;border-radius:50%;background:#7a5cff14;left:-120px;bottom:-200px}.store-game-hero h1{font-size:clamp(28px,4vw,46px);margin:8px 0}.store-game-hero h1 span{color:var(--gr-accent)}.store-game-hero p{color:var(--gr-muted);max-width:650px;line-height:1.9}.hero-mini-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}.hero-mini-stats span{background:#fff;border:1px solid #e7e9f1;border-radius:999px;padding:8px 11px;font-size:11px;font-weight:900}
+.hero-game-badge{width:150px;height:150px;flex:0 0 150px;border-radius:42px;background:linear-gradient(145deg,#6d4aff,#1aaee8);color:#fff;display:grid;place-items:center;font-size:45px;font-weight:1000;box-shadow:0 25px 55px #5f48d733;transform:rotate(7deg)}.hero-game-badge span{font-size:9px;letter-spacing:3px;margin-top:-35px}
+.checkout{grid-template-columns:minmax(0,1fr) minmax(360px,.78fr);align-items:start;gap:18px}
+.store-summary-card,.store-checkout-card{background:#fff!important;border:1px solid var(--gr-line)!important;box-shadow:var(--gr-shadow)!important}
+.store-summary-card{position:sticky;top:90px}
+.store-checkout-card{border-radius:24px!important}
+.wizard-card h2{font-size:19px}.packs .pack{background:#fff;border:1px solid #e5e7ef;box-shadow:0 5px 20px rgba(15,23,42,.045)}.packs .pack:hover{border-color:#bdb0ff;box-shadow:0 12px 28px rgba(109,74,255,.1)}.pack.selected{outline:2px solid var(--gr-accent)!important;box-shadow:0 12px 30px rgba(109,74,255,.15)!important}.pack .pack-badge{background:var(--gr-accent)!important}
+.wizard-next,.wizard-back{border-radius:14px}.wizard-next{background:linear-gradient(135deg,#6d4aff,#5131df)}.primary{background:linear-gradient(135deg,#6d4aff,#5131df)!important}
+.payment-box{border:1px solid #e7e9f0!important;background:#fbfbfe!important}.payment-account{border:1px solid #e8eaf0!important;background:#fff!important}
+.payment-shield{background:#eeeaff!important;color:#5b3de0!important}
+.notice{border-radius:12px}
+@media(max-width:800px){
+ .store-strip{font-size:10px}.store-strip-links{gap:9px}.store-chip{display:none}
+ .featured-panel{grid-template-columns:1fr;margin:14px 12px 8px;padding:25px 20px;border-radius:22px}.featured-visual{height:130px}.visual-console{width:105px;height:105px;font-size:45px}.orb-a{width:130px;height:130px}
+ .game-page{padding:14px 12px 40px}.game-nav-actions .nav-mini{display:none}
+ .store-game-hero{padding:22px 18px;border-radius:22px;min-height:190px}.store-game-hero h1{font-size:30px}.hero-game-badge{width:92px;height:92px;flex-basis:92px;border-radius:27px;font-size:28px}.hero-game-badge span{font-size:6px;margin-top:-20px}.hero-mini-stats span{font-size:9px;padding:7px 9px}
+ .checkout{grid-template-columns:1fr}.store-summary-card{position:relative;top:auto}
+}
+@media(max-width:520px){
+ .store-strip{padding:0 12px}.store-strip>div:first-child{max-width:55%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .featured-copy h2{font-size:28px}.featured-actions{display:grid;grid-template-columns:1fr 1fr}.featured-actions a{justify-content:center}
+ .store-game-hero{display:block}.hero-game-badge{margin:18px 0 0;width:78px;height:78px}
+}
+@media(prefers-reduced-motion:reduce){.visual-console,.orb-a,.orb-b{animation:none!important}}
