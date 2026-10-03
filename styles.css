@@ -143,3 +143,37 @@
   color:#64748b !important;
 }
 .game-page .breadcrumb span { color:#101827 !important; }
+
+/* FINAL FIX: package cards must have strong contrast on the white checkout page */
+.game-page .packs .pack {
+  background: linear-gradient(145deg,#17233a,#0b1220) !important;
+  color:#ffffff !important;
+  border:2px solid #33445f !important;
+  box-shadow:0 8px 22px rgba(15,23,42,.18) !important;
+}
+.game-page .packs .pack:hover {
+  background:linear-gradient(145deg,#1d2d4b,#101a2d) !important;
+  border-color:#4b8cff !important;
+}
+.game-page .packs .pack.selected {
+  background:linear-gradient(145deg,#7d1730,#241323) !important;
+  border:2px solid #ff3155 !important;
+  box-shadow:0 0 0 3px rgba(255,49,85,.18),0 10px 25px rgba(15,23,42,.18) !important;
+}
+.game-page .packs .pack,
+.game-page .packs .pack *,
+.game-page .packs .pack b,
+.game-page .packs .pack span,
+.game-page .packs .pack strong {
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  text-shadow:0 1px 5px rgba(0,0,0,.65) !important;
+}
+.game-page .packs .pack b {
+  font-size:20px !important;
+  font-weight:900 !important;
+}
+.game-page .packs .pack span {
+  font-size:14px !important;
+  font-weight:800 !important;
+}
