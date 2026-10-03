@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070b14"><meta name="description" content="GameRush Iraq — تتبع طلبك">
+<link rel="manifest" href="manifest.webmanifest"><link rel="stylesheet" href="styles.css">
+<title>GameRush Iraq — تتبع الطلب</title>
+</head>
+<body><div class="noise"></div>
+<div class="announcement">⚡ GameRush Iraq — تابع حالة طلب الشحن خطوة بخطوة</div>
+<header class="topbar">
+<a class="brand" href="./"><span class="brand-mark">GR</span><span>GameRush<small>IRAQ</small></span></a>
+<a class="ghost" href="./">← الرئيسية</a>
+</header>
+<main class="track-page">
+<section class="track-hero">
+<span class="eyebrow">ORDER TRACKING</span>
+<h1>تتبع طلبك 🚀</h1>
+<p>أدخل رقم الطلب مثل <b>GR-12345678</b> حتى تشوف آخر حالة لطلبك.</p>
+<div class="track-search">
+<input id="orderNumber" inputmode="text" autocomplete="off" placeholder="GR-12345678" maxlength="11">
+<button id="trackBtn" type="button">تتبع الطلب ←</button>
+</div>
+<p id="trackMessage" class="track-message" aria-live="polite"></p>
+</section>
+
+<section id="trackResult" class="track-result" hidden>
+<div class="track-result-head"><div><span class="success-kicker">ORDER STATUS</span><h2 id="trackTitle">طلبك</h2></div><span id="statusBadge" class="status-badge">—</span></div>
+<div class="track-info">
+<div><span>رقم الطلب</span><strong id="trackOrderId">—</strong></div>
+<div><span>اللعبة</span><strong id="trackGame">—</strong></div>
+<div><span>الباقة</span><strong id="trackPackage">—</strong></div>
+<div><span>المبلغ</span><strong id="trackPrice">—</strong></div>
+</div>
+<div class="status-timeline">
+<div class="timeline-item" data-step="received"><i>1</i><div><b>تم استلام الطلب</b><small>وصل طلبك إلى GameRush Iraq.</small></div></div>
+<div class="timeline-item" data-step="payment"><i>2</i><div><b>التحقق من الدفع</b><small>نراجع رقم العملية والتحويل.</small></div></div>
+<div class="timeline-item" data-step="processing"><i>3</i><div><b>جاري تنفيذ الشحن</b><small>يتم تجهيز الشحن للـ Player ID.</small></div></div>
+<div class="timeline-item" data-step="completed"><i>4</i><div><b>اكتمل الشحن</b><small>تم تنفيذ الطلب بنجاح.</small></div></div>
+</div>
+<div class="track-actions">
+<a class="whatsapp-support" href="https://wa.me/9647818319951?text=السلام%20عليكم،%20أريد%20متابعة%20طلب%20GameRush." target="_blank" rel="noopener">💬 الدعم عبر واتساب</a>
+<a class="new-order" href="./">← العودة للألعاب</a>
+</div>
+</section>
+</main>
+<script>
+const API="https://eyjjmacxxcmdzkfqxifo.supabase.co/functions/v1/lookup-order";
+const $=id=>document.getElementById(id);
+const btn=$("trackBtn");
+function money(v){return Number(v).toLocaleString("en-US")+" IQD"}
+function normalize(v){return String(v||"").trim().toUpperCase()}
+function setStep(step){
+  const order={received:1,payment:2,processing:3,completed:4};
+  const current=order[step]||1;
+  document.querySelectorAll(".timeline-item").forEach((el,i)=>{
+    el.classList.toggle("active",i<current);
+    el.classList.toggle("current",i===current-1);
+  });
+}
+function setStatus(status,paymentStatus){
+  let step="received", label="تم استلام الطلب";
+  if(paymentStatus==="verified" && status==="completed"){step="completed";label="اكتمل الشحن";}
+  else if(status==="processing"){step="processing";label="جاري تنفيذ الشحن";}
+  else if(paymentStatus==="verified"){step="payment";label="تم تأكيد الدفع";}
+  else if(paymentStatus==="rejected"){step="received";label="الدفع يحتاج مراجعة";}
+  else if(paymentStatus==="submitted"){step="payment";label="جاري التحقق من الدفع";}
+  $("statusBadge").textContent=label;
+  $("statusBadge").className="status-badge "+step;
+  setStep(step);
+}
+async function track(){
+  const order=normalize($("orderNumber").value);
+  $("trackMessage").textContent="";
+  $("trackResult").hidden=true;
+  if(!/^GR-[A-Z0-9]{8}$/.test(order)){
+    $("trackMessage").textContent="اكتب رقم الطلب بالشكل GR-12345678";
+    return;
+  }
+  btn.disabled=true;btn.textContent="جاري البحث…";
+  try{
+    const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({order_number:order})});
+    const result=await res.json().catch(()=>({}));
+    if(!res.ok)throw new Error(result.error||"تعذر البحث عن الطلب");
+    const o=result.order;
+    $("trackOrderId").textContent=o.order_number;
+    $("trackGame").textContent=o.game;
+    $("trackPackage").textContent=o.package_name;
+    $("trackPrice").textContent=money(o.price_iqd);
+    setStatus(o.status,o.payment_status);
+    $("trackResult").hidden=false;
+    $("trackResult").scrollIntoView({behavior:"smooth",block:"center"});
+  }catch(e){$("trackMessage").textContent=e.message||"حدث خطأ أثناء البحث";}
+  finally{btn.disabled=false;btn.textContent="تتبع الطلب ←";}
+}
+btn.addEventListener("click",track);
+$("orderNumber").addEventListener("keydown",e=>{if(e.key==="Enter")track();});
+const q=new URLSearchParams(location.search).get("order");
+if(q){$("orderNumber").value=normalize(q);track();}
+</script>
+</body></html>
