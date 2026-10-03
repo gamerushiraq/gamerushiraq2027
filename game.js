@@ -29,7 +29,7 @@ const packs=$("packs");
 g.packs.forEach((p,i)=>{
  const b=document.createElement("button");
  b.type="button";b.className="pack";
- b.innerHTML=`<b>${p[0]}</b><span>${p[1]}</span></`+"span>";
+ b.innerHTML=`<b class="pack-qty">${p[0]}</b><span class="pack-price">${p[1]}</span>`;
  b.addEventListener("click",()=>{
    document.querySelectorAll(".pack").forEach(x=>x.classList.remove("selected"));
    b.classList.add("selected");selected=p;$("total").textContent=p[1];
