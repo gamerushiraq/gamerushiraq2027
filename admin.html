@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070b14"><link rel="stylesheet" href="styles.css"><title>GameRush — لوحة الطلبات</title></head>
+<body><div class="noise"></div>
+<div class="announcement">👑 لوحة GameRush Iraq — نموذج إدارة الطلبات</div>
+<header class="topbar"><a class="brand" href="./"><span class="brand-mark">GR</span><span>GameRush<small>IRAQ</small></span></a><a class="ghost" href="./">← الموقع</a></header>
+<main class="admin-page">
+<div class="admin-head"><div><span class="eyebrow">ADMIN</span><h1>إدارة الطلبات</h1><p>هذه نسخة أولية تعمل على نفس الجهاز والمتصفح.</p></div><button class="secondary" id="clearBtn">مسح الطلبات التجريبية</button></div>
+<div class="admin-stats"><div><b id="count">0</b><span>كل الطلبات</span></div><div><b id="newCount">0</b><span>جديدة</span></div><div><b id="total">0</b><span>إجمالي القيم</span></div></div>
+<div class="admin-table-wrap"><table><thead><tr><th>الطلب</th><th>اللعبة</th><th>Player ID</th><th>الباقة</th><th>السعر</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="orders"></tbody></table><div class="empty" id="empty">ماكو طلبات حالياً.</div></div>
+<p class="notice admin-note">⚠️ مهم: هذه لوحة Frontend تجريبية. بياناتها محفوظة بـ localStorage، يعني ما توصل إلك من أجهزة الزبائن. قبل إطلاق الموقع لازم نربط Backend وقاعدة بيانات وصلاحيات Admin حقيقية.</p>
+</main>
+<script>
+const key="gamerush_orders";const $=id=>document.getElementById(id);
+function money(v){return v||"—"}
+function render(){
+ const orders=JSON.parse(localStorage.getItem(key)||"[]");$("count").textContent=orders.length;$("newCount").textContent=orders.filter(x=>x.status==="جديد").length;
+ $("total").textContent=orders.reduce((s,x)=>s+(parseInt((x.price||"").replace(/[^0-9]/g,""),10)||0),0).toLocaleString("ar-IQ")+" IQD";
+ $("empty").style.display=orders.length?"none":"block";
+ $("orders").innerHTML=orders.map((o,i)=>`<tr><td><b>${o.id}</b></td><td>${o.gameName}</td><td>${o.playerId}</td><td>${o.pack}</td><td>${money(o.price)}</td><td><span class="status ${o.status==="مكتمل"?"done":""}">${o.status}</span></td><td><select data-i="${i}" class="statusSelect"><option ${o.status==="جديد"?"selected":""}>جديد</option><option ${o.status==="قيد التنفيذ"?"selected":""}>قيد التنفيذ</option><option ${o.status==="مكتمل"?"selected":""}>مكتمل</option><option ${o.status==="ملغي"?"selected":""}>ملغي</option></select></td></tr>`).join("");
+ document.querySelectorAll(".statusSelect").forEach(s=>s.onchange=()=>{const a=JSON.parse(localStorage.getItem(key)||"[]");a[+s.dataset.i].status=s.value;localStorage.setItem(key,JSON.stringify(a));render()})
+}
+$("clearBtn").onclick=()=>{if(confirm("متأكد تريد مسح كل الطلبات التجريبية؟")){localStorage.removeItem(key);render()}};render();
+</script></body></html>
