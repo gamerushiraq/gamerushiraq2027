@@ -12,3 +12,6 @@ Static hosting works on Vercel/Netlify/Cloudflare Pages. Upload the project fold
 
 ## Next production step
 Add a real backend (PostgreSQL + server API + queue), then enable payment/supplier adapters only after credentials and live/sandbox tests pass.
+
+## Connection test
+GitHub write access test completed successfully.
