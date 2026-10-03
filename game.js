@@ -45,7 +45,7 @@ const packs=$("packs");
 g.packs.forEach((p,i)=>{
  const b=document.createElement("button");
  b.type="button";b.className="pack";
- const labels=["أساسية","شائعة","قيمة أفضل","كبيرة"], badges=["","الأكثر طلباً","أفضل قيمة",""]; b.innerHTML=`${badges[i]?`<span class="pack-badge">${badges[i]}</span>`:""}<b class="pack-qty">${p[0]}</b><small class="pack-label">${labels[i]}</small><span class="pack-price">${p[1]}</span>`;
+ const labels=["أساسية","شائعة","قيمة أفضل","كبيرة"], badges=["","الأكثر طلباً","أفضل قيمة",""]; b.innerHTML=`${badges[i]?`<span class="pack-badge">${badges[i]}</span>`:""}<b class="pack-qty">${p[0]}</b><small class="pack-label">${labels[i]}</small><span class="pack-bonus">${i===2?"عرض + بونص":i===3?"عرض كبير + بونص":""}</span><span class="pack-price">${p[1]}</span><span class="pack-price-note">سعر GameRush</span>`;
  b.addEventListener("click",()=>{
    document.querySelectorAll(".pack").forEach(x=>x.classList.remove("selected"));
    b.classList.add("selected");selected=p;$("total").textContent=p[1];syncPaymentAmount();
