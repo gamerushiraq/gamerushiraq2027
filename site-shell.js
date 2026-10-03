@@ -31,3 +31,4 @@ function installPrompt(){
 function registerSW(){if("serviceWorker"in navigator)navigator.serviceWorker.register("./sw.js").catch(()=>{})}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{inject();installPrompt();registerSW()});else{inject();installPrompt();registerSW()}
 })();
+const cinematic=document.createElement("link");cinematic.rel="stylesheet";cinematic.href="./cinematic-2026.css?v=1";document.head.appendChild(cinematic);const motion=document.createElement("script");motion.defer=true;motion.src="./cinematic-2026.js?v=1";document.head.appendChild(motion);
