@@ -22,9 +22,9 @@
 .admin-toolbar{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:14px;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
 .admin-toolbar input,.admin-toolbar select{padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;font:inherit}
 .admin-table-wrap{background:#fff;border:1px solid #e2e8f0;border-radius:18px;overflow:auto;box-shadow:0 10px 30px #0f172a0d}
-.admin-table{width:100%;border-collapse:collapse;min-width:980px}.admin-table th,.admin-table td{padding:13px 12px;border-bottom:1px solid #edf2f7;text-align:right;vertical-align:middle}
+.admin-table{width:100%;border-collapse:collapse;min-width:1100px}.admin-table th,.admin-table td{padding:13px 12px;border-bottom:1px solid #edf2f7;text-align:right;vertical-align:middle}
 .admin-table th{background:#f8fafc;color:#475569;font-size:13px}.admin-table td{color:#1e293b}
-.status-select{padding:8px 9px;border-radius:9px;border:1px solid #cbd5e1;background:#fff;font-weight:800}
+.status-select,.payment-select{padding:8px 9px;border-radius:9px;border:1px solid #cbd5e1;background:#fff;font-weight:800}
 .status-badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#e2e8f0;color:#334155;font-size:12px;font-weight:900}
 .status-badge.processing{background:#dbeafe;color:#1d4ed8}.status-badge.completed{background:#dcfce7;color:#166534}.status-badge.cancelled{background:#fee2e2;color:#991b1b}
 .details{background:#f8fafc;border-radius:12px;padding:10px;font-size:12px;color:#475569}.details div{margin:3px 0}
@@ -66,11 +66,13 @@
 <div class="admin-toolbar">
 <input id="search" placeholder="🔎 ابحث برقم الطلب أو Player ID أو اللعبة" style="flex:1;min-width:250px">
 <select id="statusFilter"><option value="all">كل الحالات</option><option value="new">جديدة</option><option value="processing">قيد التنفيذ</option><option value="completed">مكتملة</option><option value="cancelled">ملغاة</option></select>
+<select id="paymentFilter"><option value="all">كل طرق الدفع</option><option value="zain_cash">زين كاش</option><option value="binance">Binance</option><option value="superqi">سوبر كي</option><option value="asiacell">آسياسيل</option><option value="zain_iraq">زين العراق</option></select>
+<select id="paymentStatusFilter"><option value="all">كل حالات الدفع</option><option value="pending">بانتظار الدفع</option><option value="submitted">تم إرسال الدفع</option><option value="verified">الدفع مؤكد</option><option value="rejected">الدفع مرفوض</option></select>
 </div>
 
 <div class="admin-table-wrap">
 <table class="admin-table">
-<thead><tr><th>الطلب</th><th>اللعبة</th><th>اللاعب</th><th>الباقة</th><th>السعر</th><th>الحالة</th><th>التفاصيل</th></tr></thead>
+<thead><tr><th>الطلب</th><th>اللعبة</th><th>اللاعب</th><th>الباقة</th><th>السعر</th><th>الحالة</th><th>تفاصيل الدفع</th></tr></thead>
 <tbody id="orders"></tbody>
 </table>
 <div class="loading" id="loading">جاري تحميل الطلبات…</div>
@@ -90,7 +92,8 @@ let allOrders=[];
 
 const statusText={new:"جديد",processing:"قيد التنفيذ",completed:"مكتمل",cancelled:"ملغي"};
 const paymentText={pending:"بانتظار الدفع",submitted:"تم إرسال الدفع",verified:"الدفع مؤكد",rejected:"الدفع مرفوض"};
-function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
+const paymentMethodText={zain_cash:"زين كاش",binance:"Binance",superqi:"سوبر كي",asiacell:"آسياسيل",zain_iraq:"زين العراق"};
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;","'":"&#039;"}[m]));}
 function money(v){return Number(v||0).toLocaleString("en-US")+" IQD";}
 function statusClass(s){return s==="processing"?"processing":s==="completed"?"completed":s==="cancelled"?"cancelled":"";}
 
@@ -102,9 +105,10 @@ async function loadOrders(){
 }
 function render(){
   const q=$("search").value.trim().toLowerCase(), filter=$("statusFilter").value;
+  const pf=$("paymentFilter").value, psf=$("paymentStatusFilter").value;
   const rows=allOrders.filter(o=>{
     const hay=[o.order_number,o.game,o.package_name,o.player_id,o.server_id,o.customer_name,o.customer_phone].join(" ").toLowerCase();
-    return (!q||hay.includes(q))&&(filter==="all"||o.status===filter);
+    return (!q||hay.includes(q))&&(filter==="all"||o.status===filter)&&(pf==="all"||o.payment_method===pf)&&(psf==="all"||o.payment_status===psf);
   });
   $("count").textContent=allOrders.length;
   $("newCount").textContent=allOrders.filter(o=>o.status==="new").length;
@@ -124,7 +128,7 @@ function render(){
       <td><div class="details">
         <div>الاسم: ${esc(o.customer_name||"—")}</div>
         <div>الهاتف: ${esc(o.customer_phone||"—")}</div>
-        <div>الدفع: ${esc(o.payment_method||"غير محدد")}</div>
+        <div>طريقة الدفع: <b>${esc(paymentMethodText[o.payment_method]||o.payment_method||"غير محدد")}</b></div>
         <div>مرجع الدفع: ${esc(o.payment_reference||"—")}</div>
         <div>حالة الدفع: <b>${paymentText[o.payment_status]||esc(o.payment_status||"pending")}</b></div>
         <select class="payment-select" data-id="${esc(o.id)}">
@@ -164,9 +168,9 @@ async function boot(){
 $("loginBtn").onclick=login;
 $("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
 $("refreshBtn").onclick=loadOrders;
-$("search").oninput=render;$("statusFilter").onchange=render;
+$("search").oninput=render;$("statusFilter").onchange=render;$("paymentFilter").onchange=render;$("paymentStatusFilter").onchange=render;
 $("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};
-db.auth.onAuthStateChange((event)=>{if(event==="SIGNED_OUT"){ $("loginView").hidden=false;$("appView").hidden=true; }});
+db.auth.onAuthStateChange((event)=>{if(event==="SIGNED_OUT"){$("loginView").hidden=false;$("appView").hidden=true;}});
 boot();
 </script>
 </body></html>
