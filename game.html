@@ -25,8 +25,21 @@
 <div class="field"><label for="playerId">Player ID</label><input id="playerId" inputmode="numeric" autocomplete="off" placeholder="مثال: 5123456789"></div>
 <div class="field"><label for="serverId">Server ID <small>(إذا كانت اللعبة تحتاجه)</small></label><input id="serverId" inputmode="numeric" autocomplete="off" placeholder="اختياري"></div>
 <div class="order-total"><span>الإجمالي</span><strong id="total">—</strong></div>
-<button class="primary big full" id="orderBtn">متابعة إلى الدفع ←</button>
-<p class="notice">حالياً الدفع الفعلي غير مفعّل. الطلب التجريبي لا يسحب أي مبلغ.</p>
+<div class="payment-box">
+<h2>2. الدفع اليدوي</h2>
+<p class="payment-help">حوّل المبلغ إلى حساب الدفع، ثم اكتب رقم العملية حتى نتحقق من الدفع وننفّذ الشحن.</p>
+<div class="field"><label for="paymentMethod">طريقة الدفع</label>
+<select id="paymentMethod">
+<option value="">اختار طريقة الدفع</option>
+<option value="zain_cash">زين كاش</option>
+<option value="binance">Binance</option>
+</select></div>
+<div class="field"><label for="paymentReference">رقم العملية / TxID</label><input id="paymentReference" autocomplete="off" placeholder="أدخل رقم العملية بعد التحويل"></div>
+<div class="field"><label for="customerPhone">رقم هاتفك</label><input id="customerPhone" inputmode="tel" autocomplete="tel" placeholder="07XXXXXXXXX"></div>
+<div class="field"><label for="orderNotes">ملاحظة <small>(اختياري)</small></label><textarea id="orderNotes" rows="3" placeholder="أي ملاحظة إضافية للطلب"></textarea></div>
+</div>
+<button class="primary big full" id="orderBtn">إرسال الطلب وتأكيد الدفع ←</button>
+<p class="notice">الدفع حالياً يدوي: بعد التحويل نراجع رقم العملية، وبعد التأكد نبدأ تنفيذ الشحن. لا نطلب كلمة مرور حساب اللعبة.</p>
 </div>
 </section>
 <section class="order-flow">
