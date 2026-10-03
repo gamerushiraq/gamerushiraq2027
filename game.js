@@ -8,6 +8,7 @@ roblox:{name:"Roblox",sub:"Robux",art:"roblox",packs:[["400 Robux","8,000 IQD"],
 };
 
 const ORDER_API="https://eyjjmacxxcmdzkfqxifo.supabase.co/functions/v1/create-order";
+const PAYMENT_ACCOUNTS={zain_cash:"07818319951",binance:"1228064206"};
 
 const key=new URLSearchParams(location.search).get("game")||"pubg";
 const g=data[key]||data.pubg;
@@ -37,6 +38,23 @@ g.packs.forEach((p,i)=>{
  packs.appendChild(b);
  if(i===0)b.setAttribute("aria-label",`باقة ${p[0]} بسعر ${p[1]}`);
 });
+
+function refreshPaymentAccount(){
+  const method=$("paymentMethod").value;
+  const box=$("paymentAccounts"),z=$("zainAccount"),b=$("binanceAccount");
+  if(!method){box.hidden=true;z.hidden=true;b.hidden=true;return;}
+  box.hidden=false; z.hidden=method!=="zain_cash"; b.hidden=method!=="binance";
+}
+$("paymentMethod").addEventListener("change",refreshPaymentAccount);
+document.querySelectorAll(".copy-account").forEach(btn=>{
+  btn.addEventListener("click",async()=>{
+    const value=btn.dataset.copy;
+    try{await navigator.clipboard.writeText(value);btn.textContent="تم النسخ ✓";}
+    catch{const t=document.createElement("textarea");t.value=value;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();btn.textContent="تم النسخ ✓";}
+    setTimeout(()=>btn.textContent="نسخ الرقم",1500);
+  });
+});
+refreshPaymentAccount();
 
 $("orderBtn").addEventListener("click",async()=>{
  const playerId=$("#playerId").value.trim();
