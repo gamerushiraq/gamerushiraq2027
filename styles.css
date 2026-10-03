@@ -140,3 +140,4 @@ body{background:#f7f8fc;color:var(--gr-ink)}
 .pack-price-note{font-size:8px;color:#9aa1b1;margin-top:4px}
 .pack-badge{z-index:2}
 @media(max-width:600px){#packs{grid-template-columns:1fr 1fr;gap:9px}.pack{min-height:124px!important;padding:14px!important}.pack-qty{font-size:18px!important}.pack-price{font-size:12px!important}}
+.promo-action{border:1px solid #ffffff35;cursor:pointer;font:inherit}.promo-action:hover{transform:translateY(-1px);background:#ffffff22}
