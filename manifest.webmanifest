@@ -2,10 +2,29 @@
   "name": "GameRush Iraq",
   "short_name": "GameRush",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#070b14",
-  "theme_color": "#070b14",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone"
+  ],
+  "background_color": "#06070b",
+  "theme_color": "#06070b",
   "lang": "ar",
   "dir": "rtl",
-  "icons": []
+  "description": "GameRush Iraq — شحن ألعاب وخدمات رقمية",
+  "icons": [
+    {
+      "src": "./icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
