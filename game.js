@@ -44,6 +44,7 @@ function showOrderSuccess(orderId){
   $("successGame").textContent=g.name;
   $("successPack").textContent=selected[0];
   $("successPrice").textContent=selected[1];
+  $("trackOrderLink").href="./track.html?order="+encodeURIComponent(orderId);
   $("orderSuccess").hidden=false;
   $("orderSuccess").scrollIntoView({behavior:"smooth",block:"center"});
 }
