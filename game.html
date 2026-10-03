@@ -26,7 +26,9 @@
 <div class="field"><label for="serverId">Server ID <small>(إذا كانت اللعبة تحتاجه)</small></label><input id="serverId" inputmode="numeric" autocomplete="off" placeholder="اختياري"></div>
 <div class="order-total"><span>الإجمالي</span><strong id="total">—</strong></div>
 <div class="payment-box">
-<h2>2. الدفع اليدوي</h2>
+<div class="payment-title"><div><span class="payment-kicker">SECURE CHECKOUT</span><h2>2. الدفع والدفع الآمن</h2><p>حوّل المبلغ أولاً، ثم أرسل رقم العملية حتى نراجع طلبك بسرعة.</p></div><div class="payment-shield">🔐</div></div>
+<div class="payment-alert"><strong>⚠️ مهم قبل الإرسال</strong><span>تأكد من المبلغ والحساب ورقم العملية. لا نطلب كلمة مرور حساب اللعبة أبداً.</span></div>
+<div class="transfer-amount"><span>المبلغ المطلوب تحويله</span><strong id="paymentAmount">—</strong><button type="button" id="copyAmount">نسخ المبلغ</button></div>
 <div class="payment-accounts" id="paymentAccounts" hidden>
   <div class="payment-account" id="zainAccount" hidden>
     <div><span class="account-label">زين كاش</span><strong>07818319951</strong><small>رقم المحفظة: 904-421-318</small></div>
@@ -37,18 +39,18 @@
     <button type="button" class="copy-account" data-copy="1228064206">نسخ الرقم</button>
   </div>
 </div>
-<p class="payment-help">حوّل المبلغ إلى حساب الدفع، ثم اكتب رقم العملية حتى نتحقق من الدفع وننفّذ الشحن.</p>
+<div class="payment-steps"><div><b>01</b><span>اختار طريقة الدفع</span></div><div><b>02</b><span>حوّل المبلغ للحساب</span></div><div><b>03</b><span>أدخل رقم العملية</span></div></div>
 <div class="field"><label for="paymentMethod">طريقة الدفع</label>
 <select id="paymentMethod">
 <option value="">اختار طريقة الدفع</option>
 <option value="zain_cash">زين كاش</option>
 <option value="binance">Binance</option>
 </select></div>
-<div class="field"><label for="paymentReference">رقم العملية / TxID</label><input id="paymentReference" autocomplete="off" placeholder="أدخل رقم العملية بعد التحويل"></div>
+<div class="field payment-ref-field"><label for="paymentReference">رقم العملية / TxID <span>مطلوب للتحقق</span></label><input id="paymentReference" autocomplete="off" placeholder="أدخل رقم العملية بعد التحويل"></div>
 <div class="field"><label for="customerPhone">رقم هاتفك</label><input id="customerPhone" inputmode="tel" autocomplete="tel" placeholder="07XXXXXXXXX"></div>
 <div class="field"><label for="orderNotes">ملاحظة <small>(اختياري)</small></label><textarea id="orderNotes" rows="3" placeholder="أي ملاحظة إضافية للطلب"></textarea></div>
 </div>
-<button class="primary big full" id="orderBtn">إرسال الطلب وتأكيد الدفع ←</button>
+<button class="primary big full" id="orderBtn">تأكيد التحويل وإرسال الطلب ←</button>
 <p class="notice">الدفع حالياً يدوي: بعد التحويل نراجع رقم العملية، وبعد التأكد نبدأ تنفيذ الشحن. لا نطلب كلمة مرور حساب اللعبة.</p>
 </div>
 </section>
