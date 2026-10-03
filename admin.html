@@ -1,23 +1,161 @@
 <!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#070b14"><link rel="stylesheet" href="styles.css"><title>GameRush — لوحة الطلبات</title></head>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070b14">
+<link rel="stylesheet" href="styles.css">
+<title>GameRush Iraq — لوحة الأدمن</title>
+<style>
+.admin-shell{max-width:1250px;margin:30px auto;padding:0 18px}
+.admin-login{max-width:460px;margin:70px auto;background:#fff;border:1px solid #e2e8f0;border-radius:22px;padding:28px;box-shadow:0 18px 50px #0f172a18}
+.admin-login h1{margin:0 0 8px;color:#101827}.admin-login p{color:#64748b}
+.admin-input{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid #cbd5e1;border-radius:12px;margin:8px 0 14px;font:inherit}
+.admin-btn{border:0;border-radius:12px;padding:12px 18px;font-weight:900;cursor:pointer;background:#ff3155;color:#fff}
+.admin-btn.secondary{background:#111827}.admin-btn.danger{background:#fee2e2;color:#991b1b}
+.admin-error{display:none;background:#fef2f2;color:#991b1b;border:1px solid #fecaca;padding:10px;border-radius:10px;margin-top:12px}
+.admin-top{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:20px}
+.admin-top h1{margin:4px 0;color:#101827}.admin-top p{margin:0;color:#64748b}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap}
+.admin-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.admin-stat{background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;box-shadow:0 8px 25px #0f172a0d}
+.admin-stat b{display:block;font-size:27px;color:#101827}.admin-stat span{color:#64748b}
+.admin-toolbar{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:14px;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.admin-toolbar input,.admin-toolbar select{padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;background:#f8fafc;font:inherit}
+.admin-table-wrap{background:#fff;border:1px solid #e2e8f0;border-radius:18px;overflow:auto;box-shadow:0 10px 30px #0f172a0d}
+.admin-table{width:100%;border-collapse:collapse;min-width:980px}.admin-table th,.admin-table td{padding:13px 12px;border-bottom:1px solid #edf2f7;text-align:right;vertical-align:middle}
+.admin-table th{background:#f8fafc;color:#475569;font-size:13px}.admin-table td{color:#1e293b}
+.status-select{padding:8px 9px;border-radius:9px;border:1px solid #cbd5e1;background:#fff;font-weight:800}
+.status-badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#e2e8f0;color:#334155;font-size:12px;font-weight:900}
+.status-badge.processing{background:#dbeafe;color:#1d4ed8}.status-badge.completed{background:#dcfce7;color:#166534}.status-badge.cancelled{background:#fee2e2;color:#991b1b}
+.details{background:#f8fafc;border-radius:12px;padding:10px;font-size:12px;color:#475569}.details div{margin:3px 0}
+.empty-admin{padding:45px;text-align:center;color:#64748b}.loading{padding:35px;text-align:center;color:#64748b}
+@media(max-width:800px){.admin-stats-grid{grid-template-columns:repeat(2,1fr)}.admin-shell{padding:0 10px}.admin-stat{padding:14px}}
+</style>
+</head>
 <body><div class="noise"></div>
-<div class="announcement">👑 لوحة GameRush Iraq — نموذج إدارة الطلبات</div>
-<header class="topbar"><a class="brand" href="./"><span class="brand-mark">GR</span><span>GameRush<small>IRAQ</small></span></a><a class="ghost" href="./">← الموقع</a></header>
-<main class="admin-page">
-<div class="admin-head"><div><span class="eyebrow">ADMIN</span><h1>إدارة الطلبات</h1><p>هذه نسخة أولية تعمل على نفس الجهاز والمتصفح.</p></div><button class="secondary" id="clearBtn">مسح الطلبات التجريبية</button></div>
-<div class="admin-stats"><div><b id="count">0</b><span>كل الطلبات</span></div><div><b id="newCount">0</b><span>جديدة</span></div><div><b id="total">0</b><span>إجمالي القيم</span></div></div>
-<div class="admin-table-wrap"><table><thead><tr><th>الطلب</th><th>اللعبة</th><th>Player ID</th><th>الباقة</th><th>السعر</th><th>الحالة</th><th>الإجراء</th></tr></thead><tbody id="orders"></tbody></table><div class="empty" id="empty">ماكو طلبات حالياً.</div></div>
-<p class="notice admin-note">⚠️ مهم: هذه لوحة Frontend تجريبية. بياناتها محفوظة بـ localStorage، يعني ما توصل إلك من أجهزة الزبائن. قبل إطلاق الموقع لازم نربط Backend وقاعدة بيانات وصلاحيات Admin حقيقية.</p>
+<div class="announcement">👑 GameRush Iraq — لوحة الإدارة الآمنة</div>
+<header class="topbar">
+<a class="brand" href="./"><span class="brand-mark">GR</span><span>GameRush<small>IRAQ</small></span></a>
+<a class="ghost" href="./">← الموقع</a>
+</header>
+
+<section id="loginView" class="admin-login">
+<span class="eyebrow">ADMIN ACCESS</span>
+<h1>تسجيل دخول الأدمن</h1>
+<p>الوصول للطلبات محصور بالحساب الإداري المعتمد.</p>
+<input class="admin-input" id="email" type="email" value="ibogoeed@gmail.com" autocomplete="username" placeholder="البريد الإلكتروني">
+<input class="admin-input" id="password" type="password" autocomplete="current-password" placeholder="كلمة المرور">
+<button class="admin-btn" id="loginBtn" style="width:100%">دخول للوحة</button>
+<div class="admin-error" id="loginError"></div>
+<p class="notice" style="margin-top:15px">الحساب الإداري لازم يكون موجوداً في Supabase Auth بنفس البريد المحدد.</p>
+</section>
+
+<main id="appView" class="admin-shell" hidden>
+<div class="admin-top">
+<div><span class="eyebrow">ADMIN</span><h1>إدارة الطلبات</h1><p id="adminEmail"></p></div>
+<div class="admin-actions"><button class="admin-btn secondary" id="refreshBtn">↻ تحديث</button><button class="admin-btn danger" id="logoutBtn">تسجيل خروج</button></div>
+</div>
+
+<div class="admin-stats-grid">
+<div class="admin-stat"><b id="count">0</b><span>كل الطلبات</span></div>
+<div class="admin-stat"><b id="newCount">0</b><span>جديدة</span></div>
+<div class="admin-stat"><b id="processingCount">0</b><span>قيد التنفيذ</span></div>
+<div class="admin-stat"><b id="total">0 IQD</b><span>إجمالي قيمة الطلبات</span></div>
+</div>
+
+<div class="admin-toolbar">
+<input id="search" placeholder="🔎 ابحث برقم الطلب أو Player ID أو اللعبة" style="flex:1;min-width:250px">
+<select id="statusFilter"><option value="all">كل الحالات</option><option value="new">جديدة</option><option value="processing">قيد التنفيذ</option><option value="completed">مكتملة</option><option value="cancelled">ملغاة</option></select>
+</div>
+
+<div class="admin-table-wrap">
+<table class="admin-table">
+<thead><tr><th>الطلب</th><th>اللعبة</th><th>اللاعب</th><th>الباقة</th><th>السعر</th><th>الحالة</th><th>التفاصيل</th></tr></thead>
+<tbody id="orders"></tbody>
+</table>
+<div class="loading" id="loading">جاري تحميل الطلبات…</div>
+<div class="empty-admin" id="empty" hidden>ماكو طلبات مطابقة حالياً.</div>
+</div>
+<p class="notice" style="margin:16px 0">🔐 الطلبات تُقرأ وتُحدّث من Supabase مباشرة، وRLS يمنع الحسابات الأخرى من الوصول إليها.</p>
 </main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const key="gamerush_orders";const $=id=>document.getElementById(id);
-function money(v){return v||"—"}
-function render(){
- const orders=JSON.parse(localStorage.getItem(key)||"[]");$("count").textContent=orders.length;$("newCount").textContent=orders.filter(x=>x.status==="جديد").length;
- $("total").textContent=orders.reduce((s,x)=>s+(parseInt((x.price||"").replace(/[^0-9]/g,""),10)||0),0).toLocaleString("ar-IQ")+" IQD";
- $("empty").style.display=orders.length?"none":"block";
- $("orders").innerHTML=orders.map((o,i)=>`<tr><td><b>${o.id}</b></td><td>${o.gameName}</td><td>${o.playerId}</td><td>${o.pack}</td><td>${money(o.price)}</td><td><span class="status ${o.status==="مكتمل"?"done":""}">${o.status}</span></td><td><select data-i="${i}" class="statusSelect"><option ${o.status==="جديد"?"selected":""}>جديد</option><option ${o.status==="قيد التنفيذ"?"selected":""}>قيد التنفيذ</option><option ${o.status==="مكتمل"?"selected":""}>مكتمل</option><option ${o.status==="ملغي"?"selected":""}>ملغي</option></select></td></tr>`).join("");
- document.querySelectorAll(".statusSelect").forEach(s=>s.onchange=()=>{const a=JSON.parse(localStorage.getItem(key)||"[]");a[+s.dataset.i].status=s.value;localStorage.setItem(key,JSON.stringify(a));render()})
+const SUPABASE_URL="https://eyjjmacxxcmdzkfqxifo.supabase.co";
+const SUPABASE_KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
+const ADMIN_EMAIL="ibogoeed@gmail.com";
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const $=id=>document.getElementById(id);
+let allOrders=[];
+
+const statusText={new:"جديد",processing:"قيد التنفيذ",completed:"مكتمل",cancelled:"ملغي"};
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
+function money(v){return Number(v||0).toLocaleString("en-US")+" IQD";}
+function statusClass(s){return s==="processing"?"processing":s==="completed"?"completed":s==="cancelled"?"cancelled":"";}
+
+async function loadOrders(){
+  $("loading").hidden=false;$("empty").hidden=true;
+  const {data,error}=await db.from("orders").select("*").order("created_at",{ascending:false});
+  if(error){$("loading").textContent="تعذر تحميل الطلبات: "+error.message;return;}
+  allOrders=data||[];$("loading").hidden=true;render();
 }
-$("clearBtn").onclick=()=>{if(confirm("متأكد تريد مسح كل الطلبات التجريبية؟")){localStorage.removeItem(key);render()}};render();
-</script></body></html>
+function render(){
+  const q=$("search").value.trim().toLowerCase(), filter=$("statusFilter").value;
+  const rows=allOrders.filter(o=>{
+    const hay=[o.order_number,o.game,o.package_name,o.player_id,o.server_id,o.customer_name,o.customer_phone].join(" ").toLowerCase();
+    return (!q||hay.includes(q))&&(filter==="all"||o.status===filter);
+  });
+  $("count").textContent=allOrders.length;
+  $("newCount").textContent=allOrders.filter(o=>o.status==="new").length;
+  $("processingCount").textContent=allOrders.filter(o=>o.status==="processing").length;
+  $("total").textContent=money(allOrders.reduce((s,o)=>s+Number(o.price_iqd||0),0));
+  $("empty").hidden=rows.length>0;
+  $("orders").innerHTML=rows.map(o=>`
+    <tr>
+      <td><b>${esc(o.order_number)}</b><br><small>${new Date(o.created_at).toLocaleString("ar-IQ")}</small></td>
+      <td>${esc(o.game)}</td>
+      <td><b>${esc(o.player_id)}</b>${o.server_id?"<br><small>Server: "+esc(o.server_id)+"</small>":""}</td>
+      <td>${esc(o.package_name)}</td>
+      <td><b>${money(o.price_iqd)}</b></td>
+      <td><select class="status-select" data-id="${esc(o.id)}">
+        ${Object.entries(statusText).map(([k,v])=>"<option value=\""+k+"\" "+(o.status===k?"selected":"")+">"+v+"</option>").join("")}
+      </select><br><span class="status-badge ${statusClass(o.status)}">${statusText[o.status]||esc(o.status)}</span></td>
+      <td><div class="details">
+        <div>الاسم: ${esc(o.customer_name||"—")}</div>
+        <div>الهاتف: ${esc(o.customer_phone||"—")}</div>
+        <div>الدفع: ${esc(o.payment_method||"غير محدد")}</div>
+        <div>مرجع الدفع: ${esc(o.payment_reference||"—")}</div>
+        <div>ملاحظات: ${esc(o.notes||"—")}</div>
+      </div></td>
+    </tr>`).join("");
+  document.querySelectorAll(".status-select").forEach(el=>el.addEventListener("change",()=>updateStatus(el.dataset.id,el.value)));
+}
+async function updateStatus(id,status){
+  const {error}=await db.from("orders").update({status,updated_at:new Date().toISOString()}).eq("id",id);
+  if(error){alert("فشل تحديث الحالة: "+error.message);return;}
+  const item=allOrders.find(x=>x.id===id);if(item)item.status=status;render();
+}
+async function login(){
+  const email=$("email").value.trim().toLowerCase(),password=$("password").value;
+  $("loginError").style.display="none";
+  if(email!==ADMIN_EMAIL){$("loginError").textContent="هذا البريد غير مخوّل كأدمن.";$("loginError").style.display="block";return;}
+  if(!password){$("loginError").textContent="أدخل كلمة المرور.";$("loginError").style.display="block";return;}
+  const {error}=await db.auth.signInWithPassword({email,password});
+  if(error){$("loginError").textContent=error.message;$("loginError").style.display="block";return;}
+  await boot();
+}
+async function boot(){
+  const {data}=await db.auth.getUser(),user=data.user;
+  if(!user||user.email.toLowerCase()!==ADMIN_EMAIL){await db.auth.signOut();$("loginView").hidden=false;$("appView").hidden=true;return;}
+  $("adminEmail").textContent="مسجل الدخول: "+user.email;
+  $("loginView").hidden=true;$("appView").hidden=false;await loadOrders();
+}
+$("loginBtn").onclick=login;
+$("password").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+$("refreshBtn").onclick=loadOrders;
+$("search").oninput=render;$("statusFilter").onchange=render;
+$("logoutBtn").onclick=async()=>{await db.auth.signOut();location.reload()};
+db.auth.onAuthStateChange((event)=>{if(event==="SIGNED_OUT"){ $("loginView").hidden=false;$("appView").hidden=true; }});
+boot();
+</script>
+</body></html>
