@@ -52,6 +52,16 @@
 </div>
 <button class="primary big full" id="orderBtn">تأكيد التحويل وإرسال الطلب ←</button>
 <p class="notice">الدفع حالياً يدوي: بعد التحويل نراجع رقم العملية، وبعد التأكد نبدأ تنفيذ الشحن. لا نطلب كلمة مرور حساب اللعبة.</p>
+<div id="orderSuccess" class="order-success" hidden>
+  <div class="success-icon">✓</div>
+  <span class="success-kicker">ORDER RECEIVED</span>
+  <h3>تم استلام طلبك بنجاح 🎉</h3>
+  <p>طلبك وصل إلى فريق GameRush Iraq وهو الآن بانتظار التحقق من الدفع.</p>
+  <div class="success-order"><span>رقم الطلب</span><strong id="successOrderId">—</strong><button type="button" id="copyOrderId">نسخ</button></div>
+  <div class="success-meta"><span id="successGame">—</span><span id="successPack">—</span><span id="successPrice">—</span></div>
+  <a class="whatsapp-support" href="https://wa.me/9647818319951?text=السلام%20عليكم،%20عندي%20طلب%20GameRush%20وأريد%20متابعة%20حالة%20الطلب." target="_blank" rel="noopener">💬 تواصل مع الدعم عبر واتساب</a>
+  <button type="button" class="new-order" id="newOrder">إنشاء طلب جديد</button>
+</div>
 </div>
 </section>
 <section class="order-flow">
