@@ -254,3 +254,16 @@
   color:#111827 !important;
   -webkit-text-fill-color:#111827 !important;
 }
+
+/* Payment account cards */
+.payment-box{margin-top:22px;padding:20px;border:1px solid #e2e8f0;border-radius:18px;background:#f8fafc}
+.payment-help{color:#64748b!important;font-size:13px;line-height:1.8}
+.payment-accounts{display:grid;gap:10px;margin:14px 0}
+.payment-account{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border:1px solid #dbe3ee;border-radius:14px;background:#fff}
+.payment-account strong{display:block;color:#101827;font-size:18px;direction:ltr;text-align:right}
+.payment-account small{display:block;color:#64748b;margin-top:4px;font-size:11px}
+.account-label{display:block;color:#ff3155;font-size:12px;font-weight:900;margin-bottom:3px}
+.copy-account{border:0;border-radius:10px;padding:9px 12px;background:#101827;color:#fff;font-weight:800;white-space:nowrap}
+.copy-account:hover{background:#ff3155}
+.game-page .payment-box select,.game-page .payment-box textarea{width:100%;padding:14px;border-radius:12px;border:1px solid #cbd5e1;background:#f8fafc;color:#101827;margin:7px 0 14px;font:inherit}
+@media(max-width:600px){.payment-account{align-items:flex-start}.payment-account strong{font-size:16px}.copy-account{padding:8px 10px}}
