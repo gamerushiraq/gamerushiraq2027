@@ -281,3 +281,94 @@ html.gr-page-leaving body{animation:grPageOut .17s ease both}
   .store-game-tile strong{font-size:10px!important;min-height:38px!important}
   .store-game-tile small{font-size:8px!important}
 }
+
+
+/* GameRush layout pass: game image LEFT, game name/details RIGHT */
+.neo-game-card,.neo-game-card.wide{
+  display:grid!important;
+  grid-template-columns:minmax(0,42%) minmax(0,58%)!important;
+  direction:ltr!important;
+  align-items:center!important;
+  gap:12px!important;
+  min-height:150px!important;
+  padding:10px!important;
+}
+.neo-game-card img,.neo-game-card.wide img{
+  grid-column:1!important;
+  grid-row:1!important;
+  width:100%!important;
+  height:112px!important;
+  object-fit:cover!important;
+  margin:0!important;
+}
+.neo-game-card div{
+  grid-column:2!important;
+  grid-row:1!important;
+  direction:rtl!important;
+  text-align:right!important;
+  padding:8px 10px!important;
+}
+.neo-game-card h3{margin:7px 0 5px!important;line-height:1.55!important}
+.neo-game-card small{display:block!important}
+.neo-game-card b{display:inline-block!important;line-height:1.6!important}
+
+.store-game-tile.neo-store-tile{
+  display:grid!important;
+  grid-template-columns:minmax(0,43%) minmax(0,57%)!important;
+  grid-template-rows:1fr auto!important;
+  direction:ltr!important;
+  align-items:center!important;
+  gap:0 14px!important;
+  padding:10px!important;
+}
+.store-game-tile .store-game-art{
+  grid-column:1!important;
+  grid-row:1 / span 2!important;
+  width:100%!important;
+  height:132px!important;
+}
+.store-game-tile strong{
+  grid-column:2!important;
+  grid-row:1!important;
+  direction:rtl!important;
+  text-align:right!important;
+  margin:0 0 7px!important;
+  min-height:0!important;
+  justify-content:flex-start!important;
+}
+.store-game-tile small{
+  grid-column:2!important;
+  grid-row:2!important;
+  direction:rtl!important;
+  text-align:right!important;
+  padding:0 3px 0!important;
+}
+
+@media(max-width:900px){
+  .neo-game-card,.neo-game-card.wide{
+    grid-template-columns:42% 58%!important;
+    min-height:135px!important;
+  }
+  .neo-game-card img,.neo-game-card.wide img{height:100px!important}
+  .store-game-tile.neo-store-tile{grid-template-columns:42% 58%!important}
+  .store-game-tile .store-game-art{height:112px!important}
+}
+@media(max-width:600px){
+  .neo-game-grid{grid-template-columns:1fr!important;gap:10px!important}
+  .neo-game-card,.neo-game-card.wide{
+    min-height:112px!important;
+    grid-template-columns:38% 62%!important;
+    gap:8px!important;
+    padding:7px!important;
+  }
+  .neo-game-card img,.neo-game-card.wide img{height:92px!important}
+  .neo-game-card div{padding:5px 8px!important}
+  .neo-game-card h3{font-size:13px!important;margin:4px 0!important}
+  .neo-game-card b{font-size:9px!important}
+  .neo-game-card small{font-size:7px!important}
+  .store-games{grid-template-columns:1fr!important;gap:10px!important}
+  .store-game-tile.neo-store-tile{grid-template-columns:38% 62%!important;min-height:112px!important}
+  .store-game-tile .store-game-art{height:92px!important}
+  .store-game-tile strong{font-size:11px!important;padding:8px 9px!important}
+  .store-game-tile small{font-size:8px!important}
+}
