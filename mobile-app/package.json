@@ -4,6 +4,17 @@
   "private":true,
   "main":"expo/AppEntry.js",
   "scripts":{"start":"expo start","android":"expo start --android","build:android":"eas build --platform android --profile preview"},
-  "dependencies":{"@supabase/supabase-js":"latest","expo":"latest","expo-status-bar":"latest","react":"latest","react-native":"latest","react-native-url-polyfill":"latest"},
-  "devDependencies":{"@babel/core":"latest","typescript":"latest","@types/react":"latest"}
+  "dependencies":{
+    "@supabase/supabase-js":"latest",
+    "expo":"latest",
+    "expo-status-bar":"latest",
+    "react":"19.2.3",
+    "react-native":"0.87.1",
+    "react-native-url-polyfill":"latest"
+  },
+  "devDependencies":{
+    "@babel/core":"latest",
+    "typescript":"~6.0.3",
+    "@types/react":"~19.2.4"
+  }
 }
