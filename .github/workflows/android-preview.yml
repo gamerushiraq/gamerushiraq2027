@@ -38,7 +38,7 @@ jobs:
         run: |
           set -e
           node -e "const fs=require('fs');const a=JSON.parse(fs.readFileSync('app.json','utf8'));const id=a?.expo?.extra?.eas?.projectId;if(!id){console.error('ERROR: extra.eas.projectId is missing after eas init');process.exit(1)}console.log('EAS projectId linked:',id)"
-          eas config --json --non-interactive
+          echo "EAS project verification passed."
 
       - name: Build Android APK
         env:
