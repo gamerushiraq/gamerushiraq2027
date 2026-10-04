@@ -1,0 +1,16 @@
+(()=>{"use strict";
+const URL="https://eyjjmacxxcmdzkfqxifo.supabase.co",KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
+const sb=window.supabase?.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+const form=document.getElementById("authPageForm"),email=document.getElementById("email"),password=document.getElementById("password"),name=document.getElementById("name"),nameWrap=document.getElementById("nameWrap"),submit=document.getElementById("submit"),forgot=document.getElementById("forgot"),status=document.getElementById("status"),title=document.getElementById("authTitle"),back=document.getElementById("back");
+const next=new URLSearchParams(location.search).get("next")||"./";
+let mode="login";
+if(next&&/^https:\/\/gamerushiraq\.github\.io\/gamerushiraq2027\//.test(next))back.href=next;
+const msg=(t,c="")=>{status.textContent=t;status.className="gr-auth-status "+c};
+const setMode=m=>{mode=m;document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===m));nameWrap.hidden=m!=="signup";submit.textContent=m==="login"?"تسجيل الدخول":"إنشاء الحساب";forgot.hidden=m!=="login";title.textContent=m==="login"?"سجّل دخولك":"أنشئ حسابك";password.autocomplete=m==="login"?"current-password":"new-password";msg("")};
+document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+async function go(){location.replace(next)}
+(async()=>{if(!sb)return msg("تعذر تشغيل نظام الحساب.","error");const {data}=await sb.auth.getSession();if(data.session)go()})();
+form.addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("نظام الحساب غير متصل حالياً.","error");const em=email.value.trim().toLowerCase(),pw=password.value;if(!em||!em.includes("@"))return msg("اكتب بريد إلكتروني صحيح.","error");if(pw.length<6)return msg("كلمة المرور لازم تكون 6 أحرف أو أكثر.","error");submit.disabled=true;msg("جاري المعالجة…");
+try{if(mode==="signup"){const {data,error}=await sb.auth.signUp({email:em,password:pw,options:{data:{full_name:name.value.trim()||null},emailRedirectTo:location.origin+location.pathname+"?next="+encodeURIComponent(next)}});if(error)throw error;if(data.session){msg("تم إنشاء الحساب وتسجيل الدخول ✅","success");setTimeout(go,350)}else msg("تم إنشاء الحساب. افتح رسالة التأكيد اللي وصلت لبريدك ثم سجّل دخولك.","success")}else{const {data,error}=await sb.auth.signInWithPassword({email:em,password:pw});if(error)throw error;msg("تم تسجيل الدخول بنجاح ✅","success");setTimeout(go,250)}}catch(e){msg(e?.message||"صار خطأ، حاول مرة ثانية.","error")}finally{submit.disabled=false;submit.textContent=mode==="login"?"تسجيل الدخول":"إنشاء الحساب"}});
+forgot.addEventListener("click",async()=>{if(!sb)return;const em=email.value.trim().toLowerCase();if(!em||!em.includes("@"))return msg("اكتب بريدك أولاً.","error");forgot.disabled=true;const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname+"?next="+encodeURIComponent(next)});forgot.disabled=false;if(error)msg(error.message,"error");else msg("إذا البريد مسجل، راح توصلك رسالة إعادة تعيين كلمة المرور.","success")});
+})();
