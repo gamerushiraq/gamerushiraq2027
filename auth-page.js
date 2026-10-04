@@ -1,6 +1,6 @@
 (()=>{"use strict";
-const URL="https://eyjjmacxxcmdzkfqxifo.supabase.co",KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
-const sb=window.supabase?.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:"pkce"}});
+const SUPABASE_URL="https://eyjjmacxxcmdzkfqxifo.supabase.co",KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
+const sb=window.supabase?.createClient(SUPABASE_URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:"pkce"}});
 const $=id=>document.getElementById(id),status=$("authStatus"),phonePanel=$("phonePanel"),otpPanel=$("otpPanel"),emailPanel=$("emailPanel");
 const params=new URLSearchParams(location.search),nextRaw=params.get("next"),requestedMode=params.get("mode")==="signup"?"signup":"login";
 const safeNext=raw=>{try{if(!raw)return new URL("./",location.href).href;const u=new URL(raw,location.href);if(u.origin!==location.origin)return new URL("./",location.href).href;if(u.pathname===location.pathname)return new URL("./",location.href).href;return u.href}catch{return new URL("./",location.href).href}};
