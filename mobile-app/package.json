@@ -1,0 +1,9 @@
+{
+  "name":"gamerush-iraq-app",
+  "version":"1.0.0",
+  "private":true,
+  "main":"expo/AppEntry.js",
+  "scripts":{"start":"expo start","android":"expo start --android","build:android":"eas build --platform android --profile preview"},
+  "dependencies":{"@supabase/supabase-js":"latest","expo":"latest","expo-status-bar":"latest","react":"latest","react-native":"latest","react-native-url-polyfill":"latest"},
+  "devDependencies":{"@babel/core":"latest","typescript":"latest","@types/react":"latest"}
+}
