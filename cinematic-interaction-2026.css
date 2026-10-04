@@ -1,0 +1,21 @@
+/* GameRush cinematic interaction layer — performance-first */
+:root{--gr-cyan:#00e5ff;--gr-purple:#8b5cf6;--gr-lime:#b7ff2a;--gr-pink:#ff3cac}
+body{background:radial-gradient(circle at 20% 10%,rgba(0,229,255,.10),transparent 28%),radial-gradient(circle at 80% 30%,rgba(139,92,246,.12),transparent 30%),#050810}
+body::before{content:"";position:fixed;inset:-30%;pointer-events:none;z-index:-1;background:conic-gradient(from 90deg,transparent,rgba(0,229,255,.08),transparent,rgba(183,255,42,.06),transparent);animation:grSpin 18s linear infinite}
+.neo-hero,.gr-featured,.featured-panel{position:relative;overflow:hidden;isolation:isolate}
+.neo-hero::before,.gr-featured::before,.featured-panel::before{content:"";position:absolute;inset:-2px;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(0,229,255,.20),transparent 28%),linear-gradient(120deg,rgba(255,60,172,.08),transparent 35%,rgba(139,92,246,.12));pointer-events:none;z-index:-1}
+.neo-hero::after,.gr-featured::after,.featured-panel::after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-70px;top:-80px;background:rgba(0,229,255,.12);filter:blur(35px);pointer-events:none;animation:grPulse 5s ease-in-out infinite}
+.neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward{will-change:transform;transition:transform .25s ease,filter .25s ease,box-shadow .25s ease}
+.neo-game-card:hover,.gr-popular-card:hover,.gr-promo-card:hover,.service:hover,.reward:hover{transform:translateY(-7px) scale(1.015);filter:saturate(1.18);box-shadow:0 18px 55px rgba(0,229,255,.14),0 0 30px rgba(139,92,246,.10)}
+.neo-game-card:active,.gr-popular-card:active,.gr-promo-card:active,.service:active,.reward:active{transform:scale(.975)}
+.neo-primary,.primary,.neo-outline,.secondary,button{transition:transform .18s ease,box-shadow .18s ease,filter .18s ease}
+.neo-primary:hover,.primary:hover,.neo-outline:hover,.secondary:hover,button:hover{transform:translateY(-2px);filter:saturate(1.2);box-shadow:0 0 28px rgba(0,229,255,.18)}
+.gr-particle-layer{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+.gr-particle{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--gr-cyan);box-shadow:0 0 12px var(--gr-cyan);opacity:.55;animation:grParticle linear infinite}
+.gr-page-transition{position:fixed;inset:0;z-index:99999;pointer-events:none;background:linear-gradient(120deg,#050810,#11102a,#050810);transform:translateY(100%);transition:transform .42s cubic-bezier(.7,0,.2,1)}
+.gr-page-transition.is-active{transform:translateY(0)}
+@keyframes grSpin{to{transform:rotate(360deg)}}
+@keyframes grPulse{0%,100%{transform:scale(.8);opacity:.35}50%{transform:scale(1.15);opacity:.7}}
+@keyframes grParticle{from{transform:translate3d(0,110vh,0);opacity:0}15%{opacity:.55}85%{opacity:.45}to{transform:translate3d(var(--drift,20px),-15vh,0);opacity:0}}
+@media(max-width:760px){body::before{animation-duration:28s}.neo-game-card:hover,.gr-popular-card:hover,.gr-promo-card:hover,.service:hover,.reward:hover{transform:none}.neo-hero::before,.gr-featured::before,.featured-panel::before{background:radial-gradient(circle at 50% 40%,rgba(0,229,255,.13),transparent 35%)}}
+@media(prefers-reduced-motion:reduce){body::before,.neo-hero::after,.gr-featured::after,.featured-panel::after,.gr-particle{animation:none!important}.neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward,button{transition:none!important}.gr-page-transition{transition:none}}
