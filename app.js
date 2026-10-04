@@ -1,52 +1,17 @@
-const modal=document.getElementById('authModal');
-const authTitle=document.getElementById('authTitle');
-
-function openAuth(title='تسجيل الدخول'){
-  if(!modal)return;
-  if(authTitle)authTitle.textContent=title;
-  modal.classList.add('open');
-}
+(()=>{"use strict";
+const modal=document.getElementById('authModal'),authTitle=document.getElementById('authTitle');
+function openAuth(title='تسجيل الدخول'){if(!modal)return;if(authTitle)authTitle.textContent=title;modal.classList.add('open');document.body.classList.add('gr-modal-open')}
+function closeAuth(){modal?.classList.remove('open');document.body.classList.remove('gr-modal-open')}
 document.getElementById('loginBtn')?.addEventListener('click',()=>openAuth('تسجيل الدخول'));
 document.getElementById('signupBtn')?.addEventListener('click',()=>openAuth('إنشاء حساب'));
-document.querySelector('[data-close]')?.addEventListener('click',()=>modal?.classList.remove('open'));
-modal?.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open')});
-document.addEventListener('keydown',e=>{if(e.key==='Escape')modal?.classList.remove('open')});
-
-const searchBtn=document.getElementById('searchBtn');
-searchBtn?.addEventListener('click',()=>{
-  const query=window.prompt('ابحث عن لعبة أو خدمة');
-  if(!query)return;
-  const cards=[...document.querySelectorAll('.game-card')];
-  const q=query.trim().toLowerCase();
-  let found=0;
-  cards.forEach(card=>{
-    const match=card.textContent.toLowerCase().includes(q);
-    card.style.display=match?'':'none';
-    if(match)found++;
-  });
-  document.getElementById('games')?.scrollIntoView({behavior:'smooth'});
-  if(!found)window.alert('ما لكينا لعبة مطابقة حالياً.');
-});
-
-document.querySelectorAll('.nav a[href^="#"]').forEach(link=>{
-  link.addEventListener('click',()=>{
-    document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));
-    link.classList.add('active');
-  });
-});
-
-const revealObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
-    }
-  });
-},{threshold:.08}):null;
-
-document.querySelectorAll('.game-card,.service,.reward,.promo,.iraq-banner').forEach(el=>{
-  el.classList.add('reveal');
-  revealObserver?.observe(el);
-});
-
-if('serviceWorker' in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+document.querySelector('[data-close]')?.addEventListener('click',closeAuth);
+modal?.addEventListener('click',e=>{if(e.target===modal)closeAuth()});
+function closeSearch(){document.getElementById('grSearchOverlay')?.remove();document.body.classList.remove('gr-modal-open')}
+function openSearch(){closeSearch();const cards=[...document.querySelectorAll('#homeGameGrid .neo-game-card,#popularGames .gr-popular-card')],o=document.createElement('div');o.id='grSearchOverlay';o.className='gr-search-overlay';o.innerHTML='<div class="gr-search-box" role="dialog" aria-modal="true"><button class="gr-search-close" aria-label="إغلاق">×</button><span class="eyebrow">GAMERUSH SEARCH</span><h2>ابحث عن لعبة 🎮</h2><input id="grSearchInput" type="search" placeholder="اكتب اسم اللعبة..." autocomplete="off"><div id="grSearchResults" class="gr-search-results"></div></div>';document.body.appendChild(o);document.body.classList.add('gr-modal-open');const input=o.querySelector('#grSearchInput'),results=o.querySelector('#grSearchResults');const render=q=>{const term=q.trim().toLowerCase(),seen=new Set(),matches=cards.filter(card=>{const key=card.textContent.trim();if(seen.has(key))return false;seen.add(key);return !term||key.toLowerCase().includes(term)}).slice(0,12);results.innerHTML=matches.length?matches.map(card=>{const a=card.closest('a')||card,img=card.querySelector('img')?.src||'',name=card.querySelector('h3')?.textContent?.trim()||'Game',href=a.getAttribute('href')||'#games';return '<a class="gr-search-result" href="'+href+'">'+(img?'<img src="'+img+'" alt="">':'')+'<span><b>'+name+'</b><small>فتح صفحة الشحن ↗</small></span></a>'}).join(''):'<div class="gr-search-empty">ما لكينا نتيجة مطابقة.</div>'};input.addEventListener('input',e=>render(e.target.value));o.addEventListener('click',e=>{if(e.target===o||e.target.closest('.gr-search-close'))closeSearch()});render('');requestAnimationFrame(()=>input.focus())}
+document.getElementById('searchBtn')?.addEventListener('click',openSearch);
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAuth();closeSearch()}});
+document.querySelectorAll('.nav a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));link.classList.add('active')}));
+const revealObserver='IntersectionObserver'in window?new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}}),{threshold:.08}):null;
+document.querySelectorAll('.game-card,.service,.reward,.promo,.iraq-banner').forEach(el=>{el.classList.add('reveal');revealObserver?.observe(el)});
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+})();
