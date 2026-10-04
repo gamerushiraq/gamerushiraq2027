@@ -1,9 +1,9 @@
 (()=>{"use strict";
 const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
-const low=matchMedia("(max-width:700px)").matches;
+const low=matchMedia("(max-width:700px)").matches; const lite=low||matchMedia("(max-width:1100px)").matches||((navigator.deviceMemory||8)<=4);
 function particles(){
  const c=document.createElement("canvas");c.className="gr-particle-field";c.setAttribute("aria-hidden","true");
- const hero=document.querySelector(".neo-hero");if(!hero)return;
+ const hero=document.querySelector(".neo-hero");if(!hero||lite)return;
  hero.prepend(c);const x=c.getContext("2d"), pts=[],n=low?28:72;
  function resize(){c.width=hero.clientWidth*devicePixelRatio;c.height=hero.clientHeight*devicePixelRatio;c.style.width=hero.clientWidth+"px";c.style.height=hero.clientHeight+"px";x.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
  resize();addEventListener("resize",resize,{passive:true});
@@ -31,7 +31,7 @@ function loader(){
  document.body.append(el);sessionStorage.setItem("gr-loader-seen","1");setTimeout(()=>el.classList.add("out"),850);setTimeout(()=>el.remove(),1500);
 }
 function tilt(){
- if(low||reduce)return;
+ if(lite||reduce)return;
  document.querySelectorAll(".neo-game-card,.gr-popular-card,.gr-promo-card").forEach(card=>{
   card.addEventListener("pointermove",e=>{const r=card.getBoundingClientRect(),rx=((e.clientY-r.top)/r.height-.5)*-5,ry=((e.clientX-r.left)/r.width-.5)*5;card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-7px)`});
   card.addEventListener("pointerleave",()=>card.style.transform="");
