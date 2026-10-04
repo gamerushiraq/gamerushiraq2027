@@ -1,5 +1,7 @@
 (()=>{"use strict";
 const theme=document.createElement("link");theme.rel="stylesheet";theme.href="./theme-2026.css?v=2";document.head.appendChild(theme);
+const mobileStyle=document.createElement("link");mobileStyle.rel="stylesheet";mobileStyle.href="./mobile-polish-2026.css?v=1";document.head.appendChild(mobileStyle);
+const mediaGuard=document.createElement("script");mediaGuard.defer=true;mediaGuard.src="./media-guard-2026.js?v=1";document.head.appendChild(mediaGuard);
 const modules=[
  ["⚡","شحن سريع","اختار اللعبة والباقة","shop.html"],["🎁","العروض","شوف العروض المتاحة","shop.html#offers"],["👑","GameRush VIP","نقاط ومستويات","vip.html"],["📦","تتبع الطلب","تابع طلبك برقم GR","track.html"],["🎟️","Redeem","استرد الأكواد","redeem.html"],["🛠️","خدماتنا","كل خدمات GameRush","services.html"]];
 function inject(){if(document.querySelector(".gr-quick-hub"))return;const host=document.querySelector("main");if(!host)return;const section=document.createElement("section");section.className="gr-quick-hub";section.innerHTML='<div class="gr-quick-head"><div><span class="eyebrow">GAME RUSH HUB</span><h2>اختصارات GameRush</h2><p>الخدمات الأساسية متوفرة من كل صفحة حتى ما تضيع بين الأقسام.</p></div><span class="live-pill"><i></i> LIVE</span></div><div class="gr-quick-grid">'+modules.map(m=>'<a href="'+m[3]+'" class="gr-quick-card"><span>'+m[0]+'</span><div><b>'+m[1]+'</b><small>'+m[2]+'</small></div><em>↗</em></a>').join("")+'</div>';const marker=host.querySelector("section");marker?host.insertBefore(section,marker):host.appendChild(section)}
