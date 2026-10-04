@@ -11,15 +11,51 @@ const msg=(t,c="")=>{status.textContent=t;status.className="gr-auth-status "+c};
 const busy=on=>$("phonePanel")?.closest(".gr-auth-card")?.classList.toggle("gr-auth-loading",on);
 const syncProfile=async user=>{if(!user?.id)throw new Error("تعذر تحديد حساب المستخدم.");const m=user.user_metadata||{},payload={id:user.id,full_name:m.full_name||m.name||user.email||"GameRush User",phone:user.phone||m.phone||"",avatar_url:m.avatar_url||m.picture||""};const {error}=await sb.from("profiles").upsert(payload,{onConflict:"id"});if(error)throw error;const {data:profile,error:verifyError}=await sb.from("profiles").select("id").eq("id",user.id).maybeSingle();if(verifyError)throw verifyError;if(!profile?.id)throw new Error("تم تسجيل الدخول لكن لم يتم العثور على ملف المستخدم.");return profile};
 const go=()=>location.replace(next);
+const finishAuth=async user=>{
+  if(!user?.id)return;
+  try{await syncProfile(user)}catch(_){/* profile trigger/RLS can already handle this; auth must not fail because of profile sync */}
+  go();
+};
 async function oauth(provider){if(!sb)return msg("نظام الحساب غير متصل.","error");busy(true);msg(provider==="google"?"جاري فتح Google…":"جاري فتح Facebook…");const {error}=await sb.auth.signInWithOAuth({provider,options:{redirectTo:callbackUrl+"?next="+encodeURIComponent(next),queryParams:provider==="google"?{prompt:"select_account"}:undefined}});if(error){busy(false);const text=String(error.message||"");if(/not enabled|unsupported provider|provider is not enabled/i.test(text))return msg("تسجيل الدخول بهذا المزود غير مفعّل حالياً في إعدادات GameRush. لازم تفعيل المزود من Supabase أولاً.","error");msg(text||"تعذر فتح تسجيل الدخول.","error")}}
 function normalizePhone(){const code=$("countryCode").value;let raw=$("phoneInput").value.trim().replace(/[\s()-]/g,"");if(raw.startsWith("+"))return raw;if(raw.startsWith("00"))return "+"+raw.slice(2);if(raw.startsWith("0"))raw=raw.slice(1);return code+raw}
 async function sendOtp(){const phone=normalizePhone();if(!/^\+\d{7,15}$/.test(phone))return msg("اكتب رقم هاتف صحيح.","error");busy(true);msg("جاري إرسال رمز التحقق…");const {error}=await sb.auth.signInWithOtp({phone});busy(false);if(error)return msg(error.message||"تعذر إرسال الرمز. تأكد من تفعيل مزود SMS في Supabase.","error");otpPanel.classList.add("open");msg("وصلتك رسالة SMS؟ أدخل الرمز المكوّن من 6 أرقام.","success")}
-async function verifyOtp(){const phone=normalizePhone(),token=$("otpInput").value.trim();if(!/^\d{6}$/.test(token))return msg("أدخل رمز التحقق المكوّن من 6 أرقام.","error");busy(true);msg("جاري التحقق…");const {data,error}=await sb.auth.verifyOtp({phone,token,type:"sms"});busy(false);if(error)return msg(error.message||"الرمز غير صحيح أو منتهي.","error");if(data.user){await syncProfile(data.user);msg("تم إنشاء/تسجيل الحساب بنجاح ✓","success");setTimeout(go,350)}}
-function openEmail(mode){mode=mode||"login";window._emailMode=mode;emailPanel.classList.add("open");phonePanel.classList.remove("open");otpPanel.classList.remove("open");$("emailLoginTab").classList.toggle("active",mode==="login");$("emailSignupTab").classList.toggle("active",mode==="signup");$("nameWrap").hidden=mode!=="signup";$("emailSubmitBtn").textContent=mode==="login"?"تسجيل الدخول":"إنشاء حساب";$("forgotPasswordBtn").style.display=mode==="login"?"block":"none";$("emailInput").focus();msg("")}async function emailSubmit(){const email=$("emailInput").value.trim().toLowerCase(),password=$("passwordInput").value,name=$("nameInput").value.trim();if(!/^\S+@\S+\.\S+$/.test(email))return msg("اكتب بريد إلكتروني صحيح.","error");if(password.length<6)return msg("كلمة المرور لازم تكون 6 أحرف أو أكثر.","error");busy(true);msg("جاري المعالجة…");try{if(window._emailMode==="signup"){const {data,error}=await sb.auth.signUp({email,password,options:{data:{full_name:name||null},emailRedirectTo:callbackUrl+"?next="+encodeURIComponent(next)}});if(error)throw error;if(data.session){await syncProfile(data.user);msg("تم إنشاء الحساب وتسجيل الدخول بنجاح ✓","success");setTimeout(go,350)}else msg("تم إنشاء الحساب. افتح رسالة التأكيد اللي وصلت لبريدك.","success")}else{const {data,error}=await sb.auth.signInWithPassword({email,password});if(error)throw error;if(data.user){await syncProfile(data.user);msg("تم تسجيل الدخول بنجاح ✓","success");setTimeout(go,350)}}}catch(err){msg(err?.message||"تعذر إتمام العملية.","error")}finally{busy(false)}}async function forgotPassword(){const email=$("emailInput").value.trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(email))return msg("اكتب بريدك أولاً.","error");busy(true);msg("جاري إرسال رابط إعادة التعيين…");const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:callbackUrl+"?next="+encodeURIComponent(next)+"&recovery=1"});busy(false);if(error)return msg(error.message||"تعذر إرسال الرابط.","error");msg("إذا البريد مسجل، راح توصلك رسالة إعادة تعيين كلمة المرور.","success")}
+async function verifyOtp(){const phone=normalizePhone(),token=$("otpInput").value.trim();if(!/^\d{6}$/.test(token))return msg("أدخل رمز التحقق المكوّن من 6 أرقام.","error");busy(true);msg("جاري التحقق…");const {data,error}=await sb.auth.verifyOtp({phone,token,type:"sms"});busy(false);if(error)return msg(error.message||"الرمز غير صحيح أو منتهي.","error");if(data.user){msg("تم إنشاء/تسجيل الحساب بنجاح ✓","success");setTimeout(()=>finishAuth(data.user),350)}}
+function openEmail(mode){mode=mode||"login";window._emailMode=mode;emailPanel.classList.add("open");phonePanel.classList.remove("open");otpPanel.classList.remove("open");$("emailLoginTab").classList.toggle("active",mode==="login");$("emailSignupTab").classList.toggle("active",mode==="signup");$("nameWrap").hidden=mode!=="signup";$("emailSubmitBtn").textContent=mode==="login"?"تسجيل الدخول":"إنشاء حساب";$("forgotPasswordBtn").style.display=mode==="login"?"block":"none";$("emailInput").focus();msg("")}async function emailSubmit(){const email=$("emailInput").value.trim().toLowerCase(),password=$("passwordInput").value,name=$("nameInput").value.trim();if(!/^\S+@\S+\.\S+$/.test(email))return msg("اكتب بريد إلكتروني صحيح.","error");if(password.length<6)return msg("كلمة المرور لازم تكون 6 أحرف أو أكثر.","error");busy(true);msg("جاري المعالجة…");try{if(window._emailMode==="signup"){const {data,error}=await sb.auth.signUp({email,password,options:{data:{full_name:name||null},emailRedirectTo:callbackUrl+"?next="+encodeURIComponent(next)}});if(error)throw error;if(data.session){msg("تم إنشاء الحساب وتسجيل الدخول بنجاح ✓","success");setTimeout(()=>finishAuth(data.user),350)}else msg("تم إنشاء الحساب. افتح رسالة التأكيد اللي وصلت لبريدك.","success")}else{const {data,error}=await sb.auth.signInWithPassword({email,password});if(error)throw error;if(data.user){msg("تم تسجيل الدخول بنجاح ✓","success");setTimeout(()=>finishAuth(data.user),350)}}}catch(err){msg(err?.message||"تعذر إتمام العملية.","error")}finally{busy(false)}}async function forgotPassword(){const email=$("emailInput").value.trim().toLowerCase();if(!/^\S+@\S+\.\S+$/.test(email))return msg("اكتب بريدك أولاً.","error");busy(true);msg("جاري إرسال رابط إعادة التعيين…");const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:callbackUrl+"?next="+encodeURIComponent(next)+"&recovery=1"});busy(false);if(error)return msg(error.message||"تعذر إرسال الرابط.","error");msg("إذا البريد مسجل، راح توصلك رسالة إعادة تعيين كلمة المرور.","success")}
 $("googleBtn").onclick=()=>oauth("google");$("facebookBtn").onclick=()=>oauth("facebook");$("emailBtn").onclick=()=>openEmail("login");$("emailLoginTab").onclick=()=>openEmail("login");$("emailSignupTab").onclick=()=>openEmail("signup");$("emailSubmitBtn").onclick=emailSubmit;$("forgotPasswordBtn").onclick=forgotPassword;$("closeEmailBtn").onclick=()=>{emailPanel.classList.remove("open");msg("")};
 $("phoneBtn").onclick=()=>{emailPanel.classList.remove("open");phonePanel.classList.add("open");$("phoneInput").focus();msg("أدخل رقمك حتى نرسل رمز تحقق SMS.")};
 $("closePhoneBtn").onclick=()=>{phonePanel.classList.remove("open");otpPanel.classList.remove("open");msg("")};
 $("sendOtpBtn").onclick=sendOtp;$("resendBtn").onclick=sendOtp;$("verifyOtpBtn").onclick=verifyOtp;
-sb?.auth.onAuthStateChange((event,session)=>{if(session&&(event==="SIGNED_IN"||event==="INITIAL_SESSION"))setTimeout(()=>go(),0)});
-(async()=>{if(!sb)return msg("تعذر تشغيل نظام الحساب. حدّث الصفحة.","error");if(requestedMode==="signup")openEmail("signup");const {data}=await sb.auth.getSession();if(data.session)go()})();
+sb?.auth.onAuthStateChange((event,session)=>{
+  if(event==="SIGNED_OUT"){msg("تم تسجيل الخروج.","success");return}
+  if(event==="PASSWORD_RECOVERY"){showRecovery()}
+});
+function showRecovery(){
+  if(document.getElementById("recoveryPanel"))return;
+  const panel=document.createElement("div");
+  panel.id="recoveryPanel";
+  panel.style.cssText="margin-top:14px;padding:14px;border:1px solid #263950;border-radius:14px;background:#0d1522";
+  panel.innerHTML='<div style="font-weight:900;margin-bottom:8px">إعادة تعيين كلمة المرور</div><input id="recoveryPassword" class="gr-auth-input" type="password" minlength="6" placeholder="كلمة المرور الجديدة"><button id="recoverySubmit" class="gr-auth-phone-submit" type="button" style="margin-top:9px;width:100%">حفظ كلمة المرور</button>';
+  $("emailPanel").after(panel);
+  $("recoverySubmit").onclick=async()=>{
+    const password=$("recoveryPassword").value;
+    if(password.length<6)return msg("كلمة المرور لازم تكون 6 أحرف أو أكثر.","error");
+    busy(true);msg("جاري تحديث كلمة المرور…");
+    const {data,error}=await sb.auth.updateUser({password});
+    busy(false);
+    if(error)return msg(error.message||"تعذر تحديث كلمة المرور.","error");
+    msg("تم تغيير كلمة المرور بنجاح ✓","success");
+    setTimeout(()=>finishAuth(data.user),500);
+  };
+}
+(async()=>{
+  if(!sb)return msg("تعذر تشغيل نظام الحساب. حدّث الصفحة.","error");
+  if(requestedMode==="signup")openEmail("signup");
+  const {data,error}=await sb.auth.getSession();
+  if(error)return msg(error.message||"تعذر قراءة جلسة الدخول.","error");
+  if(data.session){
+    const {data:userData}=await sb.auth.getUser();
+    if(new URLSearchParams(location.search).get("recovery")==="1")showRecovery();
+    else if(userData?.user)finishAuth(userData.user);
+  }
+})();
 })();
