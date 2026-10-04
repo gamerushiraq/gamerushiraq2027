@@ -23,6 +23,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Verify Expo dependency versions
+        run: |
+          set -e
+          echo "Installed Expo / React Native / React versions:"
+          node -e "for (const p of ['expo','react-native','react']) console.log(p, require('./node_modules/'+p+'/package.json').version)"
+          node -e "const fs=require('fs');const p=require('./package.json');const checks=[['expo','~57.0.3'],['react-native','0.86.0'],['react','19.2.3']];for(const [k,v] of checks){if(p.dependencies[k]!==v){throw new Error('package.json '+k+' expected '+v+' but found '+p.dependencies[k])}}"
+          node -e "const v=require('./node_modules/react-native/package.json').version;if(v!=='0.86.0'){throw new Error('Wrong React Native installed: '+v)};const fs=require('fs');if(!fs.existsSync('./node_modules/react-native/rn-get-polyfills.js')){throw new Error('React Native 0.86 polyfill file is missing')}"
+          npx expo-doctor
+
       - name: Install EAS CLI
         run: npm install --global eas-cli
 
