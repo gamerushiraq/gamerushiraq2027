@@ -1,0 +1,15 @@
+/* GameRush Vivid Theme — phase 2 */
+:root{--gr-cyan:#00e5ff;--gr-lime:#b7ff2a;--gr-purple:#7c4dff;--gr-pink:#ff2bd6;--gr-bg:#050713;--gr-card:rgba(10,16,34,.78);--gr-border:rgba(255,255,255,.10)}
+html{background:var(--gr-bg)}body{background:radial-gradient(circle at 15% 10%,rgba(0,229,255,.12),transparent 28%),radial-gradient(circle at 85% 18%,rgba(124,77,255,.14),transparent 30%),linear-gradient(135deg,#050713,#090d1d 50%,#050713);color:#fff}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,#000,transparent 90%)}
+.neo-hero,.featured-panel,.gr-featured,.neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward,.gr-quick-card,.checkout,.form-card{background:linear-gradient(145deg,rgba(15,24,48,.88),rgba(6,10,24,.82));border:1px solid var(--gr-border);box-shadow:0 20px 60px rgba(0,0,0,.35),0 0 30px rgba(0,229,255,.05);backdrop-filter:blur(12px)}
+.neo-hero,.featured-panel,.gr-featured{position:relative;overflow:hidden}
+.neo-hero:after,.featured-panel:after,.gr-featured:after{content:"";position:absolute;inset:-40%;background:conic-gradient(from 180deg,transparent,rgba(0,229,255,.10),transparent 25%,rgba(255,43,214,.08),transparent 50%);animation:grSpin 14s linear infinite;pointer-events:none}
+.neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward,.gr-quick-card{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;will-change:transform}
+.neo-game-card:hover,.gr-popular-card:hover,.gr-promo-card:hover,.service:hover,.reward:hover,.gr-quick-card:hover{transform:translateY(-6px) scale(1.015);border-color:rgba(0,229,255,.42);box-shadow:0 24px 70px rgba(0,0,0,.45),0 0 34px rgba(0,229,255,.14)}
+.neo-primary,.primary{box-shadow:0 0 22px rgba(0,229,255,.18);transition:transform .2s ease,filter .2s ease,box-shadow .2s ease}
+.neo-primary:hover,.primary:hover{transform:translateY(-2px);filter:saturate(1.25);box-shadow:0 0 30px rgba(0,229,255,.30)}
+.neo-outline:hover,.secondary:hover{border-color:rgba(183,255,42,.55);box-shadow:0 0 24px rgba(183,255,42,.10)}
+@keyframes grSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
+@media(max-width:760px){body:before{background-size:32px 32px}.neo-game-card:hover,.gr-popular-card:hover,.gr-promo-card:hover,.service:hover,.reward:hover,.gr-quick-card:hover{transform:none}.neo-hero:after,.featured-panel:after,.gr-featured:after{animation-duration:20s}}
