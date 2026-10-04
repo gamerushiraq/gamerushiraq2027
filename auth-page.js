@@ -1,8 +1,10 @@
 (()=>{"use strict";
 const URL="https://eyjjmacxxcmdzkfqxifo.supabase.co",KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
 const sb=window.supabase?.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:"pkce"}});
-const $=id=>document.getElementById(id),status=$("authStatus"),phonePanel=$("phonePanel"),otpPanel=$("otpPanel"),nextRaw=new URLSearchParams(location.search).get("next")||"./";
-const next=nextRaw.startsWith(location.origin+"/")||nextRaw.startsWith("./")?nextRaw:"./";
+const $=id=>document.getElementById(id),status=$("authStatus"),phonePanel=$("phonePanel"),otpPanel=$("otpPanel");
+const params=new URLSearchParams(location.search),nextRaw=params.get("next");
+const safeNext=raw=>{try{if(!raw)return new URL("./",location.href).href;const u=new URL(raw,location.href);if(u.origin!==location.origin)return new URL("./",location.href).href;if(u.pathname===location.pathname)return new URL("./",location.href).href;return u.href}catch{return new URL("./",location.href).href}};
+const next=safeNext(nextRaw);
 $("countryCode")?.addEventListener("change",e=>{$("selectedCode").textContent=e.target.value;const o=e.target.selectedOptions[0];$("phoneInput").placeholder=o?.dataset.example||"رقم الهاتف"});
 const callbackUrl=new URL("./auth.html",location.href).href;
 const msg=(t,c="")=>{status.textContent=t;status.className="gr-auth-status "+c};
