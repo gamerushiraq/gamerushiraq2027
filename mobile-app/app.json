@@ -2,18 +2,21 @@
   "expo": {
     "name": "GameRush Iraq",
     "slug": "gamerush-iraq",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
     "scheme": "gamerush",
     "android": {
       "package": "com.gamerushiraq.app",
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "bundler": "metro"
     },
-    "plugins": [],
+    "plugins": [
+      "expo-local-authentication",
+      "expo-secure-store"
+    ],
     "extra": {
       "eas": {
         "projectId": "2234d71d-ce6f-452e-ab01-9e147796a756"
