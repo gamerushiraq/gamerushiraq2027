@@ -2,7 +2,7 @@
 const URL="https://eyjjmacxxcmdzkfqxifo.supabase.co",KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
 const sb=window.supabase?.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,flowType:"pkce"}});
 const $=id=>document.getElementById(id),status=$("authStatus"),phonePanel=$("phonePanel"),otpPanel=$("otpPanel"),emailPanel=$("emailPanel");
-const params=new URLSearchParams(location.search),nextRaw=params.get("next");
+const params=new URLSearchParams(location.search),nextRaw=params.get("next"),requestedMode=params.get("mode")==="signup"?"signup":"login";
 const safeNext=raw=>{try{if(!raw)return new URL("./",location.href).href;const u=new URL(raw,location.href);if(u.origin!==location.origin)return new URL("./",location.href).href;if(u.pathname===location.pathname)return new URL("./",location.href).href;return u.href}catch{return new URL("./",location.href).href}};
 const next=safeNext(nextRaw);
 $("countryCode")?.addEventListener("change",e=>{$("selectedCode").textContent=e.target.value;const o=e.target.selectedOptions[0];$("phoneInput").placeholder=o?.dataset.example||"رقم الهاتف"});
@@ -21,5 +21,5 @@ $("phoneBtn").onclick=()=>{emailPanel.classList.remove("open");phonePanel.classL
 $("closePhoneBtn").onclick=()=>{phonePanel.classList.remove("open");otpPanel.classList.remove("open");msg("")};
 $("sendOtpBtn").onclick=sendOtp;$("resendBtn").onclick=sendOtp;$("verifyOtpBtn").onclick=verifyOtp;
 sb?.auth.onAuthStateChange((event,session)=>{if(session&&(event==="SIGNED_IN"||event==="INITIAL_SESSION"))setTimeout(()=>go(),0)});
-(async()=>{if(!sb)return msg("تعذر تشغيل نظام الحساب. حدّث الصفحة.","error");const {data}=await sb.auth.getSession();if(data.session)go()})();
+(async()=>{if(!sb)return msg("تعذر تشغيل نظام الحساب. حدّث الصفحة.","error");if(requestedMode==="signup")openEmail("signup");const {data}=await sb.auth.getSession();if(data.session)go()})();
 })();
