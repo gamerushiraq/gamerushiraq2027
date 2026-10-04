@@ -134,6 +134,8 @@
 const SUPABASE_URL="https://eyjjmacxxcmdzkfqxifo.supabase.co";
 const SUPABASE_KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
 const ADMIN_EMAIL="ibogoeed@gmail.com";
+const PROMO_API="https://eyjjmacxxcmdzkfqxifo.supabase.co/functions/v1/admin-promotion-action";
+async function promoAction(payload){const {data:{session}}=await db.auth.getSession();if(!session?.access_token)throw new Error("جلسة الأدمن منتهية");const r=await fetch(PROMO_API,{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+session.access_token},body:JSON.stringify(payload)});const b=await r.json().catch(()=>({}));if(!r.ok)throw new Error(b.error||"تعذر تنفيذ العملية");return b}
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const $=id=>document.getElementById(id);
 let allOrders=[];
@@ -141,15 +143,12 @@ function showTab(tab){["finance","products","security","promotions","home"].forE
 let editingPromo=null;
 async function loadPromoGames(){const {data}=await db.from("game_catalog").select("slug,name").order("sort_order",{ascending:true});$("promoGame").innerHTML=(data||[]).map(g=>'<option value="'+esc(g.slug)+'">'+esc(g.name)+'</option>').join("");}
 async function loadPromotions(){
- const {data,error}=await db.from("promotions").select("*").order("ends_at",{ascending:false});
- if(error){$("promoList").textContent="تعذر تحميل العروض: "+error.message;return;}
- $("promoList").innerHTML=(data||[]).map(p=>`<div class="promo-admin-item"><b>${esc(p.title)}</b><span>${esc(p.game)} • ${esc(p.package_name||"كل الباقات")} • خصم ${money(p.discount_iqd)}</span><small>${new Date(p.ends_at).toLocaleString("ar-IQ")} • ${p.active?"فعال":"متوقف"}</small><button class="admin-btn secondary edit-promo" data-id="${p.id}">تعديل</button><button class="admin-btn danger toggle-promo" data-id="${p.id}" data-active="${p.active}">${p.active?"إيقاف":"تفعيل"}</button></div>`).join("")||"لا توجد عروض بعد.";
- document.querySelectorAll(".edit-promo").forEach(x=>x.onclick=()=>editPromo((data||[]).find(p=>p.id===x.dataset.id)));
- document.querySelectorAll(".toggle-promo").forEach(x=>x.onclick=()=>togglePromo(x.dataset.id,x.dataset.active!=="true"));
+ try{const {data}=await promoAction({action:"list"});$("promoList").innerHTML=(data||[]).map(p=>`<div class="promo-admin-item"><b>${esc(p.title)}</b><span>${esc(p.game)} • ${esc(p.package_name||"كل الباقات")} • خصم ${money(p.discount_iqd)}</span><small>${new Date(p.ends_at).toLocaleString("ar-IQ")} • ${p.active?"فعال":"متوقف"}</small><button class="admin-btn secondary edit-promo" data-id="${p.id}">تعديل</button><button class="admin-btn danger toggle-promo" data-id="${p.id}" data-active="${p.active}">${p.active?"إيقاف":"تفعيل"}</button></div>`).join("")||"لا توجد عروض بعد.";document.querySelectorAll(".edit-promo").forEach(x=>x.onclick=()=>editPromo((data||[]).find(p=>p.id===x.dataset.id)));document.querySelectorAll(".toggle-promo").forEach(x=>x.onclick=()=>togglePromo(x.dataset.id,x.dataset.active!=="true"));}catch(e){$("promoList").textContent="تعذر تحميل العروض: "+e.message}
 }
 function editPromo(p){editingPromo=p;$("promoTitle").value=p.title;$("promoGame").value=p.game;$("promoPackage").value=p.package_name||"";$("promoDiscount").value=p.discount_iqd||0;$("promoEnds").value=new Date(p.ends_at).toISOString().slice(0,16);}
-async function togglePromo(id,active){const {error}=await db.from("promotions").update({active,updated_at:new Date().toISOString()}).eq("id",id);if(error)return alert(error.message);loadPromotions();}
-$("savePromo").onclick=async()=>{const title=$("promoTitle").value.trim(),game=$("promoGame").value,pack=$("promoPackage").value.trim(),discount=Number($("promoDiscount").value||0),end=$("promoEnds").value;if(!title||!end)return alert("أكمل عنوان العرض ووقت الانتهاء");const payload={title,game,package_name:pack||null,discount_iqd:discount,starts_at:editingPromo?.starts_at||new Date().toISOString(),ends_at:new Date(end).toISOString(),active:true,updated_at:new Date().toISOString()};const q=editingPromo?db.from("promotions").update(payload).eq("id",editingPromo.id):db.from("promotions").insert(payload);const {error}=await q;if(error)return alert(error.message);editingPromo=null;$("promoTitle").value="";$("promoPackage").value="";loadPromotions();};
+async function togglePromo(id,active){try{await promoAction({action:"toggle",id,active});loadPromotions()}catch(e){alert(e.message)}}
+$("savePromo").onclick=async()=>{const title=$("promoTitle").value.trim(),game=$("promoGame").value,pack=$("promoPackage").value.trim(),discount=Number($("promoDiscount").value||0),end=$("promoEnds").value;if(!title||!end)return alert("أكمل عنوان العرض ووقت الانتهاء");try{await promoAction({action:"save",id:editingPromo?.id||null,title,game,package_name:pack||null,discount_iqd:discount,starts_at:editingPromo?.starts_at||null,ends_at:new Date(end).toISOString()});editingPromo=null;$("promoTitle").value="";$("promoPackage").value="";loadPromotions()}catch(e){alert(e.message)}};
+
 $("cancelPromo").onclick=()=>{editingPromo=null;$("promoTitle").value="";$("promoPackage").value="";};
 function renderFinance(){const verified=allOrders.filter(o=>o.payment_status==="verified"),submitted=allOrders.filter(o=>o.payment_status==="submitted"),rev=verified.reduce((s,o)=>s+Number(o.price_iqd||0),0);$("financeSummary").innerHTML=`طلبات مدفوعة مؤكدة: <b>${verified.length}</b><br>مدفوعات بانتظار المراجعة: <b>${submitted.length}</b><br>قيمة الطلبات المؤكدة: <b>${money(rev)}</b>`;}
 
