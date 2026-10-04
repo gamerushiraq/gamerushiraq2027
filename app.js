@@ -1,7 +1,7 @@
 (()=>{"use strict";
 const modal=document.getElementById('authModal'),authTitle=document.getElementById('authTitle');
-function openAuth(title='تسجيل الدخول'){if(!modal)return;if(authTitle)authTitle.textContent=title;modal.classList.add('open');document.body.classList.add('gr-modal-open')}
-function closeAuth(){modal?.classList.remove('open');document.body.classList.remove('gr-modal-open')}
+function openAuth(title='تسجيل الدخول'){if(!modal)return;if(authTitle)authTitle.textContent=title;modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('gr-modal-open');window.dispatchEvent(new CustomEvent('gamerush:auth-open',{detail:{title}}))}
+function closeAuth(){modal?.classList.remove('open');modal?.setAttribute('aria-hidden','true');document.body.classList.remove('gr-modal-open')}
 document.getElementById('loginBtn')?.addEventListener('click',()=>openAuth('تسجيل الدخول'));
 document.getElementById('signupBtn')?.addEventListener('click',()=>openAuth('إنشاء حساب'));
 document.querySelector('[data-close]')?.addEventListener('click',closeAuth);
