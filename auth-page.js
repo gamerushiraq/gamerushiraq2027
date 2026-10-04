@@ -4,9 +4,10 @@ const sb=window.supabase?.createClient(SUPABASE_URL,KEY,{auth:{persistSession:tr
 const $=id=>document.getElementById(id),status=$("authStatus"),phonePanel=$("phonePanel"),otpPanel=$("otpPanel"),emailPanel=$("emailPanel");
 const params=new URLSearchParams(location.search),nextRaw=params.get("next"),requestedMode=params.get("mode")==="signup"?"signup":"login";
 const safeNext=raw=>{try{if(!raw)return new URL("./",location.href).href;const u=new URL(raw,location.href);if(u.origin!==location.origin)return new URL("./",location.href).href;if(u.pathname===location.pathname)return new URL("./",location.href).href;return u.href}catch{return new URL("./",location.href).href}};
+const PUBLIC_SITE="https://gamerushiraq.github.io/gamerushiraq2027/";
 const next=safeNext(nextRaw);
 $("countryCode")?.addEventListener("change",e=>{$("selectedCode").textContent=e.target.value;const o=e.target.selectedOptions[0];$("phoneInput").placeholder=o?.dataset.example||"رقم الهاتف"});
-const callbackUrl=new URL("./auth.html",location.href).href;
+const callbackUrl=PUBLIC_SITE+"auth.html";
 const msg=(t,c="")=>{status.textContent=t;status.className="gr-auth-status "+c};
 const busy=on=>$("phonePanel")?.closest(".gr-auth-card")?.classList.toggle("gr-auth-loading",on);
 const syncProfile=async user=>{if(!user?.id)throw new Error("تعذر تحديد حساب المستخدم.");const m=user.user_metadata||{},payload={id:user.id,full_name:m.full_name||m.name||user.email||"GameRush User",phone:user.phone||m.phone||"",avatar_url:m.avatar_url||m.picture||""};const {error}=await sb.from("profiles").upsert(payload,{onConflict:"id"});if(error)throw error;const {data:profile,error:verifyError}=await sb.from("profiles").select("id").eq("id",user.id).maybeSingle();if(verifyError)throw verifyError;if(!profile?.id)throw new Error("تم تسجيل الدخول لكن لم يتم العثور على ملف المستخدم.");return profile};
