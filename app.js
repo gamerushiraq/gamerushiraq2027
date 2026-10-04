@@ -1,6 +1,6 @@
 (()=>{"use strict";
 const modal=document.getElementById('authModal'),authTitle=document.getElementById('authTitle');
-function openAuth(title='تسجيل الدخول'){const next=location.href;location.href='./auth.html?next='+encodeURIComponent(next)}
+function openAuth(title='تسجيل الدخول'){const next=location.href;const mode=title==='إنشاء حساب'?'signup':'login';location.href='./auth.html?mode='+mode+'&next='+encodeURIComponent(next)}
 function closeAuth(){modal?.classList.remove('open');modal?.setAttribute('aria-hidden','true');document.body.classList.remove('gr-modal-open')}
 document.getElementById('loginBtn')?.addEventListener('click',()=>openAuth('تسجيل الدخول'));
 document.getElementById('signupBtn')?.addEventListener('click',()=>openAuth('إنشاء حساب'));
