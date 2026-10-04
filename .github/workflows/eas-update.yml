@@ -32,7 +32,7 @@ jobs:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: npx eas project:info --non-interactive
 
-      - name: Publish production update
+      - name: Publish preview update
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: npx eas update --channel production --message "GameRush mobile update ${{ github.sha }}" --non-interactive
+        run: npx eas update --channel preview --message "GameRush mobile update ${{ github.sha }}" --environment preview --non-interactive
