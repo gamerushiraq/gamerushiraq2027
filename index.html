@@ -10,73 +10,71 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="store-ui.css">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="store-ui.css">
+<link rel="stylesheet" href="home-minimal-2026.css">
 <title>GameRush Iraq — شحن ألعابك بسرعة</title>
 </head>
 <body>
 <div class="noise"></div>
 <div class="announcement" id="homeAnnouncement"></div>
-<div class="store-strip"><div>⚡ شحن ألعاب سريع للعراق</div><div class="store-strip-links"><a href="track.html">🔎 تتبع الطلب</a><a href="https://wa.me/9647818319951" target="_blank" rel="noopener">💬 الدعم</a></div></div>
-<header class="topbar">
+
+<header class="topbar gr-home-nav">
   <a class="brand" href="./"><span class="brand-mark">GR</span><span>GameRush<small>IRAQ</small></span></a>
-  <div class="store-chip">● متصل الآن</div><nav class="nav">
+  <nav class="nav">
     <a class="active" href="./">الرئيسية</a>
-    <a href="shop.html">المتجر</a><a href="#games">الألعاب</a>
-    <a href="services.html">الخدمات</a><a href="vip.html">VIP</a><a href="redeem.html">استرداد</a><a href="#rewards">النقاط والمكافآت</a>
+    <a href="shop.html">المتجر</a>
+    <a href="services.html">الخدمات</a>
+    <a href="support.html">الدعم</a>
+    <a href="track.html">تتبع الطلب</a>
   </nav>
   <div class="header-actions">
-    <button class="icon-btn" id="searchBtn" aria-label="بحث">⌕</button>
     <button class="lang" id="langBtn">AR ▾</button>
-    <button class="ghost" id="loginBtn">تسجيل الدخول</button>
-    <button class="primary" id="signupBtn">إنشاء حساب</button>
+    <button class="ghost" id="loginBtn">دخول</button>
+    <button class="primary" id="signupBtn">حساب جديد</button>
   </div>
 </header>
 
-<main>
-<section class="neo-hero" id="homeHero"><div class="neo-hero-copy"><div class="neo-kicker" id="heroKicker"></div><h1 id="heroTitle"></h1><p id="heroDescription"></p><div class="neo-actions"><a class="neo-primary" id="heroPrimary" href="#games"></a><a class="neo-outline" href="track.html">تتبع طلبك</a></div><div class="neo-trust"><span>🛡️ حماية الطلب</span><span>⚡ تنفيذ منظم</span><span>🇮🇶 دفع محلي</span></div></div><div class="neo-hero-media"><div class="neo-media-main"><img id="heroImage" src="" alt=""></div><div class="neo-media-float neo-media-a"><img id="heroFloatA" src="" alt=""></div><div class="neo-media-float neo-media-b"><img id="heroFloatB" src="" alt=""></div><div class="neo-media-tag">TOP UP<br><b>ZONE</b></div></div></section><div class="neo-marquee" id="homeMarquee"></div>
-
-<section class="neo-stats" id="homeStats" aria-label="مميزات GameRush"></section>
-
-<section class="featured-panel" id="homeFeatured"><div class="featured-copy"><span class="eyebrow" id="featuredKicker"></span><h2 id="featuredHeading"></h2><p id="featuredDescription"></p><div class="featured-actions"><a class="primary" id="featuredPrimary" href="shop.html"></a><a class="secondary" href="track.html">تتبع طلبك</a></div></div><div class="featured-visual"><div class="visual-orb orb-a"></div><div class="visual-orb orb-b"></div><div class="visual-console">🎮<small>GAMERUSH</small></div></div></section>
-<section class="neo-live" id="homeLive"><div class="neo-live-head"><div><span class="eyebrow" id="liveKicker">GAME RUSH LIVE</span><h2 id="liveTitle">كلشي يحتاجه اللاعب 🎮</h2><p id="liveDescription">واجهة أسرع، عروض أوضح، وتجربة شحن مرتبة من أول ضغطة.</p></div><span class="live-pill"><i></i> LIVE</span></div><div class="neo-live-grid" id="homeLiveGrid"></div></section><section class="gr-featured" id="featured">
-  <div class="gr-featured-copy">
-    <span class="eyebrow">FEATURED GAME • THIS WEEK</span>
-    <div class="gr-featured-title-row"><h2 id="featuredTitle"></h2><span class="gr-featured-live">● FEATURED</span></div>
-    <p id="featuredText"></p>
-    <div class="gr-featured-meta"><span id="featuredUnit">UC</span><span>⚡ شحن مباشر</span><span>🛡️ حماية الطلب</span></div>
-    <a id="featuredLink" class="neo-primary" href="game.html?game=pubg">اشحن اللعبة ↗</a>
+<main class="gr-home-minimal">
+<section class="gr-home-hero">
+  <div class="gr-home-hero-copy">
+    <span class="neo-kicker">GAMERUSH // IRAQ</span>
+    <h1>اشحن لعبتك<br><span>بسهولة وبوضوح.</span></h1>
+    <p>اختار اللعبة، اختار الباقة، ادفع، وخلي رقم الطلب بيدك للمتابعة.</p>
+    <div class="gr-home-actions">
+      <a class="neo-primary" href="shop.html">ابدأ الشحن ↗</a>
+      <a class="neo-outline" href="track.html">تتبع طلبك</a>
+    </div>
+    <div class="gr-home-trust"><span>🔐 بدون كلمة مرور</span><span>⚡ طلب منظم</span><span>🇮🇶 دفع محلي</span></div>
   </div>
-  <div class="gr-featured-art"><img id="featuredImage" src="" alt="" loading="lazy"></div>
+  <div class="gr-home-visual"><div class="gr-home-orb">GR<small>TOP-UP</small></div></div>
 </section>
-<section class="gr-promo-section" id="offers">
-  <div class="section-head neo-head"><div><span class="eyebrow">LIVE FROM GAMERUSH</span><h2>العروض الحالية 🔥</h2><p>العروض الفعالة تُسحب مباشرة من Supabase وتظهر هنا تلقائياً.</p></div><span class="gr-supabase-pill">● SUPABASE LIVE</span></div>
-  <div id="homePromos" class="gr-promo-slider"><div class="gr-promo-loading">جاري تحميل العروض…</div></div>
+
+<section class="gr-quick">
+  <a href="shop.html"><b>🎮</b><span>المتجر</span><small>كل الألعاب والباقات</small></a>
+  <a href="services.html"><b>🧰</b><span>الخدمات</span><small>كل الخدمات بمكان واحد</small></a>
+  <a href="support.html"><b>💬</b><span>الدعم الفني</span><small>مساعدة واتساب ومشاكل الطلب</small></a>
+  <a href="track.html"><b>🔎</b><span>تتبع الطلب</span><small>شوف حالة طلبك</small></a>
 </section>
-<section class="gr-popular-section" id="popular">
-  <div class="section-head neo-head"><div><span class="eyebrow">PLAYER PICKS</span><h2>أكثر الألعاب طلباً 🎮</h2><p>واجهة سريعة للألعاب الأساسية في GameRush.</p></div><a href="shop.html" class="neo-more">كل الألعاب ↗</a></div>
-  <div class="gr-popular-grid" id="popularGames"></div>
+
+<section class="gr-home-games">
+  <div class="gr-home-section-head">
+    <div><span class="eyebrow">GAME CATALOG</span><h2>اختار لعبتك</h2><p>الألعاب الفعالة تظهر تلقائياً من GameRush.</p></div>
+    <a class="neo-more" href="shop.html">كل الألعاب ↗</a>
+  </div>
+  <div id="homeGameGrid" class="neo-game-grid"></div>
 </section>
-<section class="section neo-section" id="games"><div class="section-head neo-head"><div><span class="eyebrow">CHOOSE YOUR GAME</span><h2>ألعابك، بصور واضحة لكل لعبة 🎮</h2><p>اختار اللعبة حتى تنتقل مباشرة إلى صفحة الشحن.</p></div><a href="shop.html" class="neo-more">كل الألعاب ↗</a></div><div class="neo-game-grid" id="homeGameGrid"></div></section>
 
-<section class="promo" id="homeRewardsPromo"><div><span class="eyebrow" id="rewardsPromoKicker"></span><h2 id="rewardsPromoTitle"></h2><p id="rewardsPromoDescription"></p></div><a class="primary" id="rewardsPromoLink" href="#rewards"></a></section>
-
-<section class="section" id="services"><div class="section-head"><div><span class="eyebrow" id="servicesKicker"></span><h2 id="servicesTitle"></h2></div></div><div class="service-grid" id="homeServices"></div></section>
-
-<section class="iraq-banner" id="homeIraqBanner"><div><span class="eyebrow" id="iraqSubtitle"></span><h2 id="iraqTitle"></h2><p id="iraqDescription"></p></div><div class="iraq-glow" id="iraqIcon"></div></section>
-
-<section class="section" id="rewards"><div class="section-head"><div><span class="eyebrow" id="rewardsKicker"></span><h2 id="rewardsTitle"></h2></div></div><div class="reward-grid" id="homeRewards"></div></section>
+<section class="gr-home-note">
+  <div><span>🛡️</span><div><b>أمانك أولاً</b><small>ما نطلب كلمة مرور حساب اللعبة. أدخل بيانات الشحن المطلوبة فقط.</small></div></div>
+  <a class="primary" href="support.html">تحتاج مساعدة؟</a>
+</section>
 </main>
 
-<section class="support-cta">
-  <div><span class="eyebrow">تحتاج مساعدة؟</span><h2>الدعم قريب منك 🤝</h2><p>إذا واجهتك مشكلة بالطلب، تواصل ويانا مباشرة.</p></div>
-  <a class="primary big" href="https://wa.me/9647818319951" target="_blank" rel="noopener">واتساب الدعم</a>
-</section>
-
-<footer>
-  <div class="footer-brand"><span class="brand-mark">GR</span><div><b>GameRush</b><small>IRAQ</small></div><p>شحن ألعاب وخدمات رقمية — العراق.</p></div>
-  <div><h4>روابط</h4><a href="./">الرئيسية</a><a href="shop.html">المتجر</a><a href="#games">الألعاب</a><a href="vip.html">VIP</a><a href="redeem.html">استرداد</a><a href="#services">الخدمات</a><a href="#rewards">المكافآت</a></div>
-  <div><h4>المساعدة</h4><a href="#">كيف نعمل؟</a><a href="#">شروط الاستخدام</a><a href="#">الخصوصية</a><a href="#">الدعم</a></div>
-  <div><h4>تواصل</h4><p>Instagram · Facebook · TikTok · WhatsApp</p><p>واتساب: +964 781 831 9951</p><p>البريد: ibogoeed@gmail.com</p></div>
+<footer class="gr-home-footer">
+  <div><b>GameRush Iraq</b><span>شحن ألعاب وخدمات رقمية للعراق.</span></div>
+  <div><a href="shop.html">المتجر</a><a href="services.html">الخدمات</a><a href="support.html">الدعم</a><a href="track.html">تتبع الطلب</a></div>
+  <div><a href="https://wa.me/9647818319951" target="_blank" rel="noopener">واتساب</a><a href="mailto:ibogoeed@gmail.com">البريد</a></div>
 </footer>
 
 <div class="modal" id="authModal" aria-hidden="true">
@@ -94,10 +92,7 @@
       <input id="authEmail" type="email" autocomplete="email" placeholder="name@example.com" required>
       <label class="gr-auth-label" for="authPassword">كلمة المرور</label>
       <input id="authPassword" type="password" autocomplete="current-password" minlength="6" placeholder="6 أحرف أو أكثر" required>
-      <div id="authNameWrap" hidden>
-        <label class="gr-auth-label" for="authName">الاسم</label>
-        <input id="authName" type="text" autocomplete="name" placeholder="اسمك">
-      </div>
+      <div id="authNameWrap" hidden><label class="gr-auth-label" for="authName">الاسم</label><input id="authName" type="text" autocomplete="name" placeholder="اسمك"></div>
       <button id="authSubmit" class="primary full" type="submit">تسجيل الدخول</button>
       <button id="authForgot" class="gr-auth-link" type="button">نسيت كلمة المرور؟</button>
     </form>
@@ -105,7 +100,13 @@
     <div id="authAccount" class="gr-auth-account" hidden></div>
   </div>
 </div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="lang.js"></script>
-<script src="app.js"></script><script src="auth.js"></script><script src="home.js"></script>
-<script src="site-shell.js"></script><script src="page-motion.js"></script></body></html>
+<script src="app.js"></script>
+<script src="auth.js"></script>
+<script src="home.js"></script>
+<script src="site-shell.js"></script>
+<script src="page-motion.js"></script>
+</body>
+</html>
