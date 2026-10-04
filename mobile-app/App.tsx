@@ -48,7 +48,7 @@ export default function App(){
 
   return <SafeAreaView style={s.safe}>
     <StatusBar barStyle="light-content" backgroundColor="#050810"/>
-    {loading&&<View style={s.loader}><ActivityIndicator size="large" color="#b7ff2a"/><Text style={s.loaderText}>جاري فتح GameRush…</Text></View>}
+    {loading&&<View style={s.loader}><ActivityIndicator size="large" color="#b7ff2a"/><Text style={s.loaderText}>GameRush • جاري فتح المتجر…</Text></View>}
     <WebView
       ref={webRef}
       source={{uri:SITE}}
