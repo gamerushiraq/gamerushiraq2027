@@ -30,6 +30,7 @@ Deno.serve(async(req)=>{
   const payment_reference=body.payment_reference?String(body.payment_reference).trim():null;
   const customer_phone=body.customer_phone?String(body.customer_phone).trim():null;
   const notes=body.notes?String(body.notes).trim():null;
+  const vip_code=body.vip_code?String(body.vip_code).trim().toUpperCase():null;
 
   const auth=req.headers.get("authorization");
   if(!auth?.toLowerCase().startsWith("bearer "))return response({error:"Authentication required"},401);
@@ -46,11 +47,21 @@ Deno.serve(async(req)=>{
   if(!pkg)return response({error:"Invalid game or package"},400);
   const basePrice=Number(pkg.price_iqd);
   if(!Number.isFinite(basePrice))return response({error:"Invalid package price"},400);
+  let vipRedemptionId:string|null=null;
+  let vipDiscount=0;
+  if(vip_code){
+    const {data:vr,error:vrError}=await supabase.from("loyalty_redemptions").select("id,status,user_id,reward:loyalty_rewards(title,reward_type,reward_value,active)").eq("code",vip_code).eq("user_id",user_id).eq("status","pending").maybeSingle();
+    if(vrError)return response({error:"Could not validate VIP code"},500);
+    if(!vr)return response({error:"Invalid or already used VIP code"},400);
+    const reward=Array.isArray(vr.reward)?vr.reward[0]:vr.reward;
+    if(!reward?.active||reward.reward_type!=="coupon")return response({error:"This VIP code cannot be used for checkout"},400);
+    vipRedemptionId=vr.id; vipDiscount=Math.max(0,Number(reward.reward_value||0));
+  }
   const now=new Date().toISOString();
   const {data:promos,error:promoError}=await supabase.from("promotions").select("discount_iqd").eq("game",game).eq("active",true).lte("starts_at",now).gt("ends_at",now).or("package_name.is.null,package_name.eq."+package_name).order("discount_iqd",{ascending:false}).limit(1);
   if(promoError)return response({error:"Could not validate promotion"},500);
   const discount=promos?.[0]?Math.max(0,Number(promos[0].discount_iqd||0)):0;
-  const expectedPrice=Math.max(0,basePrice-discount);
+  const expectedPrice=Math.max(0,basePrice-discount-vipDiscount);
   if(!Number.isFinite(price_iqd)||price_iqd!==expectedPrice)return response({error:"Invalid package price"},400);
   const {data:gameRow,error:gameError}=await supabase.from("game_catalog").select("slug").eq("slug",game).eq("active",true).maybeSingle();
   if(gameError)return response({error:"Could not validate game"},500);
@@ -81,9 +92,10 @@ Deno.serve(async(req)=>{
 
   const {error}=await supabase.from("orders").insert({
    user_id,order_number,game,package_name,player_id,server_id,price_iqd,status:"new",
-   payment_method,payment_reference,customer_phone:normalizedPhone,notes,payment_status:"submitted"
+   payment_method,payment_reference,customer_phone:normalizedPhone,notes,payment_status:"submitted",vip_redemption_id:vipRedemptionId
   });
   if(error){if(error.code==="23505")return response({error:"Duplicate order or payment reference"},409);console.error(error);return response({error:"Could not create order"},500);}
+  if(vipRedemptionId){const {error:redeemError}=await supabase.from("loyalty_redemptions").update({status:"fulfilled",order_id:(await supabase.from("orders").select("id").eq("order_number",order_number).single()).data?.id}).eq("id",vipRedemptionId).eq("user_id",user_id).eq("status","pending");if(redeemError)console.error("VIP redemption finalization failed",redeemError);}
   return response({ok:true,order_number,payment_status:"submitted",account_linked:!!user_id},201);
  }catch(error){console.error(error);return response({error:"Invalid request"},400);}
 });
