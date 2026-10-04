@@ -51,7 +51,8 @@ function statusInfo(o){
 function setStatus(o){const [step,label]=statusInfo(o);$("statusBadge").textContent=label;$("statusBadge").className="status-badge "+step;setStep(step)}
 function renderHistory(history){
  const list=$("historyList"); if(!history?.length){$("trackHistory").hidden=true;return}
- list.innerHTML=history.map(h=>`<div class="history-item"><span class="history-dot"></span><div><b>${h.note||"تحديث حالة الطلب"}</b><small>${new Date(h.created_at).toLocaleString("ar-IQ")} — ${h.payment_status==="verified"?"الدفع مؤكد":h.payment_status==="rejected"?"الدفع مرفوض":h.status==="completed"?"مكتمل":h.status==="processing"?"قيد التنفيذ":"محدث"}</small></div></div>`).join("");$("trackHistory").hidden=false;
+ const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+ list.innerHTML=history.map(h=>`<div class="history-item"><span class="history-dot"></span><div><b>${esc(h.note||"تحديث حالة الطلب")}</b><small>${new Date(h.created_at).toLocaleString("ar-IQ")} — ${h.payment_status==="verified"?"الدفع مؤكد":h.payment_status==="rejected"?"الدفع مرفوض":h.status==="completed"?"مكتمل":h.status==="processing"?"قيد التنفيذ":"محدث"}</small></div></div>`).join("");$("trackHistory").hidden=false;
 }
 async function track(){
  const order=normalize($("orderNumber").value);$("trackMessage").textContent="";$("trackResult").hidden=true;
