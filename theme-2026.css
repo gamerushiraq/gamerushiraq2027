@@ -114,3 +114,14 @@ footer a:hover{color:var(--t-lime)!important}
  *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.001ms!important}
  body:before,body:after{display:none}
 }
+
+
+/* Final checkout readability: package quantities and prices stay visible on dark cards. */
+.game-page .packs .pack{color:#fff!important}
+.game-page .packs .pack .pack-qty,
+.game-page .packs .pack .pack-price{color:#fff!important;text-shadow:0 1px 10px rgba(0,0,0,.35)}
+.game-page .packs .pack .pack-label,
+.game-page .packs .pack .pack-price-note{color:#b7c1d0!important}
+.game-page .packs .pack .pack-bonus{color:#57d39a!important}
+.game-page .packs .pack.selected .pack-qty,
+.game-page .packs .pack.selected .pack-price{color:#fff!important}
