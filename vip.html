@@ -3,7 +3,7 @@
 (async()=>{
 const list=document.getElementById("rewardList");
 try{
-const sb=window.GameRushAuth?.client;
+const sb=window.GameRushAuth?.client||window.supabase?.createClient("https://eyjjmacxxcmdzkfqxifo.supabase.co","sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS",{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 if(!sb){list.textContent="تعذر الاتصال بالحساب.";return}
 const {data,error}=await sb.from("loyalty_rewards").select("id,title,description,cost_points").eq("active",true).order("cost_points");
 if(error)throw error;
