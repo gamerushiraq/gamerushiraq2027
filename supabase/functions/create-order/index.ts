@@ -80,7 +80,7 @@ Deno.serve(async(req)=>{
 
   const ip=clientIp(req);
   const ipKey=ip?"ip:"+await sha256(SERVICE_KEY+":"+ip):"";
-  const phoneKey="phone:"+await sha256(SERVICE_KEY+":"+customer_phone.replace(/\\D/g,""));
+  const phoneKey="phone:"+await sha256(SERVICE_KEY+":"+phoneDigits);
   const playerKey="player:"+await sha256(SERVICE_KEY+":"+game+":"+player_id);
   if(ipKey){const {data:ok,error}=await supabase.rpc("consume_order_rate_limit",{p_rate_key:ipKey,p_limit:10,p_window_seconds:600});if(error||ok!==true)return response({error:"Too many order attempts. Try again later."},429);}
   const {data:phoneOk,error:phoneError}=await supabase.rpc("consume_order_rate_limit",{p_rate_key:phoneKey,p_limit:5,p_window_seconds:600});if(phoneError||phoneOk!==true)return response({error:"Too many order attempts for this phone. Try again later."},429);
