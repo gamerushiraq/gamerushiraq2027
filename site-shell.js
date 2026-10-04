@@ -12,4 +12,4 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 const cinematic=document.createElement("link");cinematic.rel="stylesheet";cinematic.href="./cinematic-2026.css?v=2";document.head.appendChild(cinematic);
 const motion=document.createElement("script");motion.defer=true;motion.src="./cinematic-2026.js?v=2";document.head.appendChild(motion);
 const appStyle=document.createElement("link");appStyle.rel="stylesheet";appStyle.href="./app-mode-2026.css?v=1";document.head.appendChild(appStyle);
-const appMode=document.createElement("script");appMode.defer=true;appMode.src="./app-mode-2026.js?v=1";document.head.appendChild(appMode);
+const appMode=document.createElement("script");appMode.defer=true;appMode.src="./app-mode-2026.js?v=2";document.head.appendChild(appMode);
