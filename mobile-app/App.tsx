@@ -1,7 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {ActivityIndicator,BackHandler,Linking,SafeAreaView,StatusBar,StyleSheet,Text,View} from 'react-native';
-import {WebView,WebViewNavigation} from 'react-native-webview';
-import type {WebViewErrorEvent} from 'react-native-webview/lib/WebViewTypes';
+import {WebView} from 'react-native-webview';
 import NativeApp from './NativeApp';
 
 const SITE='https://gamerushiraq.github.io/gamerushiraq2027/';
@@ -39,7 +38,7 @@ export default function App(){
     return true;
   };
 
-  const onError=(event:WebViewErrorEvent)=>{
+  const onError=(event:any)=>{
     if(event.nativeEvent.url?.includes(HOST))setFailed(true);
   };
 
@@ -63,7 +62,7 @@ export default function App(){
       setSupportMultipleWindows={false}
       onLoadStart={()=>setLoading(true)}
       onLoadEnd={()=>setLoading(false)}
-      onNavigationStateChange={(state:WebViewNavigation)=>setCanGoBack(state.canGoBack)}
+      onNavigationStateChange={(state:any)=>setCanGoBack(state.canGoBack)}
       onShouldStartLoadWithRequest={handleRequest}
       onError={onError}
       onHttpError={(event)=>{if(event.nativeEvent.statusCode>=500)setFailed(true)}}
