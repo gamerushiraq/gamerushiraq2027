@@ -2,11 +2,11 @@
   "expo":{
     "name":"GameRush Iraq",
     "slug":"gamerush-iraq",
-    "version":"1.0.0",
+    "version":"1.0.1",
     "orientation":"portrait",
     "userInterfaceStyle":"dark",
     "scheme":"gamerush",
-    "android":{"package":"com.gamerushiraq.app","versionCode":1},
+    "android":{"package":"com.gamerushiraq.app","versionCode":2},
     "web":{"bundler":"metro"},
     "plugins":[]
   }
