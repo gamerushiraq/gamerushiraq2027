@@ -79,7 +79,33 @@
   <div><h4>تواصل</h4><p>Instagram · Facebook · TikTok · WhatsApp</p><p>واتساب: +964 781 831 9951</p><p>البريد: ibogoeed@gmail.com</p></div>
 </footer>
 
-<div class="modal" id="authModal"><div class="modal-box"><button class="close" data-close>×</button><span class="eyebrow">GameRush Account</span><h2 id="authTitle">تسجيل الدخول</h2><p>واجهة تجريبية للمرحلة الأولى — OAuth وOTP تُربط بعد تجهيز مفاتيح الإنتاج.</p><button class="social">G&nbsp; متابعة باستخدام Google</button><button class="social">f&nbsp; متابعة باستخدام Facebook</button><button class="social">𝕏&nbsp; متابعة باستخدام X</button><div class="divider">أو</div><input placeholder="+964 رقم الهاتف"><button class="primary full">إرسال رمز OTP</button></div></div>
+<div class="modal" id="authModal" aria-hidden="true">
+  <div class="modal-box gr-auth-box" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+    <button class="close" data-close aria-label="إغلاق">×</button>
+    <span class="eyebrow">GAMERUSH ACCOUNT</span>
+    <h2 id="authTitle">تسجيل الدخول</h2>
+    <p id="authHint">سجّل دخولك حتى تحفظ طلباتك وتتابع حسابك.</p>
+    <div class="gr-auth-tabs">
+      <button type="button" class="gr-auth-tab active" data-auth-mode="login">تسجيل الدخول</button>
+      <button type="button" class="gr-auth-tab" data-auth-mode="signup">إنشاء حساب</button>
+    </div>
+    <form id="authForm" novalidate>
+      <label class="gr-auth-label" for="authEmail">البريد الإلكتروني</label>
+      <input id="authEmail" type="email" autocomplete="email" placeholder="name@example.com" required>
+      <label class="gr-auth-label" for="authPassword">كلمة المرور</label>
+      <input id="authPassword" type="password" autocomplete="current-password" minlength="6" placeholder="6 أحرف أو أكثر" required>
+      <div id="authNameWrap" hidden>
+        <label class="gr-auth-label" for="authName">الاسم</label>
+        <input id="authName" type="text" autocomplete="name" placeholder="اسمك">
+      </div>
+      <button id="authSubmit" class="primary full" type="submit">تسجيل الدخول</button>
+      <button id="authForgot" class="gr-auth-link" type="button">نسيت كلمة المرور؟</button>
+    </form>
+    <div id="authStatus" class="gr-auth-status" role="status" aria-live="polite"></div>
+    <div id="authAccount" class="gr-auth-account" hidden></div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="lang.js"></script>
-<script src="app.js"></script><script src="home.js"></script>
+<script src="app.js"></script><script src="auth.js"></script><script src="home.js"></script>
 <script src="site-shell.js"></script><script src="page-motion.js"></script></body></html>
