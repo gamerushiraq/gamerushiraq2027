@@ -47,28 +47,7 @@
 <div class="payment-title"><div><span class="payment-kicker">SECURE CHECKOUT</span><h2>3. الدفع</h2><p>اختار وسيلة الدفع، حوّل المبلغ، ثم أدخل رقم العملية.</p></div><div class="payment-shield">🔐</div></div>
 <div class="payment-alert"><strong>⚠️ قبل التأكيد</strong><span>تأكد من المبلغ والحساب ورقم العملية. لا نطلب كلمة مرور حساب اللعبة.</span></div>
 <div class="transfer-amount"><span>المبلغ المطلوب تحويله</span><strong id="paymentAmount">—</strong><button type="button" id="copyAmount">نسخ المبلغ</button></div><div class="payment-choice-hint" id="paymentHint">① اختار طريقة الدفع حتى يظهر حساب التحويل</div>
-<div class="payment-accounts" id="paymentAccounts" hidden>
-  <div class="payment-account" id="zainAccount" hidden>
-    <div><span class="account-label">زين كاش</span><strong>07818319951</strong><small>رقم المحفظة: 904-421-318</small></div>
-    <button type="button" class="copy-account" data-copy="07818319951">نسخ الرقم</button>
-  </div>
-  <div class="payment-account" id="binanceAccount" hidden>
-    <div><span class="account-label">Binance</span><strong>1228064206</strong><small>حوّل المبلغ المطلوب ثم احتفظ برقم العملية / TxID</small></div>
-    <button type="button" class="copy-account" data-copy="1228064206">نسخ الرقم</button>
-  </div>
-  <div class="payment-account" id="superqiAccount" hidden>
-    <div><span class="account-label">سوبر كي</span><strong>7116027595</strong><small>حوّل المبلغ المطلوب ثم أدخل رقم العملية</small></div>
-    <button type="button" class="copy-account" data-copy="7116027595">نسخ الرقم</button>
-  </div>
-  <div class="payment-account" id="asiacellAccount" hidden>
-    <div><span class="account-label">آسياسيل</span><strong>07725287238</strong><small>رقم الدفع/التحويل المخصص للطلبات</small></div>
-    <button type="button" class="copy-account" data-copy="07725287238">نسخ الرقم</button>
-  </div>
-  <div class="payment-account" id="zainIraqAccount" hidden>
-    <div><span class="account-label">زين العراق</span><strong>07818319951</strong><small>رقم الدفع/التحويل المخصص للطلبات</small></div>
-    <button type="button" class="copy-account" data-copy="07818319951">نسخ الرقم</button>
-  </div>
-</div>
+<div class="payment-accounts" id="paymentAccounts" hidden></div>
 
 <div class="field"><label for="paymentMethod">طريقة الدفع</label>
 <select id="paymentMethod">
@@ -99,7 +78,7 @@
 <section class="order-flow">
 <div><strong>01</strong><span>اختار المنتج</span><small>حدد الباقة المناسبة.</small></div>
 <div><strong>02</strong><span>أدخل بياناتك</span><small>Player ID بدقة قبل الإرسال.</small></div>
-<div><strong>03</strong><span>الدفع والتنفيذ</span><small>سيتم ربطها لاحقاً بالدفع والمورد.</small></div>
+<div><strong>03</strong><span>الدفع والتنفيذ</span><small>الدفع اليدوي حالياً: بعد التحقق من التحويل يبدأ تنفيذ الشحن.</small></div>
 </section>
 </main>
 <script src="lang.js"></script><script src="game.js"></script><script src="page-motion.js"></script></body></html>
