@@ -7,7 +7,7 @@ $("countryCode")?.addEventListener("change",e=>{$("selectedCode").textContent=e.
 const callbackUrl=new URL("./auth.html",location.href).href;
 const msg=(t,c="")=>{status.textContent=t;status.className="gr-auth-status "+c};
 const busy=on=>$("phonePanel")?.closest(".gr-auth-card")?.classList.toggle("gr-auth-loading",on);
-const syncProfile=async user=>{try{const m=user?.user_metadata||{};await sb.from("profiles").upsert({id:user.id,full_name:m.full_name||m.name||user.email||"GameRush User",phone:user.phone||m.phone||"",avatar_url:m.avatar_url||m.picture||""},{onConflict:"id"})}catch{}};
+const syncProfile=async user=>{if(!user?.id)throw new Error("تعذر تحديد حساب المستخدم.");const m=user.user_metadata||{},payload={id:user.id,full_name:m.full_name||m.name||user.email||"GameRush User",phone:user.phone||m.phone||"",avatar_url:m.avatar_url||m.picture||""};const {error}=await sb.from("profiles").upsert(payload,{onConflict:"id"});if(error)throw error;const {data:profile,error:verifyError}=await sb.from("profiles").select("id").eq("id",user.id).maybeSingle();if(verifyError)throw verifyError;if(!profile?.id)throw new Error("تم تسجيل الدخول لكن لم يتم العثور على ملف المستخدم.");return profile};
 const go=()=>location.replace(next);
 async function oauth(provider){if(!sb)return msg("نظام الحساب غير متصل.","error");busy(true);msg(provider==="google"?"جاري فتح Google…":"جاري فتح Facebook…");const {error}=await sb.auth.signInWithOAuth({provider,options:{redirectTo:callbackUrl+"?next="+encodeURIComponent(next),queryParams:provider==="google"?{prompt:"select_account"}:undefined}});if(error){busy(false);const text=String(error.message||"");if(/not enabled|unsupported provider|provider is not enabled/i.test(text))return msg("تسجيل الدخول بهذا المزود غير مفعّل حالياً في إعدادات GameRush. لازم تفعيل المزود من Supabase أولاً.","error");msg(text||"تعذر فتح تسجيل الدخول.","error")}}
 function normalizePhone(){const code=$("countryCode").value;let raw=$("phoneInput").value.trim().replace(/[\s()-]/g,"");if(raw.startsWith("+"))return raw;if(raw.startsWith("00"))return "+"+raw.slice(2);if(raw.startsWith("0"))raw=raw.slice(1);return code+raw}
@@ -18,6 +18,6 @@ $("googleBtn").onclick=()=>oauth("google");$("facebookBtn").onclick=()=>oauth("f
 $("phoneBtn").onclick=()=>{emailPanel.classList.remove("open");phonePanel.classList.add("open");$("phoneInput").focus();msg("أدخل رقمك حتى نرسل رمز تحقق SMS.")};
 $("closePhoneBtn").onclick=()=>{phonePanel.classList.remove("open");otpPanel.classList.remove("open");msg("")};
 $("sendOtpBtn").onclick=sendOtp;$("resendBtn").onclick=sendOtp;$("verifyOtpBtn").onclick=verifyOtp;
-sb?.auth.onAuthStateChange(async(event,session)=>{if(session){await syncProfile(session.user);if(event==="SIGNED_IN"||event==="INITIAL_SESSION")go()}});
+sb?.auth.onAuthStateChange((event,session)=>{if(session&&(event==="SIGNED_IN"||event==="INITIAL_SESSION"))setTimeout(()=>go(),0)});
 (async()=>{if(!sb)return msg("تعذر تشغيل نظام الحساب. حدّث الصفحة.","error");const {data}=await sb.auth.getSession();if(data.session)go()})();
 })();
