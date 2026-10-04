@@ -1,1 +1,26 @@
-{"name":"gamerush-iraq-app","version":"1.0.0","private":true,"main":"expo/AppEntry.js","scripts":{"start":"expo start","android":"expo start --android","build:android":"eas build --platform android --profile preview"},"dependencies":{"@supabase/supabase-js":"latest","expo":"~57.0.26","expo-status-bar":"~57.0.0","react":"19.2.3","react-native":"0.86.3","react-native-url-polyfill":"latest","react-native-webview":"13.16.1"},"devDependencies":{"@babel/core":"latest","typescript":"~6.0.3","@types/react":"~19.2.2"}}
+{
+  "name": "gamerush-iraq-app",
+  "version": "1.0.0",
+  "private": true,
+  "main": "expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "build:android": "eas build --platform android --profile preview"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "latest",
+    "expo": "~57.0.26",
+    "expo-status-bar": "~57.0.0",
+    "expo-clipboard": "~57.0.2",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-url-polyfill": "latest",
+    "react-native-webview": "13.16.1"
+  },
+  "devDependencies": {
+    "@babel/core": "latest",
+    "typescript": "~6.0.3",
+    "@types/react": "~19.2.2"
+  }
+}
