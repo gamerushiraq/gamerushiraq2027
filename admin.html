@@ -204,15 +204,20 @@ function render(){
   document.querySelectorAll(".status-select").forEach(el=>el.addEventListener("change",()=>updateStatus(el.dataset.id,el.value)));
   document.querySelectorAll(".payment-select").forEach(el=>el.addEventListener("change",()=>updatePaymentStatus(el.dataset.id,el.value)));
 }
+const ADMIN_ACTION_API="https://eyjjmacxxcmdzkfqxifo.supabase.co/functions/v1/admin-order-action";
+async function adminAction(payload){
+  const {data:{session}}=await db.auth.getSession();
+  if(!session?.access_token)throw new Error("جلسة الأدمن منتهية، سجل الدخول من جديد.");
+  const res=await fetch(ADMIN_ACTION_API,{method:"POST",headers:{"Content-Type":"application/json",Authorization:"Bearer "+session.access_token},body:JSON.stringify(payload)});
+  const body=await res.json().catch(()=>({}));
+  if(!res.ok)throw new Error(body.error||"تعذر تنفيذ العملية");
+  return body;
+}
 async function updateStatus(id,status){
-  const {error}=await db.from("orders").update({status,updated_at:new Date().toISOString()}).eq("id",id);
-  if(error){alert("فشل تحديث الحالة: "+error.message);return;}
-  const item=allOrders.find(x=>x.id===id);if(item)item.status=status;render();
+  try{await adminAction({action:"status",id,status});const item=allOrders.find(x=>x.id===id);if(item)item.status=status;render()}catch(e){alert("فشل تحديث الحالة: "+e.message)}
 }
 async function updatePaymentStatus(id,payment_status){
-  const {error}=await db.from("orders").update({payment_status,updated_at:new Date().toISOString()}).eq("id",id);
-  if(error){alert("فشل تحديث حالة الدفع: "+error.message);return;}
-  const item=allOrders.find(x=>x.id===id);if(item)item.payment_status=payment_status;render();
+  try{const body=await adminAction({action:"payment",id,payment_status});const item=allOrders.find(x=>x.id===id);if(item){item.payment_status=body.payment_status;item.status=body.status;item.fulfillment_status=body.fulfillment_status}render()}catch(e){alert("فشل تحديث حالة الدفع: "+e.message)}
 }
 async function login(){
   const email=$("email").value.trim().toLowerCase(),password=$("password").value;
