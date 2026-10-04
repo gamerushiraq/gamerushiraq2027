@@ -30,6 +30,15 @@
 <button class="gr-auth-phone-submit" id="sendOtpBtn" type="button" style="margin-top:9px;width:100%">إرسال رمز التحقق SMS</button>
 <div class="gr-auth-otp" id="otpPanel"><label for="otpInput">رمز التحقق</label><div class="gr-auth-otp-row"><input id="otpInput" class="gr-auth-input" inputmode="numeric" autocomplete="one-time-code" placeholder="6 أرقام" maxlength="6"><button class="gr-auth-verify" id="verifyOtpBtn" type="button">تحقق</button></div><button class="gr-auth-back" id="resendBtn" type="button">إعادة إرسال الرمز</button></div>
 <button class="gr-auth-back" id="closePhoneBtn" type="button">رجوع لخيارات الدخول</button></div>
+<div class="gr-auth-email" id="emailPanel">
+<div class="gr-auth-tabs"><button class="gr-auth-tab active" id="emailLoginTab" type="button">تسجيل الدخول</button><button class="gr-auth-tab" id="emailSignupTab" type="button">إنشاء حساب</button></div>
+<div id="nameWrap" hidden><label for="nameInput">الاسم</label><input id="nameInput" class="gr-auth-input" autocomplete="name" placeholder="اسمك"></div>
+<label for="emailInput">البريد الإلكتروني</label><input id="emailInput" class="gr-auth-input" type="email" autocomplete="email" placeholder="example@email.com">
+<label for="passwordInput">كلمة المرور</label><input id="passwordInput" class="gr-auth-input" type="password" autocomplete="current-password" placeholder="••••••••" minlength="6">
+<button class="gr-auth-phone-submit" id="emailSubmitBtn" type="button" style="margin-top:9px;width:100%">تسجيل الدخول</button>
+<button class="gr-auth-back" id="forgotPasswordBtn" type="button">نسيت كلمة المرور؟</button>
+<button class="gr-auth-back" id="closeEmailBtn" type="button">رجوع لخيارات الدخول</button>
+</div>
 <div class="gr-auth-status" id="authStatus" role="status" aria-live="polite"></div>
 <div class="gr-auth-foot">🔐 لا نطلب كلمة مرور حساب اللعبة. بيانات الشحن تبقى منفصلة عن تسجيل الدخول.</div>
 </section></div></main>
