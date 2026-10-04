@@ -1,0 +1,24 @@
+/* GameRush performance hotfix — keep the cinematic look without mobile jank */
+html{scroll-behavior:auto}
+body{backface-visibility:hidden}
+body::before{animation:none!important}
+.neo-hero::after,.featured-panel::after,.gr-featured::after{animation:none!important}
+.neo-hero,.featured-panel,.gr-featured,.neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward,.gr-quick-card,.checkout,.form-card{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward,.gr-quick-card{will-change:auto!important}
+.gr-particle-layer{display:none!important}
+@media(max-width:900px){
+  .gr-particle-field,.gr-hero-scene canvas{display:none!important}
+  .neo-hero::before,.gr-featured::before,.featured-panel::before{background:none!important}
+  .neo-hero::after,.gr-featured::after,.featured-panel::after{display:none!important}
+  .neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward,.gr-quick-card{box-shadow:0 10px 28px rgba(0,0,0,.24)!important}
+  .neo-game-card:hover,.gr-popular-card:hover,.gr-promo-card:hover,.service:hover,.reward:hover,.gr-quick-card:hover{transform:none!important;filter:none!important}
+  .gr-ripple{display:none!important}
+}
+@media(max-width:600px){
+  body:before{background-image:none!important}
+  .neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward,.gr-quick-card{box-shadow:0 8px 22px rgba(0,0,0,.20)!important}
+  .neo-game-card:after,.gr-popular-card:after,.gr-promo-card:after{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *{scroll-behavior:auto!important}
+}
