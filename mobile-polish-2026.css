@@ -1,0 +1,86 @@
+/* GameRush 2026 — mobile reliability + vivid motion */
+*{box-sizing:border-box}
+html{overflow-x:hidden}
+body{overflow-x:hidden;min-width:0}
+img{max-width:100%;height:auto}
+img[src=""],img:not([src]){visibility:hidden}
+a,button,input,select,textarea{touch-action:manipulation}
+@media(max-width:760px){
+  .topbar{position:sticky;top:0;z-index:5000;min-height:64px;padding:9px 12px!important;gap:8px!important}
+  .topbar .nav{order:4;width:100%;overflow-x:auto;display:flex!important;gap:7px!important;padding:3px 0 5px;scrollbar-width:none}
+  .topbar .nav::-webkit-scrollbar{display:none}
+  .nav a{white-space:nowrap;font-size:12px!important;padding:8px 10px!important}
+  .brand{min-width:max-content}
+  .brand span:last-child{font-size:15px!important}
+  .header-actions{margin-inline-start:auto;gap:5px!important}
+  .header-actions .ghost,.header-actions .primary{display:none!important}
+  .header-actions .lang,.header-actions .icon-btn{padding:8px!important}
+  .store-strip{font-size:11px!important;padding:7px 10px!important}
+  .store-strip-links{gap:7px!important}
+  .neo-hero,.featured-panel,.gr-featured,.neo-game-hero,.pubg-topup-shell,.checkout,.support-cta,.promo,.iraq-banner{width:calc(100% - 20px)!important;margin-inline:10px!important;border-radius:20px!important}
+  .neo-hero{display:flex!important;flex-direction:column!important;padding:18px!important;min-height:0!important}
+  .neo-hero-copy{padding:5px!important}
+  .neo-hero h1{font-size:34px!important;line-height:1.12!important}
+  .neo-hero-media{width:100%!important;min-height:270px!important}
+  .neo-media-main{width:100%!important;height:270px!important}
+  .neo-media-float{display:none!important}
+  .neo-actions{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .neo-primary,.neo-outline,.primary,.secondary{min-height:46px!important;display:flex!important;align-items:center;justify-content:center}
+  .neo-trust{flex-wrap:wrap!important;gap:6px!important}
+  .neo-trust span{font-size:11px!important}
+  .neo-game-grid,.gr-popular-grid,.gr-promo-slider,.service-grid,.reward-grid,.neo-live-grid,.gr-quick-grid{grid-template-columns:1fr 1fr!important}
+  .neo-game-card.wide{grid-column:span 2}
+  .neo-game-card,.gr-popular-card,.gr-promo-card{min-width:0!important}
+  .neo-game-card img{height:180px!important;object-fit:cover}
+  .gr-popular-card{min-height:210px!important}
+  .gr-popular-card img{height:120px!important;object-fit:cover}
+  .gr-promo-card{min-height:330px!important}
+  .gr-promo-art{height:165px!important}
+  .section,.neo-live,.gr-promo-section,.gr-popular-section{width:100%!important;padding:24px 10px!important}
+  .section-head{gap:10px!important}
+  .section-head h2,.neo-head h2{font-size:25px!important;line-height:1.2!important}
+  .section-head p{font-size:12px!important}
+  .gr-quick-hub{padding:20px 10px!important}
+  .gr-quick-grid{gap:8px!important}
+  .gr-quick-card{padding:12px!important}
+  .gr-quick-card small{font-size:10px!important}
+  .featured-panel,.gr-featured{padding:18px!important}
+  .featured-panel{display:grid!important}
+  .gr-featured-art{min-height:250px!important}
+  .gr-featured-art img{max-height:280px!important;object-fit:contain}
+  .game-page{padding:10px 0 30px!important}
+  .game-page .breadcrumb{width:calc(100% - 20px);margin-inline:10px;font-size:11px}
+  .neo-game-hero{padding:18px!important;grid-template-columns:1fr!important}
+  .neo-game-hero h1{font-size:30px!important}
+  .neo-game-hero-art{min-height:220px!important}
+  .pubg-promo-row{grid-template-columns:1fr!important;gap:12px!important}
+  .pubg-flow-grid{grid-template-columns:1fr!important}
+  .checkout{display:block!important}
+  .game-summary{grid-template-columns:1fr!important;text-align:center}
+  .big-art{min-height:220px!important}
+  .packs{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .pack{min-height:145px!important;padding:12px!important}
+  .pack-price{font-size:17px!important}
+  .mobile-wizard-steps{position:sticky;top:64px;z-index:100;overflow-x:auto;display:flex!important;gap:6px!important}
+  .mobile-wizard-steps span{white-space:nowrap;font-size:11px!important}
+  .form-card{padding:14px!important}
+  .field input,.field select,.field textarea{font-size:16px!important;min-height:48px!important}
+  .payment-accounts{display:block!important}
+  .payment-account{flex-wrap:wrap!important;gap:8px!important}
+  .payment-account strong{font-size:17px!important}
+  .wizard-submit{position:sticky!important;bottom:10px;z-index:200;box-shadow:0 10px 35px #000!important}
+  footer{display:grid!important;grid-template-columns:1fr 1fr!important;gap:20px!important;padding:30px 18px!important}
+  footer>div:first-child{grid-column:span 2}
+}
+@media(max-width:390px){
+  .neo-game-grid,.gr-popular-grid,.gr-promo-slider,.service-grid,.reward-grid,.neo-live-grid,.gr-quick-grid{grid-template-columns:1fr!important}
+  .neo-game-card.wide{grid-column:auto}
+  .neo-actions{grid-template-columns:1fr!important}
+  .packs{grid-template-columns:1fr!important}
+  .brand-mark{width:38px!important;height:38px!important}
+}
+@media(prefers-reduced-motion:no-preference){
+  .neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward{animation:grMobileFloat 5s ease-in-out infinite}
+  .neo-game-card:nth-child(2n),.gr-popular-card:nth-child(2n){animation-delay:-2s}
+}
+@keyframes grMobileFloat{50%{transform:translateY(-3px)}}
