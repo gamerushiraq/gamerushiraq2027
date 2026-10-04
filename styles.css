@@ -135,7 +135,7 @@ body{background:#f7f8fc;color:var(--gr-ink)}
 
 #packs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .pack{position:relative;overflow:hidden;min-height:132px!important;padding:18px!important;border-radius:20px!important;background:linear-gradient(145deg,#fff,#f7f7fb)!important}
-.pack-qty{font-size:22px!important;color:#151827!important}
+.pack-qty{font-size:22px!important;color:#fff!important}
 .pack-bonus{display:inline-flex;min-height:14px;margin-top:7px;color:#087f55;font-size:9px;font-weight:900}
 .pack-price-note{font-size:8px;color:#9aa1b1;margin-top:4px}
 .pack-badge{z-index:2}
