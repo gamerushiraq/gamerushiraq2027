@@ -1,16 +1,19 @@
 (()=>{"use strict";
 const URL="https://eyjjmacxxcmdzkfqxifo.supabase.co",KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
 const sb=window.supabase?.createClient(URL,KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
-const form=document.getElementById("authPageForm"),email=document.getElementById("email"),password=document.getElementById("password"),name=document.getElementById("name"),nameWrap=document.getElementById("nameWrap"),submit=document.getElementById("submit"),forgot=document.getElementById("forgot"),status=document.getElementById("status"),title=document.getElementById("authTitle"),back=document.getElementById("back");
-const next=new URLSearchParams(location.search).get("next")||"./";
-let mode="login";
-if(next&&/^https:\/\/gamerushiraq\.github\.io\/gamerushiraq2027\//.test(next))back.href=next;
+const $=id=>document.getElementById(id),status=$("authStatus"),phonePanel=$("phonePanel"),otpPanel=$("otpPanel"),nextRaw=new URLSearchParams(location.search).get("next")||"./";
+const next=nextRaw.startsWith(location.origin+"/")||nextRaw.startsWith("./")?nextRaw:"./";
 const msg=(t,c="")=>{status.textContent=t;status.className="gr-auth-status "+c};
-const setMode=m=>{mode=m;document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===m));nameWrap.hidden=m!=="signup";submit.textContent=m==="login"?"تسجيل الدخول":"إنشاء الحساب";forgot.hidden=m!=="login";title.textContent=m==="login"?"سجّل دخولك":"أنشئ حسابك";password.autocomplete=m==="login"?"current-password":"new-password";msg("")};
-document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
-async function go(){location.replace(next)}
-(async()=>{if(!sb)return msg("تعذر تشغيل نظام الحساب.","error");const {data}=await sb.auth.getSession();if(data.session)go()})();
-form.addEventListener("submit",async e=>{e.preventDefault();if(!sb)return msg("نظام الحساب غير متصل حالياً.","error");const em=email.value.trim().toLowerCase(),pw=password.value;if(!em||!em.includes("@"))return msg("اكتب بريد إلكتروني صحيح.","error");if(pw.length<6)return msg("كلمة المرور لازم تكون 6 أحرف أو أكثر.","error");submit.disabled=true;msg("جاري المعالجة…");
-try{if(mode==="signup"){const {data,error}=await sb.auth.signUp({email:em,password:pw,options:{data:{full_name:name.value.trim()||null},emailRedirectTo:location.origin+location.pathname+"?next="+encodeURIComponent(next)}});if(error)throw error;if(data.session){msg("تم إنشاء الحساب وتسجيل الدخول ✅","success");setTimeout(go,350)}else msg("تم إنشاء الحساب. افتح رسالة التأكيد اللي وصلت لبريدك ثم سجّل دخولك.","success")}else{const {data,error}=await sb.auth.signInWithPassword({email:em,password:pw});if(error)throw error;msg("تم تسجيل الدخول بنجاح ✅","success");setTimeout(go,250)}}catch(e){msg(e?.message||"صار خطأ، حاول مرة ثانية.","error")}finally{submit.disabled=false;submit.textContent=mode==="login"?"تسجيل الدخول":"إنشاء الحساب"}});
-forgot.addEventListener("click",async()=>{if(!sb)return;const em=email.value.trim().toLowerCase();if(!em||!em.includes("@"))return msg("اكتب بريدك أولاً.","error");forgot.disabled=true;const {error}=await sb.auth.resetPasswordForEmail(em,{redirectTo:location.origin+location.pathname+"?next="+encodeURIComponent(next)});forgot.disabled=false;if(error)msg(error.message,"error");else msg("إذا البريد مسجل، راح توصلك رسالة إعادة تعيين كلمة المرور.","success")});
+const busy=on=>$("phonePanel")?.closest(".gr-auth-card")?.classList.toggle("gr-auth-loading",on);
+const syncProfile=async user=>{try{const m=user?.user_metadata||{};await sb.from("profiles").upsert({id:user.id,full_name:m.full_name||m.name||user.email||"GameRush User",phone:user.phone||m.phone||"",avatar_url:m.avatar_url||m.picture||""},{onConflict:"id"})}catch{}};
+const go=()=>location.replace(next);
+async function oauth(provider){if(!sb)return msg("نظام الحساب غير متصل.","error");busy(true);msg("جاري فتح تسجيل الدخول…");const {error}=await sb.auth.signInWithOAuth({provider,options:{redirectTo:location.origin+"/auth.html?next="+encodeURIComponent(next)}});if(error){busy(false);msg(error.message||"تعذر فتح تسجيل الدخول.","error")}}
+async function sendOtp(){let raw=$("phoneInput").value.trim().replace(/[\s()-]/g,""),phone=raw;if(/^07\d{9}$/.test(raw))phone="+964"+raw.slice(1);if(!/^\+9647\d{9}$/.test(phone))return msg("اكتب رقم عراقي صحيح مثل +9647XXXXXXXXX.","error");$("phoneInput").value=phone;busy(true);msg("جاري إرسال رمز التحقق…");const {error}=await sb.auth.signInWithOtp({phone});busy(false);if(error)return msg(error.message||"تعذر إرسال الرمز. تأكد من تفعيل مزود SMS في Supabase.","error");otpPanel.classList.add("open");msg("وصلتك رسالة SMS؟ أدخل الرمز المكوّن من 6 أرقام.","success")}
+async function verifyOtp(){const phone=$("phoneInput").value.trim(),token=$("otpInput").value.trim();if(!/^\d{6}$/.test(token))return msg("أدخل رمز التحقق المكوّن من 6 أرقام.","error");busy(true);msg("جاري التحقق…");const {data,error}=await sb.auth.verifyOtp({phone,token,type:"sms"});busy(false);if(error)return msg(error.message||"الرمز غير صحيح أو منتهي.","error");if(data.user){await syncProfile(data.user);msg("تم تسجيل الدخول بنجاح ✓","success");setTimeout(go,350)}}
+$("googleBtn").onclick=()=>oauth("google");$("facebookBtn").onclick=()=>oauth("facebook");
+$("phoneBtn").onclick=()=>{phonePanel.classList.add("open");$("phoneInput").focus();msg("أدخل رقمك حتى نرسل رمز تحقق SMS.")};
+$("closePhoneBtn").onclick=()=>{phonePanel.classList.remove("open");otpPanel.classList.remove("open");msg("")};
+$("sendOtpBtn").onclick=sendOtp;$("resendBtn").onclick=sendOtp;$("verifyOtpBtn").onclick=verifyOtp;
+sb?.auth.onAuthStateChange(async(event,session)=>{if(session){await syncProfile(session.user);if(event==="SIGNED_IN"||event==="INITIAL_SESSION")go()}});
+(async()=>{if(!sb)return msg("تعذر تشغيل نظام الحساب. حدّث الصفحة.","error");const {data}=await sb.auth.getSession();if(data.session)go()})();
 })();
