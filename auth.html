@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050810">
+<title>GameRush Iraq — تسجيل الدخول</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="store-ui.css">
+<style>
+html,body{min-height:100%;background:#050810}
+.gr-auth-page{min-height:100vh;display:grid;place-items:center;padding:24px;box-sizing:border-box;background:radial-gradient(circle at 20% 10%,#00e5ff18,transparent 35%),radial-gradient(circle at 80% 90%,#b7ff2a12,transparent 35%),#050810}
+.gr-auth-card{width:min(460px,100%);padding:28px;border:1px solid #20304a;border-radius:26px;background:#091322ee;box-shadow:0 30px 90px #0008;backdrop-filter:blur(18px)}
+.gr-auth-brand{display:flex;align-items:center;gap:12px;margin-bottom:24px;color:#fff;text-decoration:none}
+.gr-auth-brand .mark{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:#b7ff2a;color:#07100a;font-weight:1000;font-size:18px}
+.gr-auth-brand b{font-size:24px;font-weight:1000}.gr-auth-brand small{display:block;color:#00e5ff;font-size:10px;letter-spacing:2px}
+.gr-auth-card h1{color:#fff;font-size:30px;margin:0 0 8px}.gr-auth-card .lead{color:#aeb9c9;line-height:1.7;margin:0 0 18px}
+.gr-auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:16px 0}
+.gr-auth-tab{border:1px solid #24354b;background:#0a1321;color:#b9c6d8;border-radius:12px;padding:12px;font-weight:900;cursor:pointer}
+.gr-auth-tab.active{border-color:#b7ff2a;color:#07100a;background:#b7ff2a}
+.gr-auth-label{display:block;color:#dce5f0;font-size:13px;font-weight:800;margin:11px 0 6px}
+.gr-auth-input{width:100%;box-sizing:border-box;padding:14px;border-radius:13px;border:1px solid #24354b;background:#070d17;color:#fff;outline:none;font:inherit}
+.gr-auth-input:focus{border-color:#00e5ff;box-shadow:0 0 0 3px #00e5ff1a}
+.gr-auth-submit{width:100%;border:0;border-radius:14px;padding:14px;margin-top:16px;background:#b7ff2a;color:#07100a;font-weight:1000;font-size:15px;cursor:pointer}
+.gr-auth-submit:disabled{opacity:.6;cursor:wait}
+.gr-auth-link{border:0;background:transparent;color:#00e5ff;cursor:pointer;font-weight:800;padding:10px 0}
+.gr-auth-status{min-height:24px;margin-top:10px;color:#aeb9c9;line-height:1.6;font-size:13px}
+.gr-auth-status.error{color:#ff8ca0}.gr-auth-status.success{color:#b7ff2a}
+.gr-auth-foot{margin-top:20px;color:#708096;font-size:12px;line-height:1.7;text-align:center}
+.gr-auth-back{display:block;color:#8fa0b5;text-decoration:none;margin-top:16px;text-align:center;font-size:13px}
+</style>
+</head>
+<body>
+<main class="gr-auth-page">
+<section class="gr-auth-card" aria-labelledby="authTitle">
+<a class="gr-auth-brand" href="./"><span class="mark">GR</span><span><b>GameRush</b><small>IRAQ • TOP-UP</small></span></a>
+<span class="eyebrow">SECURE ACCOUNT</span>
+<h1 id="authTitle">سجّل دخولك</h1>
+<p class="lead">حتى تستخدم GameRush لازم يكون عندك حساب. سجّل دخولك أو أنشئ حساب جديد.</p>
+<div class="gr-auth-tabs">
+<button class="gr-auth-tab active" data-mode="login" type="button">تسجيل الدخول</button>
+<button class="gr-auth-tab" data-mode="signup" type="button">إنشاء حساب</button>
+</div>
+<form id="authPageForm" novalidate>
+<div id="nameWrap" hidden><label class="gr-auth-label" for="name">الاسم</label><input class="gr-auth-input" id="name" type="text" autocomplete="name" placeholder="اسمك"></div>
+<label class="gr-auth-label" for="email">البريد الإلكتروني</label>
+<input class="gr-auth-input" id="email" type="email" autocomplete="email" placeholder="name@example.com" required>
+<label class="gr-auth-label" for="password">كلمة المرور</label>
+<input class="gr-auth-input" id="password" type="password" autocomplete="current-password" minlength="6" placeholder="6 أحرف أو أكثر" required>
+<button id="submit" class="gr-auth-submit" type="submit">تسجيل الدخول</button>
+<button id="forgot" class="gr-auth-link" type="button">نسيت كلمة المرور؟</button>
+<div id="status" class="gr-auth-status" role="status" aria-live="polite"></div>
+</form>
+<p class="gr-auth-foot">🔐 حسابك مرتبط مباشرة بـ GameRush وSupabase، والجلسة تبقى محفوظة حتى تسجّل خروجك.</p>
+<a id="back" class="gr-auth-back" href="./">← الرجوع للرئيسية</a>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="auth-page.js"></script>
+</body>
+</html>
