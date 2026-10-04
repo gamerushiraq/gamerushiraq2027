@@ -44,7 +44,13 @@ Deno.serve(async(req)=>{
   const {data:pkg,error:pkgError}=await supabase.from("game_packages").select("package_name,price_iqd").eq("game_slug",game).eq("package_name",package_name).eq("active",true).maybeSingle();
   if(pkgError)return response({error:"Could not validate package"},500);
   if(!pkg)return response({error:"Invalid game or package"},400);
-  const expectedPrice=Number(pkg.price_iqd);
+  const basePrice=Number(pkg.price_iqd);
+  if(!Number.isFinite(basePrice))return response({error:"Invalid package price"},400);
+  const now=new Date().toISOString();
+  const {data:promos,error:promoError}=await supabase.from("promotions").select("discount_iqd").eq("game",game).eq("active",true).lte("starts_at",now).gt("ends_at",now).or("package_name.is.null,package_name.eq."+package_name).order("discount_iqd",{ascending:false}).limit(1);
+  if(promoError)return response({error:"Could not validate promotion"},500);
+  const discount=promos?.[0]?Math.max(0,Number(promos[0].discount_iqd||0)):0;
+  const expectedPrice=Math.max(0,basePrice-discount);
   if(!Number.isFinite(price_iqd)||price_iqd!==expectedPrice)return response({error:"Invalid package price"},400);
   const {data:gameRow,error:gameError}=await supabase.from("game_catalog").select("slug").eq("slug",game).eq("active",true).maybeSingle();
   if(gameError)return response({error:"Could not validate game"},500);
