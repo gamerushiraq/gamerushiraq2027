@@ -4,7 +4,7 @@ const links=[['performance-2026.css','1'],['theme-2026.css','3'],['mobile-polish
 links.forEach(([href,v])=>{const l=document.createElement('link');l.rel='stylesheet';l.href='./'+href+'?v='+v;document.head.appendChild(l)});
 ['media-guard-2026.js','cinematic-2026.js','cinematic-interaction-2026.js','app-mode-2026.js'].forEach((src,i)=>{const s=document.createElement('script');s.defer=true;s.src='./'+src+'?v='+(i+10);document.head.appendChild(s)});
 function boot(){
- if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+ if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=9').catch(()=>{});
  document.querySelectorAll('img').forEach(i=>{i.loading=i.loading||'lazy';i.decoding='async';i.setAttribute('fetchpriority',i.dataset.priority==='high'?'high':'auto');});
  if(location.pathname.endsWith('/game.html')||location.pathname.endsWith('/')){
   const promo=document.querySelector('.pubg-topup-shell');
