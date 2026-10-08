@@ -116,3 +116,23 @@ body{font-family:Cairo,system-ui,sans-serif!important;overflow-x:hidden}
  .gr-ref-game .art{height:108px}.gr-ref-services{grid-template-columns:repeat(2,1fr)}
  .gr-ref-footer{grid-template-columns:1fr}
 }
+
+/* Data-rendering aliases: preserve the existing Supabase/home.js hooks while using the reference skin. */
+.gr-popular-card{position:relative;min-width:0;min-height:205px;border:1px solid #1a3048!important;border-radius:13px!important;overflow:hidden;background:#091321!important;color:#fff!important;text-decoration:none!important;transition:.25s;display:block}
+.gr-popular-card:hover{transform:translateY(-4px);border-color:#2d668e!important}
+.gr-popular-card img{width:100%;height:135px;object-fit:cover;display:block;transition:.4s}
+.gr-popular-card:hover img{transform:scale(1.06)}
+.gr-popular-card div{padding:9px}
+.gr-popular-card small,.gr-popular-card b,.gr-popular-card span{display:block}
+.gr-popular-card small{font-size:7px;color:#71849b}
+.gr-popular-card b{font-size:11px;line-height:1.5;margin:4px 0}
+.gr-popular-card div>span{font-size:8px;color:#ff3155}
+.gr-popular-card .gr-rank{position:absolute;z-index:2;top:8px;right:8px;background:#050a12dd;color:#fff;border:1px solid #ffffff1a;border-radius:7px;padding:4px 6px;font-size:7px}
+.service{min-height:91px!important;border:1px solid #1a3048!important;border-radius:12px!important;background:#091321!important;color:#fff!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;text-align:center!important;gap:5px!important;text-decoration:none!important}
+.service b{font-size:9px!important}.service span{font-size:7px!important;color:#71849b!important}
+.gr-promo-card{display:flex;min-height:155px;background:#091321;border:1px solid #1a3048;border-radius:14px;overflow:hidden;color:#fff}
+.gr-promo-art{width:40%;min-width:40%;overflow:hidden}.gr-promo-art img{width:100%;height:100%;object-fit:cover}
+.gr-promo-body{padding:12px;display:flex;flex-direction:column;min-width:0}.gr-promo-badge{color:#fff;font-size:8px}.gr-promo-body>small{color:#7f93a9;font-size:8px}.gr-promo-body h3{font-size:12px;margin:6px 0}.gr-promo-body p{font-size:8px;color:#8da1b7}.gr-promo-bottom{margin-top:auto;display:flex;justify-content:space-between}.gr-countdown{color:#ff3155;font-size:11px;font-weight:1000}.gr-promo-bottom a{color:#b7ff2a;font-size:8px}
+@media(max-width:760px){
+ .gr-popular-card{min-height:175px}.gr-popular-card img{height:110px}.gr-popular-card b{font-size:10px}
+}
