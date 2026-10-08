@@ -1,0 +1,118 @@
+/* GameRush Iraq — Reference-inspired homepage skin
+   Built from the user's supplied reference image; original GameRush styling. */
+:root{
+  --gr-bg:#050a12;--gr-panel:#091221;--gr-panel2:#0c1728;--gr-line:#19314c;
+  --gr-text:#f7fbff;--gr-muted:#8fa2b9;--gr-red:#ff3155;--gr-red2:#ff1746;
+  --gr-blue:#21a7ff;--gr-cyan:#00d9ff;--gr-green:#b7ff2a;
+}
+html,body{background:var(--gr-bg)!important;color:var(--gr-text)!important}
+body{font-family:Cairo,system-ui,sans-serif!important;overflow-x:hidden}
+.gr-ref-page{min-height:100vh;background:
+ radial-gradient(circle at 75% 8%,rgba(0,153,255,.08),transparent 30%),
+ radial-gradient(circle at 10% 45%,rgba(255,49,85,.045),transparent 28%),var(--gr-bg)}
+.gr-ref-topbar{height:76px!important;padding:0 24px!important;background:rgba(5,10,18,.94)!important;border-bottom:1px solid var(--gr-line)!important;box-shadow:0 8px 35px #0008;display:flex!important;align-items:center;gap:22px;position:sticky!important;top:0;z-index:100}
+.gr-ref-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:1000;font-size:25px;line-height:.8;white-space:nowrap}
+.gr-ref-brand .mark{font-style:italic;font-size:35px;color:var(--gr-red);letter-spacing:-8px;text-shadow:0 0 18px #ff315555}
+.gr-ref-brand small{display:block;font-size:8px;letter-spacing:5px;color:#d8e2ef;margin-top:5px;text-align:center}
+.gr-ref-nav{display:flex;align-items:center;justify-content:center;gap:22px;flex:1}
+.gr-ref-nav a{color:#c5d0df!important;text-decoration:none!important;font-size:12px;font-weight:900;padding:10px 5px;border-radius:9px;white-space:nowrap}
+.gr-ref-nav a:hover,.gr-ref-nav a.active{color:#fff!important;background:#102035}
+.gr-ref-search{width:min(255px,22vw);height:40px;border:1px solid var(--gr-line);border-radius:12px;background:#08111e;color:#8ea1b8;display:flex;align-items:center;padding:0 12px;gap:8px;cursor:pointer;font:800 10px Cairo}
+.gr-ref-actions{display:flex;align-items:center;gap:7px}
+.gr-ref-actions button{border-radius:10px!important;padding:10px 14px!important;font:900 11px Cairo!important}
+.gr-ref-login{background:#0b1523!important;border:1px solid #24415e!important;color:#fff!important}
+.gr-ref-signup{background:linear-gradient(135deg,var(--gr-red),#ff536c)!important;color:#fff!important;border:0!important}
+.gr-ref-lang{background:#0b1523!important;border:1px solid #24415e!important;color:#fff!important}
+
+.gr-ref-side{position:fixed;right:0;top:76px;bottom:0;width:64px;background:#060d17;border-left:1px solid var(--gr-line);z-index:70;display:flex;flex-direction:column;align-items:center;padding:15px 0;gap:7px}
+.gr-ref-side a{width:42px;height:42px;border-radius:11px;color:#a7b7ca;text-decoration:none;display:grid;place-items:center;font-size:20px;border:1px solid transparent}
+.gr-ref-side a:hover,.gr-ref-side a.active{color:var(--gr-red);background:#111d2d;border-color:#203a55;box-shadow:0 0 20px #ff315514}
+.gr-ref-main{margin-right:64px}
+.gr-ref-wrap{width:min(1235px,calc(100% - 38px));margin:auto}
+
+.gr-ref-hero{margin:14px 0 20px;height:310px;border:1px solid #183655;border-radius:20px;overflow:hidden;position:relative;background:#07101c;box-shadow:0 25px 70px #0009}
+.gr-ref-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,8,15,.12) 20%,rgba(2,8,15,.35) 55%,rgba(2,8,15,.88) 100%);z-index:1}
+.gr-ref-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:saturate(1.1) contrast(1.06)}
+.gr-ref-hero-copy{position:absolute;z-index:2;right:45px;top:50%;transform:translateY(-50%);width:43%;text-align:right}
+.gr-ref-kicker{color:#8bd8ff;font-size:10px;font-weight:1000;letter-spacing:2px}
+.gr-ref-hero h1{font-size:clamp(30px,4vw,51px);line-height:1.08;margin:10px 0;color:#fff;font-weight:1000;text-shadow:0 4px 25px #000}
+.gr-ref-hero h1 span{color:var(--gr-red)}
+.gr-ref-hero p{color:#e0e9f4;font-size:12px;line-height:1.8;margin:0 0 15px;max-width:520px}
+.gr-ref-hero-btn{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--gr-red),#ff1746);color:#fff!important;text-decoration:none!important;border-radius:11px;padding:11px 30px;font-size:12px;font-weight:1000;box-shadow:0 12px 35px #ff315533}
+.gr-ref-trust{display:flex;gap:10px;margin-top:13px;flex-wrap:wrap}
+.gr-ref-trust span{font-size:9px;color:#dce8f5;background:#071422cc;border:1px solid #294562;padding:7px 9px;border-radius:9px}
+
+.gr-ref-section{margin:25px 0}
+.gr-ref-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:12px}
+.gr-ref-head h2{font-size:21px;margin:0;color:#fff;font-weight:1000}
+.gr-ref-head p{font-size:9px;color:#71849b;margin:4px 0 0}
+.gr-ref-more{color:#71c9ff!important;text-decoration:none!important;font-size:10px;font-weight:900}
+.gr-ref-popular{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.gr-ref-game{min-width:0;background:#091321;border:1px solid #1a3048;border-radius:13px;overflow:hidden;color:#fff;text-decoration:none;transition:.25s;box-shadow:0 12px 35px #0005}
+.gr-ref-game:hover{transform:translateY(-4px);border-color:#2d668e;box-shadow:0 18px 45px #0008}
+.gr-ref-game .art{height:145px;position:relative;background:#050a12;overflow:hidden}
+.gr-ref-game img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s}
+.gr-ref-game:hover img{transform:scale(1.06)}
+.gr-ref-game .tag{position:absolute;bottom:8px;right:8px;background:#050a12dd;color:#fff;border:1px solid #ffffff1a;border-radius:7px;padding:4px 6px;font-size:7px;font-weight:900}
+.gr-ref-game .info{padding:9px}
+.gr-ref-game b{display:block;font-size:11px;line-height:1.5}
+.gr-ref-game small{display:block;color:#7e93ab;font-size:8px;margin-top:3px}
+.gr-ref-game .go{float:left;color:var(--gr-red);font-size:15px}
+
+.gr-ref-side-promo{display:grid;grid-template-columns:1fr 245px;gap:12px}
+.gr-ref-services{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.gr-ref-service{min-height:91px;border:1px solid #1a3048;border-radius:12px;background:#091321;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;text-decoration:none;gap:5px;transition:.2s}
+.gr-ref-service:hover{transform:translateY(-3px);border-color:#2b638a}
+.gr-ref-service i{font-style:normal;font-size:25px}
+.gr-ref-service b{font-size:9px}
+.gr-ref-service small{font-size:7px;color:#71849b}
+.gr-ref-reward{border:1px solid #1a3048;border-radius:14px;background:radial-gradient(circle at 20% 20%,#152f24,#091321 60%);min-height:100%;padding:18px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.gr-ref-reward .icon{font-size:42px}
+.gr-ref-reward b{font-size:16px;margin:8px 0}
+.gr-ref-reward span{font-size:9px;color:#91a5ba;line-height:1.6}
+.gr-ref-reward a{margin-top:12px;background:var(--gr-green);color:#07100a!important;border-radius:9px;padding:8px 22px;text-decoration:none;font-size:10px;font-weight:1000}
+
+.gr-ref-promos{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gr-ref-promo{display:flex;min-height:155px;background:#091321;border:1px solid #1a3048;border-radius:14px;overflow:hidden;text-decoration:none;color:#fff}
+.gr-ref-promo .pimg{width:40%;overflow:hidden}
+.gr-ref-promo img{width:100%;height:100%;object-fit:cover}
+.gr-ref-promo .pbody{padding:12px;display:flex;flex-direction:column}
+.gr-ref-promo small{color:#7f93a9;font-size:8px}
+.gr-ref-promo b{font-size:12px;margin:6px 0}
+.gr-ref-promo span{color:#ffcfdb;font-size:8px}
+.gr-ref-promo .timer{margin-top:auto;color:var(--gr-red);font-weight:1000;font-size:11px}
+
+.gr-ref-iraq{height:125px;border:1px solid #21405d;border-radius:15px;overflow:hidden;position:relative;background:linear-gradient(90deg,#091321,#10263d)}
+.gr-ref-iraq:before{content:"🇮🇶";position:absolute;left:25px;bottom:-35px;font-size:125px;filter:saturate(.8);opacity:.9}
+.gr-ref-iraq .iraq-copy{position:absolute;right:35px;top:50%;transform:translateY(-50%);text-align:right}
+.gr-ref-iraq h2{font-size:23px;margin:0 0 5px}
+.gr-ref-iraq p{font-size:9px;color:#8da1b7;margin:0}
+
+.gr-ref-footer{margin-top:22px;border-top:1px solid var(--gr-line);padding:28px 0 35px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;color:#8da0b7}
+.gr-ref-footer h3{color:#fff;font-size:13px;margin:0 0 10px}
+.gr-ref-footer a{display:block;color:#8da0b7;text-decoration:none;font-size:9px;margin:7px 0}
+.gr-ref-footer .brandfoot{color:#fff;font-size:20px;font-weight:1000}.gr-ref-footer p{font-size:9px;line-height:1.8}
+.gr-ref-social{display:flex!important;gap:7px!important}.gr-ref-social a{display:grid;width:28px;height:28px;place-items:center;border:1px solid #203950;border-radius:8px;margin:0;color:#fff}
+
+.gr-ref-mobile{display:none}
+.gr-ref-empty{padding:25px;text-align:center;color:#71849b;border:1px dashed #1c354e;border-radius:14px;grid-column:1/-1}
+
+@media(max-width:1050px){
+ .gr-ref-nav{gap:10px}.gr-ref-search{display:none}.gr-ref-popular{grid-template-columns:repeat(3,1fr)}
+ .gr-ref-side-promo{grid-template-columns:1fr}.gr-ref-reward{min-height:150px}
+}
+@media(max-width:760px){
+ .gr-ref-topbar{height:62px!important;padding:0 10px!important;gap:7px}.gr-ref-brand{font-size:19px}.gr-ref-brand .mark{font-size:28px}.gr-ref-brand small{font-size:6px;letter-spacing:3px}
+ .gr-ref-nav{display:none}.gr-ref-actions{margin-right:auto}.gr-ref-actions button{padding:8px 9px!important;font-size:9px!important}
+ .gr-ref-side{top:62px;width:50px}.gr-ref-side a{width:36px;height:36px;font-size:17px}.gr-ref-main{margin-right:50px}.gr-ref-wrap{width:calc(100% - 18px)}
+ .gr-ref-hero{height:310px;margin-top:9px;border-radius:15px}.gr-ref-hero-copy{right:18px;width:62%;top:47%}.gr-ref-hero h1{font-size:27px}.gr-ref-hero p{font-size:9px}.gr-ref-trust{gap:5px}.gr-ref-trust span{font-size:7px;padding:5px}
+ .gr-ref-popular{grid-template-columns:repeat(2,1fr);gap:8px}.gr-ref-game .art{height:125px}.gr-ref-game .info{padding:7px}.gr-ref-game b{font-size:10px}
+ .gr-ref-services{grid-template-columns:repeat(3,1fr);gap:7px}.gr-ref-service{min-height:82px}.gr-ref-service i{font-size:21px}.gr-ref-service b{font-size:8px}
+ .gr-ref-promos{grid-template-columns:1fr}.gr-ref-iraq{height:105px}.gr-ref-iraq .iraq-copy{right:18px}.gr-ref-iraq h2{font-size:17px}.gr-ref-iraq p{font-size:7px}
+ .gr-ref-footer{grid-template-columns:1fr 1fr;gap:20px;padding-bottom:80px}.gr-ref-mobile{display:block}
+}
+@media(max-width:430px){
+ .gr-ref-actions .gr-ref-login{display:none}.gr-ref-hero-copy{width:67%}.gr-ref-hero h1{font-size:24px}.gr-ref-popular{grid-template-columns:repeat(2,1fr)}
+ .gr-ref-game .art{height:108px}.gr-ref-services{grid-template-columns:repeat(2,1fr)}
+ .gr-ref-footer{grid-template-columns:1fr}
+}
