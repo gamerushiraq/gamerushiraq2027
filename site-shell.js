@@ -65,8 +65,11 @@ function installCompactNavigation(){
   .gr-ref-search{max-width:34vw!important;font-size:10px!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .gr-ref-actions .gr-ref-signup{display:none!important}
   .gr-ref-actions .gr-ref-login{padding:7px 8px!important;font-size:10px!important}
-  #grCompactDock{right:7px;bottom:max(8px,env(safe-area-inset-bottom));gap:5px;padding:6px;border-radius:16px}
-  #grCompactDock a,#grCompactDock button{width:38px;height:38px;min-width:38px;border-radius:11px;font-size:16px}
+  /* On phones use a compact horizontal dock so it never covers the page's right-side controls. */
+  #grCompactDock{left:7px;right:7px;bottom:max(8px,env(safe-area-inset-bottom));width:auto;max-width:calc(100vw - 14px);box-sizing:border-box;flex-direction:row-reverse;justify-content:space-between;gap:4px;padding:6px;border-radius:16px;overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain;scrollbar-width:none}
+  #grCompactDock::-webkit-scrollbar{display:none}
+  #grCompactDock a,#grCompactDock button{flex:0 0 34px;width:34px;height:36px;min-width:34px;border-radius:10px;font-size:15px}
+  #grCompactDock[data-collapsed=true]{left:auto;width:auto}
   .gr-compact-toggle{padding:6px 8px;font-size:10px}
  }
  @media(prefers-reduced-motion:reduce){#grCompactDock a,#grCompactDock button{transition:none!important}}
@@ -91,7 +94,7 @@ function installCompactNavigation(){
 
 function boot(){
 installCompactNavigation();
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=33').catch(()=>{});
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=34').catch(()=>{});
 document.querySelectorAll('img').forEach(i=>{if(!i.loading)i.loading=i.dataset.priority==='high'?'eager':'lazy';i.decoding='async';i.setAttribute('fetchpriority',i.dataset.priority==='high'?'high':'auto')});
 if(isGame||path.endsWith('/')){const promo=document.querySelector('.pubg-topup-shell');const slug=new URLSearchParams(location.search).get('game');if(promo&&slug&&slug!=='pubg'){const eyebrow=promo.querySelector('.eyebrow');if(eyebrow)eyebrow.textContent='GAME RUSH • DIRECT TOP UP';const title=promo.querySelector('h2');if(title)title.textContent='اشحن رصيد لعبتك بسرعة 🎯';const description=promo.querySelector('p');if(description)description.textContent='أدخل Player ID، تأكد من بيانات الحساب، وبعدها اختار الباقة المناسبة.'}}
 }
