@@ -22,8 +22,20 @@ function fallback(img){
   img.src='data:image/svg+xml;charset=UTF-8,'+encodeURIComponent(svg);
   img.style.objectFit='cover';
 }
-function scan(){document.querySelectorAll('img').forEach(img=>{img.loading=img.loading||'lazy';img.decoding='async';img.addEventListener('error',()=>fallback(img),{once:true});if(img.complete&&img.naturalWidth===0&&img.src)fallback(img)})}
+const processed=new WeakSet();
+function prepare(img){
+ if(!img||processed.has(img))return;
+ processed.add(img);
+ if(!img.loading)img.loading=img.dataset.priority==='high'?'eager':'lazy';
+ img.decoding='async';
+ img.addEventListener('error',()=>fallback(img),{once:true});
+ if(img.complete&&img.naturalWidth===0&&img.src)fallback(img);
+}
+function scan(root=document){
+ if(root.nodeType===1&&root.tagName==='IMG')prepare(root);
+ root.querySelectorAll?.('img').forEach(prepare);
+}
 document.addEventListener('error',e=>{if(e.target?.tagName==='IMG')fallback(e.target)},true);
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',scan);else scan();
-new MutationObserver(scan).observe(document.documentElement,{subtree:true,childList:true});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>scan());else scan();
+new MutationObserver(records=>records.forEach(record=>record.addedNodes.forEach(node=>{if(node.nodeType===1)scan(node)}))).observe(document.documentElement,{subtree:true,childList:true});
 })();
