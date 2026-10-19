@@ -373,5 +373,5 @@ html.gr-page-leaving body{animation:grPageOut .17s ease both}
   .store-game-tile small{font-size:8px!important}
 }
 
-/* Respect the native hidden attribute even when component styles set display with !important. */
-[hidden]{display:none!important}
+/* Preserve hidden states against later component rules that use display:...!important. */
+html body [hidden]{display:none!important}
