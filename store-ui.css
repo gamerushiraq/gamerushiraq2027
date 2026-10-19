@@ -213,8 +213,8 @@
 html{background:var(--neo-bg,#06070b)}
 html.gr-page-ready body{animation:grPageIn .34s ease both}
 html.gr-page-leaving body{animation:grPageOut .17s ease both}
-@keyframes grPageIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-@keyframes grPageOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-4px)}}
+@keyframes grPageIn{from{opacity:0}to{opacity:1}}
+@keyframes grPageOut{from{opacity:1}to{opacity:0}}
 @media(prefers-reduced-motion:reduce){html.gr-page-ready body,html.gr-page-leaving body{animation:none}}
 
 
