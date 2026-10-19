@@ -25,6 +25,12 @@ function installCompactNavigation(){
  const style=document.createElement('style');
  style.id='grCompactUiStyles';
  style.textContent=`
+ /* Global low-jank mode: avoid repaint-heavy motion on every route. */
+ *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;animation-play-state:paused!important;transition-duration:.12s!important;transition-delay:0s!important;filter:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;will-change:auto!important}
+ body::before,body::after,.noise,.gr-particle-layer,.gr-particle-field,.gr-hero-scene canvas,.gr-home-orb,.hero-orbit,.hero-orb{display:none!important;animation:none!important}
+ .gr-ref-page,.gr-ref-main,main{background-image:none!important}
+ img{transform:none!important;animation:none!important}
+ @media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important}}
  .announcement{display:none!important}
  .gr-ref-nav,.topbar nav,.gr-ref-topbar nav,.nav.store-nav{display:none!important}
  .gr-ref-side{display:none!important}
