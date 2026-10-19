@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "gamerush-v19";
+const CACHE_NAME = "gamerush-v20";
 const OFFLINE_FALLBACK = "./index.html";
 const PRECACHE_URLS = [
   "./",
@@ -10,6 +10,7 @@ const PRECACHE_URLS = [
   "./track.html",
   "./styles.css",
   "./store-ui.css",
+  "./payment-redesign.css",
   "./home-minimal-2026.css",
   "./home-reference.css",
   "./support-2026.css",
