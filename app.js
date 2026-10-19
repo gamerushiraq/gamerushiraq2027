@@ -13,5 +13,5 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeAuth();closeSe
 document.querySelectorAll('.nav a[href^="#"]').forEach(link=>link.addEventListener('click',()=>{document.querySelectorAll('.nav a').forEach(a=>a.classList.remove('active'));link.classList.add('active')}));
 const revealObserver='IntersectionObserver'in window?new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}}),{threshold:.08}):null;
 document.querySelectorAll('.game-card,.service,.reward,.promo,.iraq-banner').forEach(el=>{el.classList.add('reveal');revealObserver?.observe(el)});
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{});
+
 })();
