@@ -59,7 +59,7 @@ body{font-family:Cairo,system-ui,sans-serif!important;overflow-x:hidden}
 .gr-ref-game small{display:block;color:#7e93ab;font-size:8px;margin-top:3px}
 .gr-ref-game .go{float:left;color:var(--gr-red);font-size:15px}
 
-.gr-ref-side-promo{display:grid;grid-template-columns:1fr 245px;gap:12px}
+.gr-ref-side-promo{display:grid;grid-template-columns:1fr;gap:12px}
 .gr-ref-services{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
 .gr-ref-service{min-height:91px;border:1px solid #1a3048;border-radius:12px;background:#091321;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;text-decoration:none;gap:5px;transition:.2s}
 .gr-ref-service:hover{transform:translateY(-3px);border-color:#2b638a}
@@ -99,7 +99,7 @@ body{font-family:Cairo,system-ui,sans-serif!important;overflow-x:hidden}
 
 @media(max-width:1050px){
  .gr-ref-nav{gap:10px}.gr-ref-search{display:none}.gr-ref-popular{grid-template-columns:repeat(3,1fr)}
- .gr-ref-side-promo{grid-template-columns:1fr}.gr-ref-reward{min-height:150px}
+ .gr-ref-side-promo{grid-template-columns:1fr}
 }
 @media(max-width:760px){
  .gr-ref-topbar{height:62px!important;padding:0 10px!important;gap:7px}.gr-ref-brand{font-size:19px}.gr-ref-brand .mark{font-size:28px}.gr-ref-brand small{font-size:6px;letter-spacing:3px}
