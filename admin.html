@@ -156,7 +156,7 @@ function renderFinance(){const verified=allOrders.filter(o=>o.payment_status==="
 const statusText={new:"جديد",processing:"قيد التنفيذ",completed:"مكتمل",cancelled:"ملغي"};
 const paymentText={pending:"بانتظار الدفع",submitted:"تم إرسال الدفع",verified:"الدفع مؤكد",rejected:"الدفع مرفوض"};
 const paymentMethodText={zain_cash:"زين كاش",binance:"Binance",superqi:"سوبر كي",qicard:"QiCard / كي كارد",asiacell:"آسياسيل",zain_iraq:"زين العراق"};
-function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;","'":"&#039;"}[m]));}
+function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));}
 function money(v){return Number(v||0).toLocaleString("en-US")+" IQD";}
 function statusClass(s){return s==="processing"?"processing":s==="completed"?"completed":s==="cancelled"?"cancelled":"";}
 
