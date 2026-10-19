@@ -204,3 +204,30 @@ body{min-width:0;overflow-x:clip}
   html{scroll-behavior:auto}
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
+
+
+/* Stability and fallback polish — October 2026 */
+.gr-ref-page [hidden]{display:none!important}
+.gr-ref-hero{isolation:isolate}
+.gr-ref-hero.gr-hero-fallback{
+  background:
+    radial-gradient(ellipse at 18% 22%,rgba(0,217,255,.22),transparent 34%),
+    radial-gradient(ellipse at 78% 78%,rgba(255,49,85,.24),transparent 38%),
+    linear-gradient(135deg,#081426 0%,#101b31 48%,#170c1b 100%);
+}
+.gr-ref-hero.gr-hero-fallback:before{
+  content:"GR";
+  position:absolute;left:clamp(18px,5vw,72px);top:50%;
+  transform:translateY(-50%);font:1000 clamp(88px,18vw,210px)/1 system-ui,sans-serif;
+  letter-spacing:-.12em;color:rgba(255,255,255,.06);pointer-events:none;
+}
+.gr-ref-hero img{aspect-ratio:16/9}
+.gr-ref-promos{min-height:96px}
+.gr-promo-empty{
+  min-height:96px;display:grid;place-items:center;text-align:center;
+  padding:18px;border:1px dashed #203650;border-radius:14px;
+  background:linear-gradient(145deg,#091321,#07101b);color:#91a5ba;
+  font-size:12px;line-height:1.8;grid-column:1/-1;
+}
+#homeGameGrid:empty{display:none}
+@media(prefers-reduced-motion:reduce){.gr-ref-hero img,.gr-popular-card img{transition:none!important}}
