@@ -72,14 +72,14 @@ function translateText(lang){
     if(!originals.has(el)) originals.set(el,raw);
     const key=raw.trim();
     const translated=pick(lang,key);
-    if(translated!==null) el.textContent=translated;
+    if(translated!==null && el.textContent!==translated) el.textContent=translated;
   });
 
   document.querySelectorAll("input,textarea").forEach(el=>{
     const raw=el.getAttribute("data-original-placeholder") ?? el.placeholder;
     if(!el.hasAttribute("data-original-placeholder")) el.setAttribute("data-original-placeholder",raw);
     const translated=pick(lang,raw);
-    if(translated!==null) el.placeholder=translated;
+    if(translated!==null && el.placeholder!==translated) el.placeholder=translated;
   });
 
   document.documentElement.lang=lang;
@@ -93,7 +93,7 @@ function translateText(lang){
   document.title=title;
   document.querySelectorAll("[data-lang-label]").forEach(x=>x.textContent=LANGS[lang].name);
   const btn=document.getElementById("langBtn");
-  if(btn) btn.textContent=lang.toUpperCase()+" ▾";
+  if(btn && btn.textContent!==lang.toUpperCase()+" ▾") btn.textContent=lang.toUpperCase()+" ▾";
   const floating=document.getElementById("grLangBtn");
   if(floating) floating.textContent=lang.toUpperCase()+" ▾";
   localStorage.setItem("gamerush_lang",lang);
