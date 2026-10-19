@@ -5,7 +5,8 @@ const isGame=path.endsWith('/game.html');
 const styles=[['performance-2026.css','2'],['theme-2026.css','4'],['mobile-polish-2026.css','4'],['vivid-theme-2026.css','3'],['responsive-2026.css','4'],['performance-hotfix-2026.css','2'],['game-art-motion.css','1']];
 if(isGame)styles.push(['mobile-game-fix-2026.css','5'],['payment-redesign.css','3']);
 styles.push(['lightweight.css','1']);
-styles.forEach(([href,v])=>{const l=document.createElement('link');l.rel='stylesheet';l.href='./'+href+'?v='+v;document.head.appendChild(l)});
+const isHomepage=path.endsWith('/')||path.endsWith('/index.html');
+if(!isHomepage)styles.forEach(([href,v])=>{const l=document.createElement('link');l.rel='stylesheet';l.href='./'+href+'?v='+v;document.head.appendChild(l)});
 const s=document.createElement('script');s.defer=true;s.src='./media-guard-2026.js?v=12';document.head.appendChild(s);
 function boot(){
 if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=25').catch(()=>{});
