@@ -136,3 +136,71 @@ body{font-family:Cairo,system-ui,sans-serif!important;overflow-x:hidden}
 @media(max-width:760px){
  .gr-popular-card{min-height:175px}.gr-popular-card img{height:110px}.gr-popular-card b{font-size:10px}
 }
+
+/* Responsive layout polish: reclaim mobile width and avoid empty catalog sections. */
+html{scroll-padding-top:84px;scroll-behavior:smooth}
+body{min-width:0;overflow-x:clip}
+.gr-ref-wrap{min-width:0}
+.gr-ref-section[hidden],#homeHero[hidden],#homeFeatured[hidden],#homeIraqBanner[hidden],#rewards[hidden]{display:none!important}
+.gr-ref-hero img:not([src]),.gr-ref-hero img[src=""]{display:none}
+.gr-ref-game img,.gr-popular-card img,.gr-promo-card img{background:#0a1422}
+.gr-ref-topbar{padding-inline:clamp(10px,2vw,24px)!important}
+.gr-ref-search{flex-shrink:1;min-width:0}
+.gr-ref-nav{min-width:0}
+.gr-ref-popular,.gr-ref-services,.gr-ref-promos{min-width:0}
+.gr-ref-popular>*{min-width:0}
+.gr-ref-footer{min-width:0}
+.gr-ref-footer>div{min-width:0;overflow-wrap:anywhere}
+@media(max-width:760px){
+  .gr-ref-topbar{height:62px!important;padding-inline:12px!important;gap:8px}
+  .gr-ref-main{margin-right:0!important}
+  .gr-ref-wrap{width:calc(100% - 24px)!important;margin-inline:auto}
+  .gr-ref-side{
+    top:auto!important;right:12px!important;left:12px!important;bottom:calc(8px + env(safe-area-inset-bottom))!important;
+    width:auto!important;height:58px!important;padding:6px 8px!important;gap:4px!important;
+    flex-direction:row!important;justify-content:space-around!important;align-items:center!important;
+    background:rgba(6,13,23,.94)!important;border:1px solid #29415b!important;border-radius:16px!important;
+    box-shadow:0 12px 38px #000b!important;backdrop-filter:blur(18px)
+  }
+  .gr-ref-side a{width:auto!important;height:42px!important;min-width:0;max-width:56px;flex:1;border-radius:11px!important;font-size:18px!important}
+  .gr-ref-hero{height:clamp(280px,64vw,350px)!important;margin:10px 0 18px!important;border-radius:17px!important}
+  .gr-ref-hero-copy{right:clamp(14px,4vw,24px)!important;width:min(72%,390px)!important;top:50%!important}
+  .gr-ref-hero h1{font-size:clamp(25px,6vw,36px)!important;line-height:1.16}
+  .gr-ref-hero p{font-size:clamp(10px,2.5vw,13px)!important;line-height:1.8}
+  .gr-ref-trust{gap:6px!important}
+  .gr-ref-trust span{font-size:9px!important;padding:6px 7px!important}
+  .gr-ref-section{margin:22px 0!important}
+  .gr-ref-head{gap:10px;align-items:center!important}
+  .gr-ref-head h2{font-size:clamp(17px,4vw,22px)!important}
+  .gr-ref-head p{font-size:10px!important;line-height:1.6}
+  .gr-ref-popular{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  .gr-popular-card{min-height:0!important}
+  .gr-popular-card img{height:clamp(105px,32vw,150px)!important}
+  .gr-ref-services{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+  .gr-ref-service,.service{min-width:0}
+  .gr-ref-promos{grid-template-columns:1fr!important;gap:10px!important}
+  .gr-ref-footer{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:18px!important;padding-bottom:100px!important}
+}
+@media(max-width:430px){
+  .gr-ref-actions{gap:5px!important}
+  .gr-ref-actions .gr-ref-login{display:none!important}
+  .gr-ref-actions button{padding:8px 9px!important;font-size:10px!important}
+  .gr-ref-brand{font-size:18px!important}
+  .gr-ref-hero{height:290px!important}
+  .gr-ref-hero-copy{width:76%!important}
+  .gr-ref-hero h1{font-size:25px!important}
+  .gr-ref-hero p{font-size:10px!important}
+  .gr-ref-hero-btn{padding:10px 20px!important}
+  .gr-ref-footer{grid-template-columns:1fr!important}
+}
+@media(min-width:761px) and (max-width:1100px){
+  .gr-ref-topbar{gap:10px!important}
+  .gr-ref-nav{gap:7px!important}
+  .gr-ref-nav a{font-size:11px!important}
+  .gr-ref-actions button{padding:9px 10px!important}
+  .gr-ref-wrap{width:calc(100% - 30px)!important}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
