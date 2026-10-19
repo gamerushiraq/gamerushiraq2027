@@ -56,7 +56,7 @@ async function boot(){
   if(count)count.textContent=String(catalog.length);
   applyFilters();
  }catch(error){
-  if(grid){grid.textContent="تعذر تحميل الألعاب حالياً. تحقق من اتصالك وحاول مرة ثانية.";const retry=document.createElement("button");retry.type="button";retry.className="primary";retry.textContent="إعادة المحاولة";retry.addEventListener("click",boot);grid.append(document.createTextNode(" "),retry)}
+  if(grid){grid.textContent="تعذر تحميل الألعاب حالياً. تحقق من اتصالك وحاول مرة ثانية.";const retry=document.createElement("button");retry.type="button";retry.className="primary";retry.textContent="إعادة المحاولة";retry.addEventListener("click",()=>location.reload());grid.append(document.createTextNode(" "),retry)}
  }
 }
 document.readyState==="loading"?document.addEventListener("DOMContentLoaded",boot,{once:true}):boot();
