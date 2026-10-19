@@ -16,8 +16,8 @@ Deno.serve(async req=>{
   const {data,error}=await supabase.from("orders").select("id,order_number,game,package_name,price_iqd,status,payment_status,fulfillment_status,created_at,updated_at").eq("order_number",order_number).maybeSingle();
   if(error){console.error(error);return response({error:"تعذر البحث عن الطلب"},500)}
   if(!data)return response({error:"لم يتم العثور على الطلب"},404);
-  const {data:history,error:historyError}=await supabase.from("order_status_history").select("status,payment_status,note,created_at").eq("order_id",data.id).order("created_at",{ascending:true});
+  const {data:history,error:historyError}=await supabase.from("order_status_history").select("status,payment_status,created_at").eq("order_id",data.id).order("created_at",{ascending:true});
   if(historyError){console.error(historyError);return response({error:"تعذر تحميل سجل الطلب"},500)}
-  return response({ok:true,order:{order_number:data.order_number,game:data.game,package_name:data.package_name,price_iqd:data.price_iqd,status:data.status,payment_status:data.payment_status,fulfillment_status:data.fulfillment_status,created_at:data.created_at,updated_at:data.updated_at,history:history??[]}});
+  return response({ok:true,order:{order_number:data.order_number,game:data.game,package_name:data.package_name,price_iqd:data.price_iqd,status:data.status,payment_status:data.payment_status,fulfillment_status:data.fulfillment_status,created_at:data.created_at,updated_at:data.updated_at,history:(history??[]).map(({status,payment_status,created_at})=>({status,payment_status,created_at}))}});
  }catch{return response({error:"Invalid request"},400)}
 });
