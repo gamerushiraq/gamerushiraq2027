@@ -1,0 +1,35 @@
+/* GameRush lightweight mode: reduce visual noise, paint work and mobile jank. */
+html{scroll-behavior:auto!important}
+body,.gr-ref-page{background-color:#070b12!important}
+.noise,.gr-particle-layer,.gr-particle-field,.gr-hero-scene canvas,.hero-orbit,.hero-orb,.gr-home-orb{animation:none!important}
+.noise{display:none!important}
+*,*::before,*::after{scroll-behavior:auto!important}
+.gr-ref-topbar,.topbar,.checkout,.form-card,.payment-box,.modal-box,
+.neo-hero,.featured-panel,.gr-featured,.gr-ref-hero,.neo-game-card,.gr-popular-card,
+.gr-promo-card,.service,.reward,.gr-quick-card,.gr-ref-game,.gr-ref-side{
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important
+}
+.gr-ref-page{background-image:none!important}
+.gr-ref-hero:before,.gr-ref-hero:after,.neo-hero:before,.neo-hero:after,
+.featured-panel:before,.featured-panel:after,.gr-featured:before,.gr-featured:after,
+.neo-game-card:after,.gr-popular-card:after,.gr-promo-card:after,
+.game-art:after,.gr-particle-field,.gr-hero-scene canvas{display:none!important;animation:none!important}
+.gr-ref-hero img,.neo-game-card img,.gr-popular-card img,.gr-promo-art img{
+  filter:none!important;animation:none!important;transform:none!important
+}
+.gr-ref-topbar{box-shadow:0 3px 12px #0005!important}
+.gr-ref-hero,.gr-ref-game,.neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward{
+  box-shadow:0 6px 18px #0003!important;transition:transform .12s ease,border-color .12s ease!important
+}
+.gr-ref-game:hover,.neo-game-card:hover,.gr-popular-card:hover,.gr-promo-card:hover,
+.service:hover,.reward:hover{transform:none!important;filter:none!important}
+@media(max-width:700px){
+  .gr-ref-topbar,.topbar{box-shadow:0 2px 8px #0004!important}
+  .gr-ref-hero,.gr-ref-game,.neo-game-card,.gr-popular-card,.gr-promo-card,.service,.reward{
+    box-shadow:0 4px 12px #0003!important
+  }
+  .gr-ref-side{display:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
