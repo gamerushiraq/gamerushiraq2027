@@ -29,6 +29,7 @@ html body [hidden]{display:none!important}
 .game-page .payment-section-label{display:block;margin:0 0 10px;color:#eef6ff;font-size:13px;font-weight:900}
 .game-page .payment-method-native{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;clip-path:inset(50%)!important}
 .game-page .payment-method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.game-page .payment-method-empty{grid-column:1/-1;padding:15px;border:1px dashed rgba(255,160,120,.32);border-radius:14px;background:rgba(255,130,90,.06);color:#ffd3c2;font-size:12px;line-height:1.8}
 .game-page .payment-method-card{position:relative;display:flex;align-items:center;gap:10px;min-width:0;min-height:82px;padding:12px;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));color:#fff;text-align:right;cursor:pointer;transition:border-color .18s,background .18s,transform .18s,box-shadow .18s}
 .game-page .payment-method-card:hover{transform:translateY(-2px);border-color:rgba(73,242,255,.4);background:rgba(73,242,255,.06)}
 .game-page .payment-method-card[aria-pressed="true"]{border-color:var(--pay-cyan);background:linear-gradient(135deg,rgba(73,242,255,.13),rgba(142,123,255,.1));box-shadow:0 0 0 1px rgba(73,242,255,.16),0 10px 24px rgba(0,0,0,.16)}
