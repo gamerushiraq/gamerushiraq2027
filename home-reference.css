@@ -231,3 +231,14 @@ body{min-width:0;overflow-x:clip}
 }
 #homeGameGrid:empty{display:none}
 @media(prefers-reduced-motion:reduce){.gr-ref-hero img,.gr-popular-card img{transition:none!important}}
+
+
+/* Final homepage motion pass: keep scroll geometry stable on mobile. */
+.gr-ref-page *, .gr-ref-page *::before, .gr-ref-page *::after{animation:none!important}
+.gr-ref-page .neo-game-card,
+.gr-ref-page .gr-popular-card,
+.gr-ref-page .gr-promo-card,
+.gr-ref-page .service,
+.gr-ref-page .reward{will-change:auto!important}
+.gr-ref-page #homePromosSection::before,
+.gr-ref-page #homePromosSection::after{animation:none!important;transform:none!important}
