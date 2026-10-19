@@ -1,7 +1,7 @@
 /* GameRush Iraq — lightweight payment and game-art refresh */
 :root{--pay-cyan:#49f2ff;--pay-lime:#b8ff62;--pay-violet:#8e7bff;--pay-panel:rgba(12,18,30,.94);--pay-border:rgba(255,255,255,.11)}
 html body [hidden]{display:none!important}
-.game-page .checkout{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);align-items:start;gap:18px}
+.game-page .checkout{display:grid;grid-template-columns:minmax(0,1fr);align-items:start;gap:18px}
 .game-page .store-summary-card{top:18px;border:1px solid var(--pay-border)!important;background:linear-gradient(145deg,rgba(18,27,43,.96),rgba(7,12,22,.96))!important;border-radius:24px!important;overflow:hidden}
 .game-page .store-checkout-card{border:1px solid var(--pay-border)!important;background:linear-gradient(155deg,rgba(15,23,38,.98),rgba(7,11,20,.98))!important;border-radius:24px!important;padding:clamp(16px,2.4vw,28px)!important;box-shadow:0 20px 55px rgba(0,0,0,.2)!important}
 .game-page .neo-game-hero{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(73,242,255,.18);background:radial-gradient(ellipse at 80% 20%,rgba(88,69,220,.3),transparent 38%),radial-gradient(ellipse at 15% 85%,rgba(73,242,255,.11),transparent 36%),linear-gradient(125deg,#0c1422,#080b12 72%);box-shadow:0 22px 60px rgba(0,0,0,.2)}
@@ -56,12 +56,14 @@ html body [hidden]{display:none!important}
 .game-page .vip-code-row input{min-width:0}
 .game-page #vipCodeMessage.vip-code-success{color:#b8ff62!important}
 .game-page #vipCodeMessage.vip-code-error{color:#ff9ba9!important}
+.game-page .wizard-step-panel{display:none;min-width:0;width:100%;box-sizing:border-box}.game-page .wizard-step-panel.active{display:block}
 .game-page .wizard-step-panel h2{color:#fff}
 .game-page .wizard-steps,.game-page .mobile-wizard-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .game-page .mobile-wizard-steps span{border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.035);color:#a8b7ca;padding:10px 8px;font-size:11px}
 .game-page .mobile-wizard-steps span.active{border-color:rgba(73,242,255,.45);background:rgba(73,242,255,.11);color:#d7fbff}
 .game-page .wizard-next{border-radius:13px!important;background:linear-gradient(100deg,var(--pay-cyan),#a8f7ff)!important;color:#06121b!important;font-weight:1000;box-shadow:0 8px 20px rgba(73,242,255,.1)}
 .game-page .wizard-back{border-radius:13px!important;border:1px solid rgba(255,255,255,.12)!important;background:rgba(255,255,255,.06)!important;color:#dce8f5!important}
+.game-page .wizard-actions{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:9px;align-items:stretch}.game-page .wizard-actions .wizard-next,.game-page .wizard-actions .wizard-back{width:100%;min-width:0;margin-top:12px}
 .game-page .wizard-submit{border:0;border-radius:15px;background:linear-gradient(100deg,var(--pay-lime),#6ff0d0)!important;color:#07120a!important;font-weight:1000;box-shadow:0 12px 28px rgba(184,255,98,.13);transition:transform .18s,filter .18s}
 .game-page .wizard-submit:hover{transform:translateY(-1px);filter:brightness(1.04)}
 .game-page .wizard-submit:disabled{opacity:.6;cursor:wait;transform:none}
