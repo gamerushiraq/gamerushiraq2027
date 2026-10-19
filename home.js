@@ -1,7 +1,7 @@
 (()=>{"use strict";
 const U="https://eyjjmacxxcmdzkfqxifo.supabase.co/rest/v1",K="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
 const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));
-async function get(path){const r=await fetch(U+path,{headers:{apikey:K,Authorization:"Bearer "+K}});if(!r.ok)throw new Error("request failed");return r.json()}
+async function get(path){const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);try{const r=await fetch(U+path,{headers:{apikey:K,Authorization:"Bearer "+K},signal:controller.signal,cache:"no-store"});if(!r.ok)throw new Error("request failed ("+r.status+")");return await r.json()}finally{clearTimeout(timer)}}
 let GAMES=[],HOME=[],SERVICES=[];
 const byKey=key=>HOME.find(x=>x.section_key===key);
 const active=kind=>HOME.filter(x=>x.kind===kind&&x.active).sort((a,b)=>a.sort_order-b.sort_order);
