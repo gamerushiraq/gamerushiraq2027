@@ -1,0 +1,19 @@
+/* GameRush Iraq — payment return status */
+.pay-result-page{position:relative;isolation:isolate;min-height:100svh;display:grid;place-items:center;overflow:hidden;padding:24px;box-sizing:border-box;background:radial-gradient(ellipse at 15% 10%,rgba(73,242,255,.12),transparent 32%),radial-gradient(ellipse at 85% 85%,rgba(142,123,255,.14),transparent 34%),#070b14;color:#fff}
+.pay-result-page:before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(to bottom,#000,transparent)}
+.pay-result-card{width:min(560px,100%);padding:clamp(22px,5vw,38px);box-sizing:border-box;border:1px solid rgba(73,242,255,.2);border-radius:28px;background:linear-gradient(145deg,rgba(16,25,42,.96),rgba(7,12,22,.98));box-shadow:0 30px 90px rgba(0,0,0,.38);text-align:center}
+.pay-result-brand{display:inline-flex;align-items:center;gap:9px;color:#b7c5d8;font-size:11px;font-weight:900;letter-spacing:1.3px}
+.pay-result-brand-mark{display:grid;place-items:center;width:38px;height:34px;border-radius:11px;background:linear-gradient(135deg,#49f2ff,#b8ff62);color:#071018;font-size:12px;font-weight:1000}
+.pay-result-icon{display:grid;place-items:center;width:76px;height:76px;margin:26px auto 17px;border:1px solid rgba(73,242,255,.24);border-radius:23px;background:rgba(73,242,255,.08);font-size:32px;box-shadow:0 0 38px rgba(73,242,255,.06)}
+.pay-result-card h1{margin:0 0 12px;font-size:clamp(25px,5vw,34px);line-height:1.35}
+.pay-result-card p{color:#9eacbd;line-height:1.9;font-size:13px}
+.pay-result-status{padding:13px 15px;margin:18px 0;border:1px solid rgba(255,255,255,.09);border-radius:15px;background:rgba(255,255,255,.035)}
+.pay-result-order{padding:14px;border:1px solid rgba(184,255,98,.2);border-radius:15px;background:rgba(184,255,98,.06);color:#eaffd0}
+.pay-result-order strong{display:block;margin-top:6px;font-size:20px;letter-spacing:1px;overflow-wrap:anywhere}
+.pay-result-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.pay-result-actions a{display:flex;align-items:center;justify-content:center;min-height:48px;padding:10px 14px;box-sizing:border-box;border-radius:13px;text-decoration:none;font-size:12px;font-weight:900}
+.pay-result-primary{background:linear-gradient(100deg,#b8ff62,#6ff0d0);color:#07120a}
+.pay-result-secondary{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);color:#dce8f5}
+.pay-result-support{display:inline-block;margin-top:18px;color:#8fefff;font-size:12px;text-decoration:none}
+@media(max-width:420px){.pay-result-page{padding:14px}.pay-result-card{border-radius:22px}.pay-result-actions{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.pay-result-card{scroll-behavior:auto}}
