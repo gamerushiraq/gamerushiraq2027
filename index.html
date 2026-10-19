@@ -15,7 +15,17 @@
 <link rel="stylesheet" href="home-minimal-2026.css">
 <title>GameRush Iraq — شحن ألعابك بسرعة</title>
 <!-- Login is optional on the public homepage. -->
-</head>
+<style>
+.gr-how-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.gr-how-card{display:flex;gap:14px;align-items:flex-start;padding:20px;border:1px solid #203650;border-radius:16px;background:linear-gradient(145deg,#0b1727,#08111d)}
+.gr-how-card>span{display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:12px;background:#ff31551a;border:1px solid #ff315544;color:#ff6b83;font-weight:1000}
+.gr-how-card b,.gr-how-note b{display:block;color:#f7fbff;font-size:14px}
+.gr-how-card p,.gr-how-note p{color:#9fb0c4;font-size:12px;line-height:1.9;margin:6px 0 0}
+.gr-how-note{display:flex;align-items:center;gap:14px;margin-top:14px;padding:18px;border:1px solid #203650;border-radius:16px;background:#091321}
+.gr-how-note>span{font-size:27px}.gr-how-note>div{flex:1}.gr-how-note>a{white-space:nowrap;color:#fff;background:#ff3155;border-radius:10px;padding:10px 13px;text-decoration:none;font-size:12px;font-weight:900}
+@media(max-width:720px){.gr-how-grid{grid-template-columns:1fr}.gr-how-card{padding:16px}.gr-how-note{align-items:flex-start;flex-wrap:wrap}.gr-how-note>div{min-width:calc(100% - 55px)}.gr-how-note>a{margin-right:42px}}
+</style>
+\n</head>
 <body>
 <div class="noise"></div>
 <div class="gr-ref-page">
@@ -26,6 +36,8 @@
     <a class="active" href="./">الرئيسية</a>
     <a href="shop.html">الألعاب</a>
     <a href="services.html">الخدمات</a>
+    <a href="#homePromosSection">العروض</a>
+    <a href="#howItWorks">طريقة الشحن</a>
     <a href="track.html">تتبع الطلب</a>
     <a href="vip.html">النقاط والمكافآت</a>
     <a href="support.html">الدعم</a>
@@ -97,7 +109,16 @@
   <div id="homePromos" class="gr-ref-promos"></div>
 </section>
 
-<section class="gr-ref-section" id="games">
+<section class="gr-ref-section" id="howItWorks">
+  <div class="gr-ref-head"><div><h2>🚀 شلون تشحن من GameRush؟</h2><p>خطوات واضحة قبل ما تأكد طلبك</p></div></div>
+  <div class="gr-how-grid">
+    <article class="gr-how-card"><span>01</span><div><b>اختار اللعبة والباقة</b><p>افتح المتجر، اختار اللعبة وحدد الباقة والسعر الظاهر بصفحة الشحن.</p></div></article>
+    <article class="gr-how-card"><span>02</span><div><b>دخل بيانات اللاعب</b><p>راجع Player ID والخادم إذا مطلوب. لا تدخل كلمة مرور اللعبة أو رمز التحقق.</p></div></article>
+    <article class="gr-how-card"><span>03</span><div><b>راجع الدفع وتابع الطلب</b><p>اتبع طريقة الدفع المتاحة داخل الصفحة، واحتفظ برقم الطلب حتى تتابع حالته.</p></div></article>
+  </div>
+  <div class="gr-how-note"><span>🛡️</span><div><b>قبل الدفع، تأكد من التفاصيل</b><p>طرق الدفع والأسعار تختلف حسب الخدمة وتوفرها. لا تحوّل مبلغاً إذا تعليمات الدفع أو بيانات الحساب مو ظاهرة بوضوح.</p></div><a href="track.html">تتبع طلبك ←</a></div>
+</section>
+\n<section class="gr-ref-section" id="games">
   <div class="gr-ref-head">
     <div><h2>🎮 كل الألعاب</h2><p>الألعاب الفعالة تظهر تلقائياً من GameRush</p></div>
     <a class="gr-ref-more" href="shop.html">المتجر ›</a>
