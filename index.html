@@ -13,6 +13,15 @@
 <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="auth-modal.css">
 <link rel="stylesheet" href="store-ui.css">
 <link rel="stylesheet" href="home-minimal-2026.css">
+<link rel="stylesheet" href="performance-2026.css?v=2">
+<link rel="stylesheet" href="theme-2026.css?v=4">
+<link rel="stylesheet" href="mobile-polish-2026.css?v=4">
+<link rel="stylesheet" href="vivid-theme-2026.css?v=3">
+<link rel="stylesheet" href="responsive-2026.css?v=4">
+<link rel="stylesheet" href="performance-hotfix-2026.css?v=2">
+<link rel="stylesheet" href="game-art-motion.css?v=1">
+<link rel="stylesheet" href="lightweight.css?v=1">
+<link rel="stylesheet" href="home-reference.css?v=3">
 <title>GameRush Iraq — شحن ألعابك بسرعة</title>
 <!-- Login is optional on the public homepage. -->
 <style>
@@ -25,7 +34,8 @@
 .gr-how-note>span{font-size:27px}.gr-how-note>div{flex:1}.gr-how-note>a{white-space:nowrap;color:#fff;background:#ff3155;border-radius:10px;padding:10px 13px;text-decoration:none;font-size:12px;font-weight:900}
 @media(max-width:720px){.gr-how-grid{grid-template-columns:1fr}.gr-how-card{padding:16px}.gr-how-note{align-items:flex-start;flex-wrap:wrap}.gr-how-note>div{min-width:calc(100% - 55px)}.gr-how-note>a{margin-right:42px}}
 </style>
-\n</head>
+
+</head>
 <body>
 <div class="noise"></div>
 <div class="gr-ref-page">
@@ -118,7 +128,8 @@
   </div>
   <div class="gr-how-note"><span>🛡️</span><div><b>قبل الدفع، تأكد من التفاصيل</b><p>طرق الدفع والأسعار تختلف حسب الخدمة وتوفرها. لا تحوّل مبلغاً إذا تعليمات الدفع أو بيانات الحساب مو ظاهرة بوضوح.</p></div><a href="track.html">تتبع طلبك ←</a></div>
 </section>
-\n<section class="gr-ref-section" id="games">
+
+<section class="gr-ref-section" id="games">
   <div class="gr-ref-head">
     <div><h2>🎮 كل الألعاب</h2><p>الألعاب الفعالة تظهر تلقائياً من GameRush</p></div>
     <a class="gr-ref-more" href="shop.html">المتجر ›</a>
@@ -188,8 +199,7 @@
 <script src="site-shell.js"></script>
 <script src="page-motion.js"></script>
 <script>
-  // Keep the reference skin last in the cascade so legacy theme layers cannot override it.
-  const grRefCss=document.createElement('link');grRefCss.rel='stylesheet';grRefCss.href='./home-reference.css?v=2';document.head.appendChild(grRefCss);
+  // Homepage styles are loaded from the document head to avoid late layout shifts.
 </script>
 </body>
 </html>
