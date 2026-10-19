@@ -1,0 +1,114 @@
+/* GameRush Iraq — lightweight payment and game-art refresh */
+:root{--pay-cyan:#49f2ff;--pay-lime:#b8ff62;--pay-violet:#8e7bff;--pay-panel:rgba(12,18,30,.94);--pay-border:rgba(255,255,255,.11)}
+html body [hidden]{display:none!important}
+.game-page .checkout{grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);align-items:start;gap:18px}
+.game-page .store-summary-card{top:18px;border:1px solid var(--pay-border)!important;background:linear-gradient(145deg,rgba(18,27,43,.96),rgba(7,12,22,.96))!important;border-radius:24px!important;overflow:hidden}
+.game-page .store-checkout-card{border:1px solid var(--pay-border)!important;background:linear-gradient(155deg,rgba(15,23,38,.98),rgba(7,11,20,.98))!important;border-radius:24px!important;padding:clamp(16px,2.4vw,28px)!important;box-shadow:0 20px 55px rgba(0,0,0,.2)!important}
+.game-page .neo-game-hero{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(73,242,255,.18);background:radial-gradient(ellipse at 80% 20%,rgba(88,69,220,.3),transparent 38%),radial-gradient(ellipse at 15% 85%,rgba(73,242,255,.11),transparent 36%),linear-gradient(125deg,#0c1422,#080b12 72%);box-shadow:0 22px 60px rgba(0,0,0,.2)}
+.game-page .neo-game-hero:after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(73,242,255,.045),transparent 75%);background-size:220% 100%;animation:pay-sheen 14s ease-in-out infinite}
+.game-page .neo-game-hero-art{position:relative;isolation:isolate;flex:0 1 370px;min-width:0;overflow:hidden;background:linear-gradient(135deg,#17213b,#111827);border:1px solid rgba(73,242,255,.25);box-shadow:0 18px 45px rgba(0,0,0,.28)}
+.game-page .neo-game-hero-art:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(4,8,16,.02),rgba(4,8,16,.35)),linear-gradient(125deg,rgba(73,242,255,.14),transparent 45%,rgba(142,123,255,.16))}
+.game-page .neo-game-hero-art img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.02);animation:pay-art-drift 22s ease-in-out infinite alternate}
+.game-page .neo-game-hero-art.art-fallback,.game-page .big-art.art-fallback{display:grid;place-items:center;font-size:48px;background:radial-gradient(circle at 30% 20%,rgba(73,242,255,.2),transparent 42%),linear-gradient(135deg,#161e33,#080b12)}
+.game-page .big-art img{display:block;width:100%;height:100%;object-fit:cover}
+.game-page .game-summary{border-radius:20px!important}
+.game-page .payment-box{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;padding:clamp(14px,2.2vw,24px)!important;border-radius:22px!important;border:1px solid rgba(73,242,255,.16)!important;background:radial-gradient(ellipse at 100% 0,rgba(142,123,255,.1),transparent 38%),linear-gradient(145deg,#0c1422,#080c14)!important;overflow:visible}
+.game-page .payment-title,.game-page .payment-alert,.game-page .transfer-amount,.game-page .payment-method-section,.game-page .payment-choice-hint,.game-page .payment-accounts,.game-page .vip-code-field,.game-page .payment-ref-field,.game-page .payment-box>.field:has(#customerPhone),.game-page .payment-box>.field:has(#orderNotes){grid-column:1/-1;min-width:0}
+.game-page .payment-title{align-items:center;justify-content:space-between;gap:14px;padding-bottom:4px}
+.game-page .payment-kicker{display:inline-flex;align-items:center;gap:7px;font-size:10px;letter-spacing:1.4px;color:var(--pay-cyan);font-weight:900}
+.game-page .payment-title h2{margin:6px 0;font-size:clamp(22px,3vw,30px)!important;color:#fff}
+.game-page .payment-title p{margin:0;color:#9aa9be!important;font-size:13px;line-height:1.8}
+.game-page .payment-shield{display:grid;place-items:center;flex:none;width:54px;height:54px;border-radius:18px;border:1px solid rgba(73,242,255,.24);background:rgba(73,242,255,.08);font-size:24px;box-shadow:inset 0 0 22px rgba(73,242,255,.04)}
+.game-page .payment-alert{display:flex;flex-direction:column;gap:5px;padding:13px 15px;border:1px solid rgba(73,242,255,.16)!important;border-radius:15px;background:rgba(73,242,255,.055)!important;color:#dce8f5!important;font-size:12px;line-height:1.8}
+.game-page .payment-alert strong{color:var(--pay-cyan);font-size:12px}
+.game-page .transfer-amount{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;padding:17px;border-radius:17px;border:1px solid rgba(184,255,98,.2)!important;background:linear-gradient(110deg,rgba(184,255,98,.09),rgba(73,242,255,.045))!important}
+.game-page .transfer-amount>span{font-size:12px;color:#9fb0c4}
+.game-page .transfer-amount strong{color:#fff!important;font-size:clamp(19px,2.6vw,27px);font-weight:1000;letter-spacing:.2px;overflow-wrap:anywhere}
+.game-page .transfer-amount button,.game-page .vip-code-row button,.game-page .copy-account{border:1px solid rgba(73,242,255,.2);border-radius:11px;padding:10px 12px;background:rgba(73,242,255,.09);color:#c8fbff;font:inherit;font-size:12px;font-weight:900;cursor:pointer;transition:background .18s,border-color .18s,transform .18s}
+.game-page .transfer-amount button:hover,.game-page .vip-code-row button:hover,.game-page .copy-account:hover{background:rgba(73,242,255,.17);border-color:rgba(73,242,255,.5);transform:translateY(-1px)}
+.game-page .payment-section-label{display:block;margin:0 0 10px;color:#eef6ff;font-size:13px;font-weight:900}
+.game-page .payment-method-native{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;clip-path:inset(50%)!important}
+.game-page .payment-method-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.game-page .payment-method-card{position:relative;display:flex;align-items:center;gap:10px;min-width:0;min-height:82px;padding:12px;border:1px solid rgba(255,255,255,.1);border-radius:16px;background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));color:#fff;text-align:right;cursor:pointer;transition:border-color .18s,background .18s,transform .18s,box-shadow .18s}
+.game-page .payment-method-card:hover{transform:translateY(-2px);border-color:rgba(73,242,255,.4);background:rgba(73,242,255,.06)}
+.game-page .payment-method-card[aria-pressed="true"]{border-color:var(--pay-cyan);background:linear-gradient(135deg,rgba(73,242,255,.13),rgba(142,123,255,.1));box-shadow:0 0 0 1px rgba(73,242,255,.16),0 10px 24px rgba(0,0,0,.16)}
+.game-page .payment-method-icon{display:grid;place-items:center;flex:none;width:39px;height:39px;border-radius:12px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.055);font-size:20px}
+.game-page .payment-method-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}
+.game-page .payment-method-copy strong{font-size:12px;line-height:1.4;color:#f5f8ff;overflow-wrap:anywhere}
+.game-page .payment-method-copy small{font-size:10px;line-height:1.4;color:#93a5bb}
+.game-page .payment-method-check{display:grid;place-items:center;flex:none;width:19px;height:19px;border-radius:50%;border:1px solid rgba(255,255,255,.2);color:transparent;font-size:11px}
+.game-page .payment-method-card[aria-pressed="true"] .payment-method-check{background:var(--pay-cyan);border-color:var(--pay-cyan);color:#041017}
+.game-page .payment-method-card:focus-visible,.game-page .payment-box button:focus-visible,.game-page .wizard-next:focus-visible,.game-page .wizard-back:focus-visible{outline:3px solid rgba(73,242,255,.65);outline-offset:3px}
+.game-page .payment-choice-hint{padding:12px 14px;border-radius:13px;border:1px solid rgba(142,123,255,.2)!important;background:rgba(142,123,255,.07)!important;color:#d8d4ff!important;font-size:12px;line-height:1.8}
+.game-page .payment-accounts{display:grid;gap:9px}
+.game-page .payment-account{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px;border-radius:15px;border:1px solid rgba(255,255,255,.1)!important;background:rgba(255,255,255,.035)!important;color:#fff!important}
+.game-page .payment-account>div{display:grid;gap:5px;min-width:0}
+.game-page .payment-account .account-label{font-size:11px;color:#9eb0c5}
+.game-page .payment-account strong{font-size:17px;color:#fff!important;overflow-wrap:anywhere}
+.game-page .payment-account small{color:#94a5ba;font-size:11px;line-height:1.7}
+.game-page .payment-box .field{margin:0;min-width:0}
+.game-page .payment-box .field label{display:block;margin-bottom:7px;color:#dce7f5!important;font-size:12px;font-weight:800}
+.game-page .payment-box .field input,.game-page .payment-box .field select,.game-page .payment-box .field textarea{width:100%;max-width:100%;min-height:48px;box-sizing:border-box;border:1px solid rgba(255,255,255,.13);border-radius:12px;background:#080e18;color:#fff;padding:12px 13px;font:inherit;font-size:14px;outline:none}
+.game-page .payment-box .field input:focus,.game-page .payment-box .field textarea:focus{border-color:var(--pay-cyan);box-shadow:0 0 0 3px rgba(73,242,255,.09)}
+.game-page .payment-box .field input::placeholder,.game-page .payment-box .field textarea::placeholder{color:#71839b}
+.game-page .payment-box .field small{display:block;margin-top:7px;color:#8fa1b8;font-size:11px;line-height:1.7}
+.game-page .vip-code-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+.game-page .vip-code-row input{min-width:0}
+.game-page #vipCodeMessage.vip-code-success{color:#b8ff62!important}
+.game-page #vipCodeMessage.vip-code-error{color:#ff9ba9!important}
+.game-page .wizard-step-panel h2{color:#fff}
+.game-page .wizard-steps,.game-page .mobile-wizard-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.game-page .mobile-wizard-steps span{border:1px solid rgba(255,255,255,.1);border-radius:12px;background:rgba(255,255,255,.035);color:#a8b7ca;padding:10px 8px;font-size:11px}
+.game-page .mobile-wizard-steps span.active{border-color:rgba(73,242,255,.45);background:rgba(73,242,255,.11);color:#d7fbff}
+.game-page .wizard-next{border-radius:13px!important;background:linear-gradient(100deg,var(--pay-cyan),#a8f7ff)!important;color:#06121b!important;font-weight:1000;box-shadow:0 8px 20px rgba(73,242,255,.1)}
+.game-page .wizard-back{border-radius:13px!important;border:1px solid rgba(255,255,255,.12)!important;background:rgba(255,255,255,.06)!important;color:#dce8f5!important}
+.game-page .wizard-submit{border:0;border-radius:15px;background:linear-gradient(100deg,var(--pay-lime),#6ff0d0)!important;color:#07120a!important;font-weight:1000;box-shadow:0 12px 28px rgba(184,255,98,.13);transition:transform .18s,filter .18s}
+.game-page .wizard-submit:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.game-page .wizard-submit:disabled{opacity:.6;cursor:wait;transform:none}
+.game-page .wizard-note{color:#91a1b5!important;font-size:11px;line-height:1.8}
+.game-page .active-promo-notice{margin:0 0 12px;padding:12px 14px;border:1px solid rgba(184,255,98,.22);border-radius:14px;background:linear-gradient(100deg,rgba(184,255,98,.08),rgba(73,242,255,.045));color:#d9ffb4;font-size:12px;font-weight:900}
+.game-page .packs .pack{min-height:140px!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:17px!important;background:linear-gradient(145deg,rgba(20,30,47,.96),rgba(9,14,23,.98))!important;color:#fff!important;transition:transform .18s,border-color .18s,box-shadow .18s}
+.game-page .packs .pack:hover{transform:translateY(-2px);border-color:rgba(73,242,255,.45)!important}
+.game-page .packs .pack.selected{outline:2px solid var(--pay-cyan)!important;outline-offset:1px;box-shadow:0 12px 30px rgba(73,242,255,.09)!important}
+.game-page .packs .pack .pack-qty{color:#fff!important;font-size:19px!important}
+.game-page .packs .pack .pack-label{color:#a9bad0!important}
+.game-page .packs .pack .pack-bonus{color:var(--pay-lime)!important;min-height:16px}
+.game-page .packs .pack .pack-price{color:#fff!important;font-size:16px!important}
+.game-page .packs .pack .pack-price-note{color:#8fa1b8!important}
+@keyframes pay-art-drift{from{transform:scale(1.02) translate3d(0,0,0)}to{transform:scale(1.09) translate3d(-1.5%,1%,0)}}
+@keyframes pay-sheen{0%,100%{background-position:100% 0}50%{background-position:0 0}}
+@media(max-width:900px){.game-page .checkout{grid-template-columns:minmax(0,1fr)}.game-page .store-summary-card{position:relative;top:auto}.game-page .payment-method-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){
+ .game-page .neo-game-hero{margin:10px 0;padding:19px 14px;gap:14px}
+ .game-page .neo-game-hero h1{font-size:32px!important;letter-spacing:-.8px}
+ .game-page .neo-game-hero-art{flex:none;width:100%!important;height:180px!important;min-height:180px!important;order:-1}
+ .game-page .store-summary-card{grid-template-columns:70px minmax(0,1fr)!important;gap:10px!important;padding:10px!important}
+ .game-page .big-art{width:70px!important;height:70px!important;min-height:70px!important}
+ .game-page .store-summary-card h1{font-size:18px!important}
+ .game-page .store-summary-card p{font-size:10px!important}
+ .game-page .payment-box{grid-template-columns:minmax(0,1fr);gap:11px;padding:13px!important}
+ .game-page .payment-title,.game-page .payment-alert,.game-page .transfer-amount,.game-page .payment-method-section,.game-page .payment-choice-hint,.game-page .payment-accounts,.game-page .vip-code-field,.game-page .payment-ref-field,.game-page .payment-box>.field:has(#customerPhone),.game-page .payment-box>.field:has(#orderNotes){grid-column:1}
+ .game-page .payment-method-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .game-page .payment-method-card{min-height:75px;padding:9px;gap:7px;border-radius:13px}
+ .game-page .payment-method-icon{width:32px;height:32px;border-radius:10px;font-size:17px}
+ .game-page .payment-method-copy strong{font-size:11px}
+ .game-page .payment-method-copy small{font-size:9px}
+ .game-page .payment-method-check{width:16px;height:16px}
+ .game-page .transfer-amount{grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:13px}
+ .game-page .transfer-amount>span{grid-column:1/-1}
+ .game-page .transfer-amount strong{font-size:20px}
+ .game-page .transfer-amount button{grid-column:2;grid-row:2}
+ .game-page .payment-title h2{font-size:22px!important}
+ .game-page .payment-title p{font-size:11px!important}
+ .game-page .payment-shield{width:42px;height:42px;font-size:19px}
+ .game-page .payment-account{align-items:flex-start;flex-direction:column}
+ .game-page .payment-account strong{font-size:15px}
+ .game-page .payment-box .field input,.game-page .payment-box .field select,.game-page .payment-box .field textarea{font-size:16px;min-height:48px}
+ .game-page .vip-code-row{grid-template-columns:minmax(0,1fr) auto}
+ .game-page .wizard-submit{position:static;min-height:52px;margin-top:10px}
+ .game-page .wizard-note{font-size:10px!important}
+ .game-page .packs .pack{min-height:120px!important;padding:12px 8px!important}
+ .game-page .packs .pack .pack-qty{font-size:16px!important}
+ .game-page .packs .pack .pack-price{font-size:14px!important}
+}
+@media(prefers-reduced-motion:reduce){.game-page .neo-game-hero:after,.game-page .neo-game-hero-art img{animation:none!important}.game-page .payment-method-card,.game-page .wizard-submit{transition:none!important}}
