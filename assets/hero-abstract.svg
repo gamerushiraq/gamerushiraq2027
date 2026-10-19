@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" role="img" aria-label="Abstract GameRush gaming background">
+<defs>
+  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#050a12"/><stop offset=".55" stop-color="#10182c"/><stop offset="1" stop-color="#170b20"/></linearGradient>
+  <radialGradient id="cyan"><stop stop-color="#00d9ff" stop-opacity=".5"/><stop offset="1" stop-color="#00d9ff" stop-opacity="0"/></radialGradient>
+  <radialGradient id="red"><stop stop-color="#ff3155" stop-opacity=".45"/><stop offset="1" stop-color="#ff3155" stop-opacity="0"/></radialGradient>
+  <linearGradient id="line" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#00d9ff" stop-opacity=".8"/><stop offset="1" stop-color="#ff3155" stop-opacity=".5"/></linearGradient>
+</defs>
+<rect width="1600" height="700" fill="url(#bg)"/>
+<circle cx="400" cy="350" r="420" fill="url(#cyan)"/>
+<circle cx="1100" cy="120" r="420" fill="url(#red)"/>
+<g fill="none" stroke="url(#line)" opacity=".24">
+  <path d="M0 560 440 120 820 500 1230 90 1600 460" stroke-width="2"/>
+  <path d="M0 630 470 160 850 540 1270 120 1600 450" stroke-width="1"/>
+  <circle cx="470" cy="350" r="180" stroke-width="2"/>
+  <circle cx="470" cy="350" r="235" stroke-width="1"/>
+  <circle cx="470" cy="350" r="290" stroke-width="1" stroke-dasharray="6 14"/>
+</g>
+<g transform="translate(250 185)" opacity=".62" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M80 115 C95 55 135 30 195 30 H300 C360 30 400 55 415 115 L455 270 C466 315 430 342 392 315 L325 265 H170 L103 315 C65 342 29 315 40 270 Z" fill="#0a1424" stroke="url(#line)" stroke-width="5"/>
+  <path d="M125 135h70M160 100v70" stroke="#00d9ff" stroke-width="12"/>
+  <circle cx="335" cy="120" r="13" fill="#ff3155" stroke="none"/>
+  <circle cx="375" cy="160" r="13" fill="#00d9ff" stroke="none"/>
+  <circle cx="335" cy="200" r="13" fill="#b7ff2a" stroke="none"/>
+  <circle cx="295" cy="160" r="13" fill="#8c5cff" stroke="none"/>
+</g>
+<path d="M960 700 1320 340 1600 520 V700Z" fill="#ff3155" opacity=".08"/>
+<path d="M1080 700 1450 330 1600 470" fill="none" stroke="#00d9ff" stroke-width="3" opacity=".25"/>
+</svg>
