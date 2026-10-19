@@ -242,3 +242,21 @@ body{min-width:0;overflow-x:clip}
 .gr-ref-page .reward{will-change:auto!important}
 .gr-ref-page #homePromosSection::before,
 .gr-ref-page #homePromosSection::after{animation:none!important;transform:none!important}
+
+
+/* Reserve room for asynchronously populated homepage sections. */
+#popularGames{min-height:290px}
+#homeServices{min-height:250px}
+#homeGameGrid{min-height:220px}
+#homePromos{min-height:96px}
+#homeRewards{min-height:96px}
+#homeIraqBanner .gr-ref-iraq{min-height:125px}
+#rewards{min-height:240px}
+@media(max-width:760px){
+  #popularGames{min-height:486px}
+  #homeServices{min-height:500px}
+  #homeGameGrid{min-height:450px}
+  #homePromos{min-height:100px}
+  #homeRewards{min-height:220px}
+  #rewards{min-height:380px}
+}
