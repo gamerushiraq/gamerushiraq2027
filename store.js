@@ -25,11 +25,32 @@ function applyFilters(){
  if(empty)empty.hidden=visible>0;
 }
 async function getCatalog(){
- const r=await fetch(API+"/game_catalog?select=slug,name,unit,tag,image_url&active=eq.true&order=sort_order.asc",{headers:{apikey:KEY,Authorization:"Bearer "+KEY}});
- if(!r.ok)throw new Error("catalog");
- const data=await r.json();
- if(!Array.isArray(data))throw new Error("catalog response");
- return data;
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),8000);
+ try{
+  const r=await fetch(API+"/game_catalog?select=slug,name,unit,tag,image_url&active=eq.true&order=sort_order.asc",{headers:{apikey:KEY,Authorization:"Bearer "+KEY},signal:controller.signal,cache:"no-store"});
+  if(!r.ok)throw new Error("catalog "+r.status);
+  const data=await r.json();
+  if(!Array.isArray(data))throw new Error("catalog response");
+  return data;
+ }finally{clearTimeout(timer)}
+}
+async function loadCatalog(grid){
+ if(!grid)return;
+ grid.setAttribute("aria-busy","true");
+ try{
+  const catalog=await getCatalog();
+  grid.innerHTML=catalog.map(gameCard).join("");
+  const count=$("#storeGameCount");
+  if(count)count.textContent=String(catalog.length);
+  applyFilters();
+ }catch(error){
+  console.warn("GameRush store catalog unavailable",error);
+  grid.replaceChildren();
+  const msg=document.createElement("p");msg.className="gr-store-error";msg.setAttribute("role","status");msg.textContent="تعذر تحميل الألعاب حالياً. تحقق من الاتصال وحاول مرة ثانية.";
+  const retry=document.createElement("button");retry.type="button";retry.className="primary";retry.textContent="إعادة المحاولة";
+  retry.addEventListener("click",async()=>{retry.disabled=true;retry.textContent="جاري المحاولة…";await loadCatalog(grid)});
+  msg.appendChild(retry);grid.appendChild(msg);
+ }finally{grid.removeAttribute("aria-busy")}
 }
 async function boot(){
  const grid=$("#storeGames");
@@ -49,15 +70,7 @@ async function boot(){
   filters.forEach(x=>{const active=(x.dataset.filter||"all")==="all";x.classList.toggle("active",active);x.setAttribute("aria-pressed",String(active))});
   applyFilters();q?.focus();
  });
- try{
-  const catalog=await getCatalog();
-  if(grid){grid.innerHTML=catalog.map(gameCard).join("");}
-  const count=$("#storeGameCount");
-  if(count)count.textContent=String(catalog.length);
-  applyFilters();
- }catch(error){
-  if(grid){grid.textContent="تعذر تحميل الألعاب حالياً. تحقق من اتصالك وحاول مرة ثانية.";const retry=document.createElement("button");retry.type="button";retry.className="primary";retry.textContent="إعادة المحاولة";retry.addEventListener("click",()=>location.reload());grid.append(document.createTextNode(" "),retry)}
- }
+ await loadCatalog(grid);
 }
 document.readyState==="loading"?document.addEventListener("DOMContentLoaded",boot,{once:true}):boot();
 })();
