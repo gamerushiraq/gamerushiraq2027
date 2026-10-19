@@ -63,4 +63,4 @@ async function track(){
  }catch(e){const raw=String(e?.message||"");$("trackMessage").textContent=(e instanceof TypeError||/failed to fetch|networkerror|load failed/i.test(raw))?"تعذر الاتصال بخدمة التتبع حالياً. تأكد من الإنترنت وحاول مرة ثانية، أو تواصل مع الدعم.":(raw||"حدث خطأ أثناء البحث");}finally{btn.disabled=false;btn.textContent="تتبع الطلب ←"}
 }
 btn.addEventListener("click",track);$("orderNumber").addEventListener("keydown",e=>{if(e.key==="Enter")track()});const q=new URLSearchParams(location.search).get("order");if(q){$("orderNumber").value=normalize(q);track()}
-</script><script src="lang.js"></script><script src="page-motion.js"></script><script src="./site-shell.js?v=20261020-compact1"></script></body></html>
+</script><script src="lang.js"></script><script src="page-motion.js"></script><script src="./site-shell.js?v=20261020-compact2"></script></body></html>
