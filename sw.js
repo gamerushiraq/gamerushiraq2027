@@ -1,34 +1,20 @@
 "use strict";
 
-const CACHE_NAME = "gamerush-v10";
+const CACHE_NAME = "gamerush-v11";
 const OFFLINE_FALLBACK = "./index.html";
 const PRECACHE_URLS = [
   "./",
   "./index.html",
   "./shop.html",
-  "./services.html",
-  "./vip.html",
-  "./redeem.html",
-  "./track.html",
   "./game.html",
-  "./auth.html",
-  "./support.html",
-  "./events.html",
-  "./payment-result.html",
+  "./track.html",
   "./styles.css",
   "./store-ui.css",
   "./home-minimal-2026.css",
-  "./home-reference.css",
-  "./responsive-2026.css",
-  "./mobile-polish-2026.css",
-  "./mobile-game-fix-2026.css",
   "./performance-2026.css",
   "./performance-hotfix-2026.css",
-  "./support-2026.css",
   "./theme-2026.css",
-  "./vivid-theme-2026.css",
-  "./cinematic-2026.css",
-  "./cinematic-interaction-2026.css",
+  "./responsive-2026.css",
   "./app.js",
   "./home.js",
   "./store.js",
@@ -36,11 +22,8 @@ const PRECACHE_URLS = [
   "./page-motion.js",
   "./lang.js",
   "./game.js",
-  "./auth.js",
-  "./auth-page.js",
+  "./media-guard-2026.js",
   "./favicon.svg",
-  "./icon-192.svg",
-  "./icon-512.svg",
   "./manifest.webmanifest"
 ];
 
