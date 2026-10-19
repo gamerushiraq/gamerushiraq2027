@@ -1,0 +1,22 @@
+/* GameRush Iraq — vivid game artwork with low-cost CSS motion */
+:root{--art-glow:rgba(73,242,255,.28)}
+.store-game-tile,.gr-popular-card,.gr-promo-card,.neo-game-card,.gr-featured-art{isolation:isolate}
+.store-game-art{position:relative;isolation:isolate;background:radial-gradient(circle at 25% 15%,rgba(73,242,255,.18),transparent 38%),linear-gradient(135deg,#18243c,#080d16)}
+.store-game-art img,.gr-popular-card img,.gr-promo-art img,.neo-game-card img{display:block;backface-visibility:hidden;transform:translateZ(0)}
+.store-game-art:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(135deg,rgba(73,242,255,.1),transparent 42%,rgba(142,123,255,.12));opacity:.8}
+.store-game-art:after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(4,8,15,.02) 35%,rgba(4,8,15,.5));}
+.store-game-art span{z-index:2}
+.store-game-tile:hover .store-game-art img,.gr-popular-card:hover img,.gr-promo-card:hover .gr-promo-art img,.neo-game-card:hover img{filter:saturate(1.12) contrast(1.04)}
+.gr-popular-card,.gr-promo-card,.neo-game-card{background-image:radial-gradient(ellipse at 85% 0,rgba(73,242,255,.055),transparent 48%)}
+.gr-popular-card:focus-visible,.store-game-tile:focus-visible,.neo-game-card:focus-visible{outline:2px solid var(--art-glow);outline-offset:3px}
+@media(min-width:761px){
+ .store-game-art img{transition:transform .45s cubic-bezier(.2,.7,.2,1),filter .3s}
+ .store-game-tile:hover .store-game-art img{transform:scale(1.055)}
+}
+@media(max-width:760px){
+ .store-game-art img,.gr-popular-card img,.gr-promo-art img,.neo-game-card img{filter:none!important;animation:none!important}
+ .store-game-tile:hover .store-game-art img,.gr-popular-card:hover img,.gr-promo-card:hover .gr-promo-art img,.neo-game-card:hover img{transform:none!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .store-game-art img,.gr-popular-card img,.gr-promo-art img,.neo-game-card img{animation:none!important;transition:none!important}
+}
