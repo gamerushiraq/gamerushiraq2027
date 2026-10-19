@@ -6,9 +6,9 @@ const styles=[['performance-2026.css','2'],['theme-2026.css','4'],['mobile-polis
 if(isGame)styles.push(['mobile-game-fix-2026.css','5'],['payment-redesign.css','3']);
 styles.push(['lightweight.css','1']);
 styles.forEach(([href,v])=>{const l=document.createElement('link');l.rel='stylesheet';l.href='./'+href+'?v='+v;document.head.appendChild(l)});
-const s=document.createElement('script');s.defer=true;s.src='./media-guard-2026.js?v=11';document.head.appendChild(s);
+const s=document.createElement('script');s.defer=true;s.src='./media-guard-2026.js?v=12';document.head.appendChild(s);
 function boot(){
-if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=24').catch(()=>{});
+if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js?v=25').catch(()=>{});
 document.querySelectorAll('img').forEach(i=>{if(!i.loading)i.loading=i.dataset.priority==='high'?'eager':'lazy';i.decoding='async';i.setAttribute('fetchpriority',i.dataset.priority==='high'?'high':'auto')});
 if(isGame||path.endsWith('/')){const promo=document.querySelector('.pubg-topup-shell');const slug=new URLSearchParams(location.search).get('game');if(promo&&slug&&slug!=='pubg'){const eyebrow=promo.querySelector('.eyebrow');if(eyebrow)eyebrow.textContent='GAME RUSH • DIRECT TOP UP';const title=promo.querySelector('h2');if(title)title.textContent='اشحن رصيد لعبتك بسرعة 🎯';const description=promo.querySelector('p');if(description)description.textContent='أدخل Player ID، تأكد من بيانات الحساب، وبعدها اختار الباقة المناسبة.'}}
 }
