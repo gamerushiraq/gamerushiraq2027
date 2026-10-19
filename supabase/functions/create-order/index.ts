@@ -40,7 +40,7 @@ Deno.serve(async(req)=>{
   if(authError||!user)return response({error:"Invalid or expired session"},401);
   const user_id=user.id;
 
-  if(!/^GR-[A-Z0-9]{8}$/.test(order_number))return response({error:"Invalid order number"},400);
+  if(!/^GR-[A-Z0-9]{8}(?:[A-Z0-9]{8})?$/.test(order_number))return response({error:"Invalid order number"},400);
   if(!game||!package_name)return response({error:"Invalid game or package"},400);
   const {data:pkg,error:pkgError}=await supabase.from("game_packages").select("package_name,price_iqd").eq("game_slug",game).eq("package_name",package_name).eq("active",true).maybeSingle();
   if(pkgError)return response({error:"Could not validate package"},500);

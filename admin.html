@@ -113,7 +113,7 @@
 </section><section id="securityPanel" hidden style="background:#fff;border:1px solid #e2e8f0;border-radius:18px;padding:18px;margin-bottom:18px"><h2 style="margin-top:0">🔐 الأمان</h2><div class="details">RLS مفعّل للطلبات، والوصول الإداري محصور بالبريد المعتمد. لا تعرض service_role key داخل الموقع.</div></section><div class="admin-toolbar">
 <input id="search" placeholder="🔎 ابحث برقم الطلب أو Player ID أو اللعبة" style="flex:1;min-width:250px">
 <select id="statusFilter"><option value="all">كل الحالات</option><option value="new">جديدة</option><option value="processing">قيد التنفيذ</option><option value="completed">مكتملة</option><option value="cancelled">ملغاة</option></select>
-<select id="paymentFilter"><option value="all">كل طرق الدفع</option><option value="zain_cash">زين كاش</option><option value="binance">Binance</option><option value="superqi">سوبر كي</option><option value="asiacell">آسياسيل</option><option value="zain_iraq">زين العراق</option></select>
+<select id="paymentFilter"><option value="all">كل طرق الدفع</option><option value="zain_cash">زين كاش</option><option value="binance">Binance</option><option value="superqi">سوبر كي</option><option value="qicard">QiCard / كي كارد</option><option value="asiacell">آسياسيل</option><option value="zain_iraq">زين العراق</option></select>
 <select id="paymentStatusFilter"><option value="all">كل حالات الدفع</option><option value="pending">بانتظار الدفع</option><option value="submitted">تم إرسال الدفع</option><option value="verified">الدفع مؤكد</option><option value="rejected">الدفع مرفوض</option></select>
 </div>
 
@@ -155,7 +155,7 @@ function renderFinance(){const verified=allOrders.filter(o=>o.payment_status==="
 
 const statusText={new:"جديد",processing:"قيد التنفيذ",completed:"مكتمل",cancelled:"ملغي"};
 const paymentText={pending:"بانتظار الدفع",submitted:"تم إرسال الدفع",verified:"الدفع مؤكد",rejected:"الدفع مرفوض"};
-const paymentMethodText={zain_cash:"زين كاش",binance:"Binance",superqi:"سوبر كي",asiacell:"آسياسيل",zain_iraq:"زين العراق"};
+const paymentMethodText={zain_cash:"زين كاش",binance:"Binance",superqi:"سوبر كي",qicard:"QiCard / كي كارد",asiacell:"آسياسيل",zain_iraq:"زين العراق"};
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",""":"&quot;","'":"&#039;"}[m]));}
 function money(v){return Number(v||0).toLocaleString("en-US")+" IQD";}
 function statusClass(s){return s==="processing"?"processing":s==="completed"?"completed":s==="cancelled"?"cancelled":"";}

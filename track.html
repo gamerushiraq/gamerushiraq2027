@@ -56,7 +56,7 @@ function renderHistory(history){
 }
 async function track(){
  const order=normalize($("orderNumber").value);$("trackMessage").textContent="";$("trackResult").hidden=true;
- if(!/^GR-[A-Z0-9]{8}$/.test(order)){$("trackMessage").textContent="اكتب رقم الطلب بالشكل GR-12345678";return}
+ if(!/^GR-[A-Z0-9]{8}(?:[A-Z0-9]{8})?$/.test(order)){$("trackMessage").textContent="اكتب رقم الطلب بالشكل GR-12345678";return}
  btn.disabled=true;btn.textContent="جاري البحث…";
  try{const res=await fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({order_number:order})});const result=await res.json().catch(()=>({}));if(!res.ok)throw new Error(result.error||"تعذر البحث عن الطلب");
  const o=result.order;$("trackOrderId").textContent=o.order_number;$("trackGame").textContent=o.game;$("trackPackage").textContent=o.package_name;$("trackPrice").textContent=money(o.price_iqd);setStatus(o);renderHistory(o.history);$("trackResult").hidden=false;$("trackResult").scrollIntoView({behavior:"smooth",block:"center"});
