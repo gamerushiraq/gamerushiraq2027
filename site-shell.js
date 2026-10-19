@@ -39,6 +39,9 @@ function installCompactNavigation(){
  #grCompactDock a:active,#grCompactDock button:active{transform:scale(.94)}
  #grCompactDock a[aria-current=page]{background:linear-gradient(145deg,#ff3155,#bd193e);border-color:#ff7a91;color:white;box-shadow:0 5px 16px rgba(255,49,85,.24)}
  #grCompactDock [data-gr-tip]{position:relative}
+ #grCompactDock[data-collapsed=true] a,#grCompactDock[data-collapsed=true] button:not(.gr-dock-toggle){display:none!important}
+ #grCompactDock .gr-dock-toggle{background:linear-gradient(145deg,#ff3155,#bd193e);border-color:#ff7a91;color:#fff;font-size:23px;line-height:1}
+ #grCompactDock[data-collapsed=true]{padding:5px;border-radius:14px}
  #grCompactDock [data-gr-tip]:focus-visible{outline:2px solid #ff7890;outline-offset:2px}
  .gr-compact-toggle{display:inline-flex;align-items:center;justify-content:center;gap:6px;margin-inline-start:auto;padding:7px 10px;border:1px solid rgba(124,153,188,.22);border-radius:10px;background:rgba(15,29,48,.9);color:#dceaff;font:700 11px/1.4 inherit;cursor:pointer;white-space:nowrap}
  .gr-ref-head{gap:8px;flex-wrap:wrap}
@@ -64,6 +67,9 @@ function installCompactNavigation(){
  `;
  document.head.appendChild(style);
  const dock=document.createElement('nav');dock.id='grCompactDock';dock.setAttribute('aria-label','التنقل السريع');
+ const dockToggle=document.createElement('button');dockToggle.type='button';dockToggle.className='gr-dock-toggle';dockToggle.textContent='›';dockToggle.title='إخفاء الأقسام';dockToggle.setAttribute('aria-label','إخفاء شريط الأقسام');dockToggle.setAttribute('aria-expanded','true');dockToggle.dataset.grTip='إخفاء الأقسام';
+ dockToggle.addEventListener('click',()=>{const collapsed=dock.dataset.collapsed!=='true';dock.dataset.collapsed=String(collapsed);dockToggle.textContent=collapsed?'‹':'›';dockToggle.title=collapsed?'إظهار الأقسام':'إخفاء الأقسام';dockToggle.dataset.grTip=dockToggle.title;dockToggle.setAttribute('aria-label',dockToggle.title+' من الجانب');dockToggle.setAttribute('aria-expanded',String(!collapsed))});
+ dock.appendChild(dockToggle);
  const back=document.createElement('button');back.type='button';back.textContent='↩';back.title='رجوع';back.setAttribute('aria-label','رجوع للصفحة السابقة');back.dataset.grTip='رجوع';
  back.addEventListener('click',()=>{try{if(history.length>1&&document.referrer&&new URL(document.referrer).origin===location.origin){history.back();return}}catch{}location.href=isGame?'shop.html':path.endsWith('/payment-result.html')?'track.html':'./'});
  dock.appendChild(back);
