@@ -1,18 +1,4 @@
-<style id="gamerush-auth-css">
-.gr-auth-box{max-width:460px!important}
-.gr-auth-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:18px 0 14px}
-.gr-auth-tab{border:1px solid #24354b;background:#0a1321;color:#b9c6d8;border-radius:12px;padding:11px;font-weight:800;cursor:pointer}
-.gr-auth-tab.active{border-color:#b7ff2a;color:#07100a;background:#b7ff2a}
-.gr-auth-label{display:block;color:#dce5f0;font-size:13px;font-weight:800;margin:10px 0 6px}
-.gr-auth-box input{width:100%;box-sizing:border-box;margin:0 0 4px;padding:13px 14px;border-radius:12px;border:1px solid #24354b;background:#070d17;color:#fff;outline:none}
-.gr-auth-box input:focus{border-color:#00e5ff;box-shadow:0 0 0 3px #00e5ff1a}
-.gr-auth-status{min-height:22px;margin-top:12px;font-size:13px;line-height:1.6;color:#aeb9c9}
-.gr-auth-status.error{color:#ff8ca0}.gr-auth-status.success{color:#b7ff2a}
-.gr-auth-link{border:0;background:transparent;color:#00e5ff;cursor:pointer;font-weight:800;padding:8px 0}
-.gr-auth-account{margin-top:14px;padding:13px;border:1px solid #23364c;border-radius:14px;background:#091322;color:#dce5f0;display:grid;gap:6px}
-.gr-auth-account span{font-size:12px;color:#8fa0b5;word-break:break-all}
-.gr-auth-box button:disabled{opacity:.6;cursor:wait}
-</style>(()=>{"use strict";
+(()=>{"use strict";
 const SUPABASE_URL="https://eyjjmacxxcmdzkfqxifo.supabase.co";
 const SUPABASE_KEY="sb_publishable_6ZnjmE7NccV2hrOOZ-FeNQ_OvP3rLlS";
 const PUBLIC_AUTH_CALLBACK="https://gamerushiraq.github.io/gamerushiraq2027/auth.html";
