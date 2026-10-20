@@ -8,6 +8,24 @@ Provider options remain disabled until merchant onboarding and production/sandbo
 - FIB payment verification re-queries the authenticated FIB payment-status endpoint before marking an order paid; callback body status alone is not trusted.
 - The existing QiCard endpoint remains separate. `superqi` must not be mapped to QiCard unless its actual provider integration is implemented.
 
+## ZainCash wallet gateway
+- Official integration docs: https://docs.zaincash.iq/
+- The v2 gateway supports wallet payments through a hosted redirect flow and requires merchant onboarding credentials: `ZAINCASH_CLIENT_ID`, `ZAINCASH_CLIENT_SECRET`, and the separate API key used to verify signed JWT callbacks.
+- Test base: `https://pg-api-uat.zaincash.iq`; production base is provided during onboarding.
+- Use `POST /oauth2/token`, then `POST /api/v2/payment-gateway/transaction/init`; always verify callback signatures and confirm final status through the transaction inquiry endpoint before marking orders paid.
+- Register a separate production webhook URL with ZainCash. UAT webhooks are not supported according to their docs.
+- Existing `zain_cash` is a manual-transfer option. Do not replace it with the gateway or enable an online method until credentials and end-to-end tests are complete.
+
+## SuperQi through QiCard
+- Official developer docs: https://developers-gate.qi.iq/docs/getting-started/payment-gateway-intro
+- The checkout route is prepared to send `superqi` to the existing QiCard payment function and to record the selected method separately from the provider (`qicard`).
+- This remains disabled until QiCard confirms the merchant account supports SuperQi, credentials are configured, and hosted checkout plus webhook/status verification pass end to end.
+
+## Mobile carrier billing (Zain Iraq / Asiacell)
+- Direct Carrier Billing (DCB) is separate from ZainCash wallet payments and QiCard/SuperQi.
+- Zain Iraq and Asiacell must approve GameRush Iraq as a digital-content merchant/partner and provide the official API/aggregator contract, service identifiers, pricing/commission terms, and test credentials.
+- Do not simulate a carrier-billing payment or mark an order paid based on a phone number alone. Keep these options out of checkout until the operator or approved aggregator confirms onboarding and provides integration docs.
+
 ## FastPay Iraq
 - Official web integration: https://www.fast-pay.iq/integrate-web
 - Developer portal: https://developer.fast-pay.iq/
