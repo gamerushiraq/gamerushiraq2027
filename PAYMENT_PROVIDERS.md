@@ -1,6 +1,12 @@
 # GameRush Iraq — Payment Provider Setup
 
-These providers are prepared in the `payment_methods` table but intentionally disabled until merchant onboarding and server-side integration are complete. Do not enable them just to display an option to customers.
+Provider options remain disabled until merchant onboarding and production/sandbox credentials are configured and end-to-end tests pass. Do not enable an option just to display it to customers.
+
+## Current implementation status
+- `fib-create-payment` and `fib-webhook` Supabase Edge Functions have been deployed. They fail closed while `FIB_CLIENT_ID` and `FIB_CLIENT_SECRET` are absent.
+- The GameRush frontend routes `fib` to its own FIB endpoint; it no longer routes FIB through QiCard.
+- FIB payment verification re-queries the authenticated FIB payment-status endpoint before marking an order paid; callback body status alone is not trusted.
+- The existing QiCard endpoint remains separate. `superqi` must not be mapped to QiCard unless its actual provider integration is implemented.
 
 ## FastPay Iraq
 - Official web integration: https://www.fast-pay.iq/integrate-web
@@ -12,7 +18,8 @@ These providers are prepared in the `payment_methods` table but intentionally di
 - Official web-payments docs: https://fib.iq/ar/integrations/web-payments/
 - Official gateway overview: https://fib.iq/ar/fib-payment-gateway/
 - Register for the sandbox, test create/status/cancel flows, then submit the official integration request for production credentials.
-- Keep client secret on the server; create payments and verify status server-side. Use the provider callback to reconcile final status.
+- Configure Edge Function secrets: `FIB_CLIENT_ID`, `FIB_CLIENT_SECRET`; optionally `FIB_API_BASE`, `FIB_AUTH_URL`, and `FIB_CALLBACK_URL`. Sandbox defaults are used unless production endpoints are explicitly configured.
+- Keep the client secret server-side. The deployed create function creates an IQD payment and redirects to the FIB Business/Corporate app link. The callback re-checks status with FIB before changing the order.
 
 ## NassWallet / NASS E-Payment
 - Merchant partnership: https://www.nw.iq/become-partner
